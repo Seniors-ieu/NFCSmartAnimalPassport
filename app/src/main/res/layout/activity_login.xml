@@ -75,7 +75,7 @@
                 android:id="@+id/trialButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:height="100dp"
+                android:height="50dp"
                 android:text="CLICK ME!!!" />
 
         </LinearLayout>

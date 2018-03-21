@@ -3,6 +3,7 @@ package nfciue.nfcsmartanimalpassport;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -94,6 +95,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        Button clickMe = (Button) findViewById(R.id.trialButton);
+        clickMe.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ReadIntent = new Intent(LoginActivity.this, ReadActivity.class);
+                ReadIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(ReadIntent);
+            }
+        });
     }
 
     private void populateAutoComplete() {

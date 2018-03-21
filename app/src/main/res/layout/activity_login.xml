@@ -72,11 +72,17 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
             <Button
-                android:id="@+id/trialButton"
+                android:id="@+id/readButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:height="50dp"
-                android:text="CLICK ME!!!" />
+                android:text="READ TAG!!!" />
+            <Button
+                android:id="@+id/writeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="50dp"
+                android:text="WRITE TAG!!!" />
 
         </LinearLayout>
 

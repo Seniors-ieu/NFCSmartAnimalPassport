@@ -1,9 +1,25 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.tech.Ndef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.nxp.nfclib.CardType;
 import com.nxp.nfclib.NxpNfcLib;
+import com.nxp.nfclib.exceptions.NxpNfcLibException;
+import com.nxp.nfclib.ndef.INdefMessage;
+import com.nxp.nfclib.ndef.NdefMessageWrapper;
+import com.nxp.nfclib.ndef.NdefRecordWrapper;
+import com.nxp.nfclib.ntag.INTAGI2Cplus;
+import com.nxp.nfclib.ntag.INTag;
+import com.nxp.nfclib.ntag.INTagI2C;
+import com.nxp.nfclib.ntag.NTag213215216;
+import com.nxp.nfclib.ntag.NTagFactory;
+import com.nxp.nfclib.utils.Utilities;
 
 public class ReadActivity extends AppCompatActivity {
 
@@ -39,5 +55,71 @@ public class ReadActivity extends AppCompatActivity {
     protected void onPause() {
         m_libInstance.stopForeGroundDispatch();
         super.onPause();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.d("ULAK", "onNewIntent");
+        cardLogic(intent);
+        super.onNewIntent(intent);
+    }
+
+    private void cardLogic(final Intent intent) {
+        CardType type = CardType.UnknownCard;
+        try {
+            type = m_libInstance.getCardType(intent);
+            Log.d("ULAK", "Card type found: " + type.getTagName());
+        } catch (NxpNfcLibException ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
+        switch (type) {
+            case NTag216:
+                try {
+                    ntagCardLogic(NTagFactory.getInstance().getNTAG216(m_libInstance.getCustomModules()));
+                } catch (Throwable t) {
+                    Log.e("ULAK", "Error in switch(NTag216) " + t.getMessage());
+                }
+                break;
+            default:
+                Log.e("ULAK", "An error occured when getting card logic.");
+                break;
+        }
+    }
+
+    private void ntagCardLogic(final INTag tag) {
+        Log.e("ULAK", "ntagCardLogic'in içi");
+
+
+        try {
+            Log.e("ULAK", "ntagCardLogic11111");
+            tag.getReader().connect();
+            NTag213215216 ntag216 = (NTag213215216) tag;
+//            byte[] dataFromTag = ntag216.read(4);
+//            String dft = "AA";
+//            for(int i = 0; i < dataFromTag.length; i++) {
+//                dft = dft + (char)dataFromTag[i];
+//            }
+            byte[] myPassword = new byte[]{(byte) 1, (byte) 2, (byte) 3, (byte) 4};
+            byte[] myAck = new byte[] {(byte) 0x00, (byte) 0x00};
+            byte[] defPass = new byte[]{(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff};
+
+
+
+            INdefMessage nm = ntag216.readNDEF();
+
+            NdefMessageWrapper nmw = new NdefMessageWrapper(nm.toByteArray());
+            String a = new String(nmw.getRecords()[0].getPayload());
+            //NdefRecordWrapper nrw = new NdefRecordWrapper(nmw.getRecords());
+            //Toast.makeText(this, dft, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, String.valueOf(a), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Log.e("ULAK", "Error in ntagCardLogic: " + e.getMessage());
+        } finally {
+            Log.e("ULAK", "finally'nin içi.");
+            tag.getReader().close();
+            //NTag213215216 tag1 = (NTag213215216) tag;  //ULAK buradan devam edebilirsinnn.
+
+        }
     }
 }

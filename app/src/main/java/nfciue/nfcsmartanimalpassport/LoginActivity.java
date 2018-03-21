@@ -96,8 +96,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        Button clickMe = (Button) findViewById(R.id.trialButton);
-        clickMe.setOnClickListener(new OnClickListener() {
+
+        // It brings the ReadActivity.
+        Button readButton = (Button) findViewById(R.id.readButton);
+        readButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent ReadIntent = new Intent(LoginActivity.this, ReadActivity.class);
@@ -105,6 +107,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(ReadIntent);
             }
         });
+
+
+        // It brings the WriteActivity.
+        Button writeButton = (Button) findViewById(R.id.writeButton);
+        writeButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent WriteIntent = new Intent(LoginActivity.this, WriteActivity.class);
+                WriteIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(WriteIntent);
+            }
+        });
+
+
+
     }
 
     private void populateAutoComplete() {

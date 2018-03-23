@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -16,10 +16,18 @@
         android:layout_height="wrap_content"
         android:hint="@string/write_edittext" />
     <Button
+        android:id="@+id/writeToTagButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WRITE TO TAG!"/>
-
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_orange_light"
+        android:text="NULL"
+        android:gravity="center"
+        android:textSize="32sp"/>
 
 
 

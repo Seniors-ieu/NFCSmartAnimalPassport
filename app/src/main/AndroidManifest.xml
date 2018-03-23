@@ -34,7 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReadActivity" />
-        <activity android:name=".WriteActivity"></activity>
+        <activity android:name=".WriteActivity" />
+        <activity android:name=".WriteToTagActivity"></activity>
     </application>
 
 </manifest>

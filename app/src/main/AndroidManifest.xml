@@ -34,10 +34,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReadActivity" />
-        <activity android:name=".WriteActivity" />
+        <activity android:name=".ReadForUpdateActivity" />
         <activity android:name=".WriteToTagActivity" />
         <activity android:name=".InfoShownActivity" />
-        <activity android:name=".PartialInfoShownActivity"></activity>
+        <activity android:name=".PartialInfoShownActivity" />
+        <activity android:name=".InfoShownForUpdateActivity"></activity>
     </application>
 
 </manifest>

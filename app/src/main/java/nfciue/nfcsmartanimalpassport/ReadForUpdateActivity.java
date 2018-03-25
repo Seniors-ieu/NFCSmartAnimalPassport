@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nxp.nfclib.CardType;
@@ -29,7 +28,7 @@ import com.nxp.nfclib.ntag.NTagFactory;
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
-public class WriteActivity extends AppCompatActivity {
+public class ReadForUpdateActivity extends AppCompatActivity {
 
     final Context context = this;
 
@@ -48,7 +47,7 @@ public class WriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write);
+        setContentView(R.layout.activity_read_for_update);
 
         final EditText writeEditText = (EditText) findViewById(R.id.writeEditText);
 
@@ -90,7 +89,7 @@ public class WriteActivity extends AppCompatActivity {
                                         // get user input and set it to result
                                         // edit text
                                         //result.setText(userInput.getText());
-                                        Intent WriteToTagIntent = new Intent(WriteActivity.this, WriteToTagActivity.class);
+                                        Intent WriteToTagIntent = new Intent(ReadForUpdateActivity.this, WriteToTagActivity.class);
                                         WriteToTagIntent.putExtra("textToNFC", textToNFC);
 
                                         int digit1 = Integer.parseInt(userInput1.getText().toString());

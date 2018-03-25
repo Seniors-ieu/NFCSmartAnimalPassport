@@ -35,7 +35,9 @@
         </activity>
         <activity android:name=".ReadActivity" />
         <activity android:name=".WriteActivity" />
-        <activity android:name=".WriteToTagActivity"></activity>
+        <activity android:name=".WriteToTagActivity" />
+        <activity android:name=".InfoShownActivity" />
+        <activity android:name=".PartialInfoShownActivity"></activity>
     </application>
 
 </manifest>

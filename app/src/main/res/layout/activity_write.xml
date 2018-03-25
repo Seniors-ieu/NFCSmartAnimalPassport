@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="nfciue.nfcsmartanimalpassport.LoginActivity">
+    tools:context="nfciue.nfcsmartanimalpassport.WriteActivity">
 
     <EditText
         android:id="@+id/writeEditText"
@@ -25,9 +25,9 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@android:color/holo_orange_light"
-        android:text="NULL"
+        android:text="Enter something and press button."
         android:gravity="center"
-        android:textSize="32sp"/>
+        android:textSize="16sp"/>
 
 
 

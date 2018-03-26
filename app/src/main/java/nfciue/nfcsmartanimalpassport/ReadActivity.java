@@ -109,10 +109,14 @@ public class ReadActivity extends AppCompatActivity {
             INdefMessage nm = ntag216.readNDEF();
 
             NdefMessageWrapper nmw = new NdefMessageWrapper(nm.toByteArray());
-            String a = new String(nmw.getRecords()[0].getPayload());
+            String dataFromNFCTag = new String(nmw.getRecords()[0].getPayload());
             //NdefRecordWrapper nrw = new NdefRecordWrapper(nmw.getRecords());
             //Toast.makeText(this, dft, Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, String.valueOf(a), Toast.LENGTH_LONG).show();
+            Intent PartialInfoShownIntent = new Intent(ReadActivity.this, PartialInfoShownActivity.class);
+            PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromNFCTag);
+            PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(PartialInfoShownIntent);
+            //Toast.makeText(this, String.valueOf(dataFromNFCTag), Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Log.e("ULAK", "Error in ntagCardLogic: " + e.getMessage());
         } finally {

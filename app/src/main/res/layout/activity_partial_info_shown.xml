@@ -1,3 +1,8 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <HorizontalScrollView
+        android:layout_width="fill_parent" android:layout_height="fill_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -404,7 +409,7 @@
             android:id="@+id/textViewRowForSlaughterHouseLicenceNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Slaughterhouse Adress" />
+            android:text="Slaughterhouse Licence Number" />
 
         <TextView
             android:id="@+id/textViewSlaughterHouseLicenceNumber"
@@ -491,3 +496,6 @@
 </TableLayout>
 
 </LinearLayout>
+    </HorizontalScrollView>
+
+</ScrollView>

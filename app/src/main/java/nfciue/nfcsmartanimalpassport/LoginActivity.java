@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         writeButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent WriteIntent = new Intent(LoginActivity.this, ReadForUpdateActivity.class);
+                Intent WriteIntent = new Intent(LoginActivity.this,  InfoShownForUpdateActivity.class); //ReadForUpdateActivity olarak değiştir
                 WriteIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(WriteIntent);
             }

@@ -15,4 +15,5 @@
     </string>
     <string name="write_edittext">"Please enter something."
     </string>
+	<string name="add_operation_activity_info_shown_for_update">Add</string>
 </resources>

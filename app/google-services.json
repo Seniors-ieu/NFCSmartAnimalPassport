@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "650020504138",
+    "firebase_url": "https://demoproject-8d314.firebaseio.com",
+    "project_id": "demoproject-8d314",
+    "storage_bucket": "demoproject-8d314.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650020504138:android:f42760d809622028",
+        "android_client_info": {
+          "package_name": "com.example.asli.cloudfirestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650020504138-fl2tkurn0e65gr5j9hu99elleobl5d3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbPezSM2cY5ORCCue0wuT5bHt9aQqebJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650020504138:android:929bf8c665aeedd8",
+        "android_client_info": {
+          "package_name": "nfciue.nfcsmartanimalpassport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650020504138-fl2tkurn0e65gr5j9hu99elleobl5d3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbPezSM2cY5ORCCue0wuT5bHt9aQqebJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,14 +1,30 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class PartialInfoShownActivity extends AppCompatActivity {
+    final Context context = this;
+
     // Declaration of UI elements.
     TextView textViewAnimalID;
     TextView textViewBirthDate;
@@ -51,29 +67,29 @@ public class PartialInfoShownActivity extends AppCompatActivity {
         textViewBirthDate = (TextView) findViewById(R.id.textViewBirthDate);
         textViewGender = (TextView) findViewById(R.id.textViewGender);
         textViewBreed = (TextView) findViewById(R.id.textViewBreed);
-        textViewMotherID = (TextView) findViewById(R.id.textViewMotherID);
-        textViewBirthFarmNo = (TextView) findViewById(R.id.textViewBirthFarmNo);
-        textViewCurrentFarmNo = (TextView) findViewById(R.id.textViewCurrentFarmNo);
-        textViewFarmChangeDate = (TextView) findViewById(R.id.textViewFarmChangeDate);
-        textViewOwnerTc = (TextView) findViewById(R.id.textViewOwnerTc);
-        textViewOwnerNameLastName = (TextView) findViewById(R.id.textViewOwnerNameLastName);
-        textViewOwnerAdress = (TextView) findViewById(R.id.textViewOwnerAdress);
-        textViewFarmGeoCoordinates = (TextView) findViewById(R.id.textViewFarmGeoCoordinates);
-        textViewFarmCountryCode = (TextView) findViewById(R.id.textViewFarmCountryCode);
-        textViewFarmCityCode = (TextView) findViewById(R.id.textViewFarmCityCode);
-        textViewFarmAddress = (TextView) findViewById(R.id.textViewFarmAddress);
-        textViewFarmPhone = (TextView) findViewById(R.id.textViewFarmPhone);
-        textViewFarmFax = (TextView) findViewById(R.id.textViewFarmFax);
-        textViewFarmEMail = (TextView) findViewById(R.id.textViewFarmEMail);
-        textViewExportCountryCode = (TextView) findViewById(R.id.textViewExportCountryCode);
-        textViewExportDate = (TextView) findViewById(R.id.textViewExportDate);
-        textViewSlaughterHouseName = (TextView) findViewById(R.id.textViewSlaughterHouseName);
-        textViewSlaughterHouseAddress = (TextView) findViewById(R.id.textViewSlaughterHouseAddress);
-        textViewSlaughterHouseLicenceNumber = (TextView) findViewById(R.id.textViewSlaughterHouseLicenceNumber);
-        textViewSlaughterDate = (TextView) findViewById(R.id.textViewSlaughterDate);
-        textViewDeathPlace = (TextView) findViewById(R.id.textViewDeathPlace);
-        textViewDeathDate = (TextView) findViewById(R.id.textViewDeathDate);
-        multiLineVaccines = (EditText) findViewById(R.id.multiLineVaccines);
+//        textViewMotherID = (TextView) findViewById(R.id.textViewMotherID);
+//        textViewBirthFarmNo = (TextView) findViewById(R.id.textViewBirthFarmNo);
+//        textViewCurrentFarmNo = (TextView) findViewById(R.id.textViewCurrentFarmNo);
+//        textViewFarmChangeDate = (TextView) findViewById(R.id.textViewFarmChangeDate);
+//        textViewOwnerTc = (TextView) findViewById(R.id.textViewOwnerTc);
+//        textViewOwnerNameLastName = (TextView) findViewById(R.id.textViewOwnerNameLastName);
+//        textViewOwnerAdress = (TextView) findViewById(R.id.textViewOwnerAdress);
+//        textViewFarmGeoCoordinates = (TextView) findViewById(R.id.textViewFarmGeoCoordinates);
+//        textViewFarmCountryCode = (TextView) findViewById(R.id.textViewFarmCountryCode);
+//        textViewFarmCityCode = (TextView) findViewById(R.id.textViewFarmCityCode);
+//        textViewFarmAddress = (TextView) findViewById(R.id.textViewFarmAddress);
+//        textViewFarmPhone = (TextView) findViewById(R.id.textViewFarmPhone);
+//        textViewFarmFax = (TextView) findViewById(R.id.textViewFarmFax);
+//        textViewFarmEMail = (TextView) findViewById(R.id.textViewFarmEMail);
+//        textViewExportCountryCode = (TextView) findViewById(R.id.textViewExportCountryCode);
+//        textViewExportDate = (TextView) findViewById(R.id.textViewExportDate);
+//        textViewSlaughterHouseName = (TextView) findViewById(R.id.textViewSlaughterHouseName);
+//        textViewSlaughterHouseAddress = (TextView) findViewById(R.id.textViewSlaughterHouseAddress);
+//        textViewSlaughterHouseLicenceNumber = (TextView) findViewById(R.id.textViewSlaughterHouseLicenceNumber);
+//        textViewSlaughterDate = (TextView) findViewById(R.id.textViewSlaughterDate);
+//        textViewDeathPlace = (TextView) findViewById(R.id.textViewDeathPlace);
+//        textViewDeathDate = (TextView) findViewById(R.id.textViewDeathDate);
+//        multiLineVaccines = (EditText) findViewById(R.id.multiLineVaccines);
 
         // Getting data on NFC tag from ReadActivity intent.
         dataFromNFCTag = getIntent().getStringExtra("dataFromReadActivityIntent");
@@ -90,50 +106,127 @@ public class PartialInfoShownActivity extends AppCompatActivity {
             textViewBirthDate.setText(parsedDataFromNFCTag[1]);
             textViewGender.setText(parsedDataFromNFCTag[2]);
             textViewBreed.setText(parsedDataFromNFCTag[3]);
-            textViewMotherID.setText(parsedDataFromNFCTag[4]);
-            textViewBirthFarmNo.setText(parsedDataFromNFCTag[5]);
-            textViewCurrentFarmNo.setText(parsedDataFromNFCTag[6]);
-            textViewFarmChangeDate.setText(parsedDataFromNFCTag[7]);
-            textViewOwnerTc.setText(parsedDataFromNFCTag[25]);
-            textViewOwnerNameLastName.setText(parsedDataFromNFCTag[24]);
-            textViewOwnerAdress.setText(parsedDataFromNFCTag[26]);
-            textViewFarmGeoCoordinates.setText(parsedDataFromNFCTag[28]);
-            textViewFarmCountryCode.setText(parsedDataFromNFCTag[22]);
-            textViewFarmCityCode.setText(parsedDataFromNFCTag[23]);
-            textViewFarmAddress.setText(parsedDataFromNFCTag[27]);
-            textViewFarmPhone.setText(parsedDataFromNFCTag[29]);
-            textViewFarmFax.setText(parsedDataFromNFCTag[30]);
-            textViewFarmEMail.setText(parsedDataFromNFCTag[31]);
-            textViewExportCountryCode.setText(parsedDataFromNFCTag[8]);
-            textViewExportDate.setText(parsedDataFromNFCTag[9]);
-            textViewSlaughterHouseName.setText(parsedDataFromNFCTag[16]);
-            textViewSlaughterHouseAddress.setText(parsedDataFromNFCTag[17] + parsedDataFromNFCTag[18] + parsedDataFromNFCTag[19]);
-            textViewSlaughterHouseLicenceNumber.setText(parsedDataFromNFCTag[20]);
-            textViewSlaughterDate.setText(parsedDataFromNFCTag[21]);
-            textViewDeathPlace.setText(parsedDataFromNFCTag[11]);
-            textViewDeathDate.setText(parsedDataFromNFCTag[10]);
+//            textViewMotherID.setText(parsedDataFromNFCTag[4]);
+//            textViewBirthFarmNo.setText(parsedDataFromNFCTag[5]);
+//            textViewCurrentFarmNo.setText(parsedDataFromNFCTag[6]);
+//            textViewFarmChangeDate.setText(parsedDataFromNFCTag[7]);
+//            textViewOwnerTc.setText(parsedDataFromNFCTag[25]);
+//            textViewOwnerNameLastName.setText(parsedDataFromNFCTag[24]);
+//            textViewOwnerAdress.setText(parsedDataFromNFCTag[26]);
+//            textViewFarmGeoCoordinates.setText(parsedDataFromNFCTag[28]);
+//            textViewFarmCountryCode.setText(parsedDataFromNFCTag[22]);
+//            textViewFarmCityCode.setText(parsedDataFromNFCTag[23]);
+//            textViewFarmAddress.setText(parsedDataFromNFCTag[27]);
+//            textViewFarmPhone.setText(parsedDataFromNFCTag[29]);
+//            textViewFarmFax.setText(parsedDataFromNFCTag[30]);
+//            textViewFarmEMail.setText(parsedDataFromNFCTag[31]);
+//            textViewExportCountryCode.setText(parsedDataFromNFCTag[8]);
+//            textViewExportDate.setText(parsedDataFromNFCTag[9]);
+//            textViewSlaughterHouseName.setText(parsedDataFromNFCTag[16]);
+//            textViewSlaughterHouseAddress.setText(parsedDataFromNFCTag[17] + parsedDataFromNFCTag[18] + parsedDataFromNFCTag[19]);
+//            textViewSlaughterHouseLicenceNumber.setText(parsedDataFromNFCTag[20]);
+//            textViewSlaughterDate.setText(parsedDataFromNFCTag[21]);
+//            textViewDeathPlace.setText(parsedDataFromNFCTag[11]);
+//            textViewDeathDate.setText(parsedDataFromNFCTag[10]);
+
+
+
         } catch (Exception e) {
             Toast.makeText(this, "change " + e.getMessage() + " Changing texts", Toast.LENGTH_LONG).show();
         }
 
+        Button viewMoreButton = (Button) findViewById(R.id.buttonViewMore);
+        viewMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.prompts, null);
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alertdialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput1 = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput1);
+                final EditText userInput2 = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput2);
+                final EditText userInput3 = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput3);
+                final EditText userInput4 = (EditText) promptsView
+                        .findViewById(R.id.editTextDialogUserInput4);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // get user input and set it to result
+                                        // edit text
+                                        //result.setText(userInput.getText());
+
+
+                                        int digit1 = Integer.parseInt(userInput1.getText().toString());
+                                        int digit2 = Integer.parseInt(userInput2.getText().toString());
+                                        int digit3 = Integer.parseInt(userInput3.getText().toString());
+                                        int digit4 = Integer.parseInt(userInput4.getText().toString());
+
+                                        if(digit1 == 9 && digit2 == 9 && digit3 == 9 && digit4 == 9) {
+                                            Intent InfoShownIntent = new Intent(PartialInfoShownActivity.this, InfoShownActivity.class);
+                                            InfoShownIntent.putExtra("dataFromPartialInfoShownActivityIntent", dataFromNFCTag);
+                                            InfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(InfoShownIntent);
+                                        } else {
+                                            Toast.makeText(context, "Pin code is wrong, please try again...", Toast.LENGTH_LONG).show();
+                                            // create alert dialog
+                                            AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                            // show it
+                                            alertDialog.show();
+                                        }
+
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+            }
+        });
     }
+
+
+
+
+
 
     // Function for parsing string on the NFC tag.
     private String[] parseNFCData(String dataOnNFCTag) {
-        String[] parsedData = new String[40];
+        String[] parsedData = new String[41];
         Toast.makeText(this, "Size: " + dataOnNFCTag.length(), Toast.LENGTH_LONG).show();
         parsedData[0] = dataOnNFCTag.substring(3, 14);  // Animal ID - 1
-        parsedData[1] = dataOnNFCTag.substring(14, 18); // Animal Birthdate - 2
+        parsedData[1] = asciiToDateText(dataOnNFCTag.substring(14, 18)); // Animal Birthdate - 2
         parsedData[2] = dataOnNFCTag.substring(18, 19); // Animal Gender - 3
         parsedData[3] = dataOnNFCTag.substring(19, 23); // Animal Breed - 4
         parsedData[4] = dataOnNFCTag.substring(23, 34); // Animal MotherID - 5
         parsedData[5] = dataOnNFCTag.substring(34, 38); // Animal birth farm no - 6
         parsedData[6] = dataOnNFCTag.substring(38, 42); // Animal current farm no - 7
-        parsedData[7] = dataOnNFCTag.substring(42, 46); // Animal farm change data - 8
-        parsedData[8] = dataOnNFCTag.substring(46, 47); // Animal export country code - 9
-        parsedData[9] = dataOnNFCTag.substring(47, 51); // Animal export date - 10
-        parsedData[10] = dataOnNFCTag.substring(51, 55); // Animal death date - 11
+        parsedData[7] = asciiToDateText(dataOnNFCTag.substring(42, 46)); // Animal farm change data - 8
+        parsedData[8] = countryAsciiToName(dataOnNFCTag.substring(46, 47)); // Animal export country code - 9
+        parsedData[9] = asciiToDateText(dataOnNFCTag.substring(47, 51)); // Animal export date - 10
+        parsedData[10] = asciiToDateText(dataOnNFCTag.substring(51, 55)); // Animal death date - 11
         parsedData[11] = dataOnNFCTag.substring(55, 95); // Animal death place - 12
         parsedData[12] = dataOnNFCTag.substring(95, 96); // Animal alum vaccine - 13
         parsedData[13] = dataOnNFCTag.substring(96, 97); // Animal brucellosis vaccine - 14
@@ -144,9 +237,9 @@ public class PartialInfoShownActivity extends AppCompatActivity {
         parsedData[18] = dataOnNFCTag.substring(154, 164);  // Slaughter house address sokak - 18
         parsedData[19] = dataOnNFCTag.substring(164, 179);  // Slaughter house address remaining address info - 18
         parsedData[20] = dataOnNFCTag.substring(179, 183);  // Slaughter house licence number - 19
-        parsedData[21] = dataOnNFCTag.substring(183, 187);  // Slaughter date - 20
-        parsedData[22] = dataOnNFCTag.substring(187, 188);  // Farm country code - 21
-        parsedData[23] = dataOnNFCTag.substring(188, 189);  // Farm city code - 22
+        parsedData[21] = asciiToDateText(dataOnNFCTag.substring(183, 187));  // Slaughter date - 20
+        parsedData[22] = countryAsciiToName(dataOnNFCTag.substring(187, 188));  // Farm country code - 21
+        parsedData[23] = cityAsciiToName(dataOnNFCTag.substring(188, 189));  // Farm city code - 22
         parsedData[24] = dataOnNFCTag.substring(189, 205) + dataOnNFCTag.substring(205, 221);  // Owner name + surname - 23 + 24
         parsedData[25] = dataOnNFCTag.substring(221, 226);  // Owner TC no - 25
         parsedData[26] = dataOnNFCTag.substring(226, 266);  // Owner residence address - 26
@@ -163,8 +256,79 @@ public class PartialInfoShownActivity extends AppCompatActivity {
         parsedData[37] = dataOnNFCTag.substring(512, 516);  // Creation date of passport - 37
         parsedData[38] = dataOnNFCTag.substring(516, 528);  // Barcode number - 38
         parsedData[39] = dataOnNFCTag.substring(528, 532);  // Timestamp - 39
+        parsedData[40] = dataOnNFCTag.substring(532, 536);  // Pincode
 
 
         return parsedData;
+    }
+
+    // Function for decoding ascii chars to hex string.
+    public String asciiToHex(String arg) {
+        try {
+            Log.e("asciiToHex", String.format("%040x", new BigInteger(1, arg.getBytes("UTF-8"))));
+            String hexText = utf8TextToHex(arg);
+            Log.e("utf8AsciiToHex", hexText);
+            return hexText;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "aaaaaaaa";
+        }
+    }
+
+    // Function for utf-8 ascii text to hex.
+    public String utf8TextToHex(String ascii) {
+        char[] chars = ascii.toCharArray();
+        String hexText = "";
+        for(int i = 0; i < chars.length; i++) {
+            //System.out.println(Integer.valueOf(chars[i]));
+            try {
+                hexText = hexText + String.format("%04x", new BigInteger(1, String.valueOf(chars[i]).getBytes("UTF-8"))).substring(chars.length-2, chars.length);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return hexText;
+    }
+
+    // Function for converting hex string do decimal.
+    public long hexToLong(String hex) {
+        Log.e("hexToLong", String.valueOf(Long.parseLong(hex, 16)));
+        return Long.parseLong(hex, 16);
+    }
+
+    // Function for converting unixTime to Date string.
+    public String unixToDate(long unixTime) {
+        Log.e("unixToDate", String.valueOf(unixTime));
+        Date time = new Date((long)unixTime*1000);
+        // the format of your date
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd MMMM yyyy HH:mm:ss", new Locale("tr"));
+        return sdf.format(time);
+    }
+
+    // Function for decoding ascii date to string date.
+    public String asciiToDateText(String asciiText) {
+        String hex = asciiToHex(asciiText);
+        Log.e("ULAK-HEX", hex);
+        long dec = hexToLong(hex);
+        Log.e("ULAK-DEC", String.valueOf(dec));
+        String date = unixToDate(dec);
+        Log.e("ULAK-DATE", date);
+        return date;
+    }
+
+    // Function for decoding city ascii code to city name.
+    public String cityAsciiToName(String code) {
+        if(code.equals("A")) return "İzmir";
+        else if(code.equals("B")) return "İstanbul";
+        else if(code.equals("B")) return "Ankara";
+        else return "Henüz yok";
+    }
+
+    // Function for decoding country ascii code to country name.
+    public String countryAsciiToName(String code) {
+        if(code.equals("!")) return "Türkiye";
+        else if(code.equals("A")) return "Amarika";
+        else if(code.equals("B")) return "Hollanda";
+        else return "Henüz yok";
     }
 }

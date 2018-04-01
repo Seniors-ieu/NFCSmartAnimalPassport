@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/pin_content_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="Enter Your Pincode"
+        android:textStyle="bold" />
+
+    <LinearLayout android:id="@+id/pin_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <EditText android:id="@+id/pin_first_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="1"
+            android:inputType="numberPassword"
+            />
+
+        <EditText android:id="@+id/pin_second_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="1"
+            android:inputType="numberPassword"
+            />
+
+        <EditText android:id="@+id/pin_third_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="1"
+            android:inputType="numberPassword"
+            />
+
+        <EditText android:id="@+id/pin_forth_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="1"
+            android:inputType="numberPassword"
+            />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/buttonOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        />
 </LinearLayout>

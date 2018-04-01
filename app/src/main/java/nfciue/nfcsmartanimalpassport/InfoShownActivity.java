@@ -187,15 +187,15 @@ public class InfoShownActivity extends AppCompatActivity {
         }
     }
 
-    // Function for utf-8 ascii text to hex.
+    // Function for utf-8 ascii text to hex. // Now it works perfectly. Mifail, 01/04/2018 15:16
     public String utf8TextToHex(String ascii) {
         char[] chars = ascii.toCharArray();
         String hexText = "";
         for(int i = 0; i < chars.length; i++) {
             //System.out.println(Integer.valueOf(chars[i]));
             try {
-                hexText = hexText + String.format("%04x", new BigInteger(1, String.valueOf(chars[i]).getBytes("UTF-8"))).substring(chars.length-2, chars.length);
-            } catch (UnsupportedEncodingException e) {
+                hexText = hexText + Integer.toHexString(chars[i] | 0x10000).substring(3);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

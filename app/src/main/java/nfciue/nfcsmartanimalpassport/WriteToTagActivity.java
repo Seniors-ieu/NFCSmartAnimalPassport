@@ -347,13 +347,13 @@ public class WriteToTagActivity extends AppCompatActivity {
                 if (vaccineCode == 1) {
                     vaccineName = "Theileria";
                 } else if (vaccineCode == 2) {
-                    vaccineName = "Escherichia Coli Aşısı";
+                    vaccineName = "Escherichia Coli";
                 } else if (vaccineCode == 3) {
                     vaccineName = "Brusella";
                 } else if (vaccineCode == 4) {
                     vaccineName = "Mantar";
                 } else if (vaccineCode == 5) {
-                    vaccineName = "Alum ";
+                    vaccineName = "Alum";
                 } else if (vaccineCode == 6) {
                     vaccineName = "Pasteurella";
                 } else vaccineName = "";

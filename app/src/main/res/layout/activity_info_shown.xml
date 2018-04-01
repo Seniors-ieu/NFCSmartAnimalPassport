@@ -482,12 +482,11 @@
                         android:layout_height="wrap_content"
                         android:text="Vaccines" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/multiLineVaccines"
                         android:layout_width="163dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine" />
+                        android:ems="10" />
 
 
                 </TableRow>
@@ -503,12 +502,11 @@
                         android:layout_height="wrap_content"
                         android:text="Operations" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/multiLineOperations"
                         android:layout_width="163dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine" />
+                        android:ems="10" />
 
 
                 </TableRow>

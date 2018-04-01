@@ -37,7 +37,8 @@ public class InfoShownActivity extends AppCompatActivity {
     TextView textViewSlaughterDate;
     TextView textViewDeathPlace;
     TextView textViewDeathDate;
-    EditText multiLineVaccines;
+    TextView multiLineVaccines;
+    TextView multiLineOperations;
 
     private String dataFromNFCTag;
     private String[] parsedDataFromNFCTag;
@@ -74,7 +75,8 @@ public class InfoShownActivity extends AppCompatActivity {
         textViewSlaughterDate = (TextView) findViewById(R.id.textViewSlaughterDate);
         textViewDeathPlace = (TextView) findViewById(R.id.textViewDeathPlace);
         textViewDeathDate = (TextView) findViewById(R.id.textViewDeathDate);
-        multiLineVaccines = (EditText) findViewById(R.id.multiLineVaccines);
+        multiLineVaccines = (TextView) findViewById(R.id.multiLineVaccines);
+        multiLineOperations = (TextView) findViewById(R.id.multiLineOperations);
 
         // Getting data on NFC tag from ReadActivity intent.
         dataFromNFCTag = getIntent().getStringExtra("dataFromPartialInfoShownActivityIntent");
@@ -113,6 +115,8 @@ public class InfoShownActivity extends AppCompatActivity {
             textViewSlaughterDate.setText(parsedDataFromNFCTag[21]);
             textViewDeathPlace.setText(parsedDataFromNFCTag[11]);
             textViewDeathDate.setText(parsedDataFromNFCTag[10]);
+            multiLineVaccines.setText("Alum Vaccine: " + parsedDataFromNFCTag[12] + "---" + "Brucellosis Vaccine: " + parsedDataFromNFCTag[13] + "---" + "Pasturella Vaccine: " + parsedDataFromNFCTag[14]);
+            multiLineOperations.setText(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "tarih");
         } catch (Exception e) {
             Toast.makeText(this, "change " + e.getMessage() + " Changing texts", Toast.LENGTH_LONG).show();
         }

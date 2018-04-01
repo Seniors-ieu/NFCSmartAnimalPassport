@@ -110,19 +110,18 @@ public class ReadActivity extends AppCompatActivity {
 
             NdefMessageWrapper nmw = new NdefMessageWrapper(nm.toByteArray());
             String dataFromNFCTag = new String(nmw.getRecords()[0].getPayload());
-            //NdefRecordWrapper nrw = new NdefRecordWrapper(nmw.getRecords());
-            //Toast.makeText(this, dft, Toast.LENGTH_SHORT).show();
+
             Intent PartialInfoShownIntent = new Intent(ReadActivity.this, PartialInfoShownActivity.class);
             PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromNFCTag);
             PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(PartialInfoShownIntent);
-            //Toast.makeText(this, String.valueOf(dataFromNFCTag), Toast.LENGTH_LONG).show();
+
         } catch (Exception e) {
             Log.e("ULAK", "Error in ntagCardLogic: " + e.getMessage());
         } finally {
             Log.e("ULAK", "finally'nin içi.");
             tag.getReader().close();
-            //NTag213215216 tag1 = (NTag213215216) tag;  //ULAK buradan devam edebilirsinnn.
+
 
         }
     }

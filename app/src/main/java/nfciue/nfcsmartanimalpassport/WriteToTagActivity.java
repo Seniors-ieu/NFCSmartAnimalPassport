@@ -134,14 +134,12 @@ public class WriteToTagActivity extends AppCompatActivity {
 
 
             INdefMessage nm = ntag216.readNDEF();  //read process begins
-
             NdefMessageWrapper nmw = new NdefMessageWrapper(nm.toByteArray());
-            byte [] byteArrayOfData = nmw.getRecords()[0].getPayload();
-            System.out.println(byteArrayOfData);
+
             String dataFromNFCTag = new String(nmw.getRecords()[0].getPayload()); // tag data
             animalIdForUpdate = dataFromNFCTag.substring(3,14); //Firebase update yapan activitye gönderilecek..
 
-           String parsedDataFromNFC=dataFromNFCTag.substring(3);   // her yazma operasyonunda tagin başına gelen dil kodunu atmak için..
+           String parsedDataFromNFC = dataFromNFCTag.substring(3);   // her yazma operasyonunda tagin başına gelen dil kodunu atmak için..
 
             // read codes end..
 

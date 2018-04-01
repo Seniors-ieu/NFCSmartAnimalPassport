@@ -106,7 +106,7 @@ public class Decoderiue {
         parsedData[8] = Decoderiue.countryAsciiToName(dataOnNFCTag.substring(46, 47)); // Animal export country code - 9
         parsedData[9] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(47, 51)); // Animal export date - 10
         parsedData[10] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(51, 55)); // Animal death date - 11
-        parsedData[11] = dataOnNFCTag.substring(55, 95); // Animal death place - 12
+        parsedData[11] = zeroSubstractorFromStrings(dataOnNFCTag.substring(55, 95)); // Animal death place - 12
         parsedData[12] = treeMainVaccineChecker(dataOnNFCTag.substring(95, 96)); // Animal alum vaccine - 13
         parsedData[13] = treeMainVaccineChecker(dataOnNFCTag.substring(96, 97)); // Animal brucellosis vaccine - 14
         parsedData[14] = treeMainVaccineChecker(dataOnNFCTag.substring(97, 98)); // Animal pasturella vaccine - 15
@@ -124,8 +124,8 @@ public class Decoderiue {
         parsedData[26] = zeroSubstractorFromStrings(dataOnNFCTag.substring(226, 266));  // Owner residence address - 26
         parsedData[27] = zeroSubstractorFromStrings(dataOnNFCTag.substring(266, 306));  // Farm address - 27
         parsedData[28] = dataOnNFCTag.substring(306, 312);  // Farm geo coordinates - 28
-        parsedData[29] = dataOnNFCTag.substring(312, 317);  // Farm phone number - 29
-        parsedData[30] = dataOnNFCTag.substring(317, 322);  // Farm fax number - 30
+        parsedData[29] = asciiTCNoToRealTC(dataOnNFCTag.substring(312, 317));  // Farm phone number - 29
+        parsedData[30] = asciiTCNoToRealTC(dataOnNFCTag.substring(317, 322));  // Farm fax number - 30
         parsedData[31] = zeroSubstractorFromStrings(dataOnNFCTag.substring(322, 370));  // Farm email address - 31
         parsedData[32] = dataOnNFCTag.substring(370, 375);  // Operator ID - 32
         parsedData[33] = dataOnNFCTag.substring(375, 376);  // Operation type - 33
@@ -171,5 +171,43 @@ public class Decoderiue {
 
     public static String zeroSubstractorFromStrings(String text) {
         return text.substring(text.lastIndexOf('0')+1);
+    }
+
+    public static String vaccineChooser(String vaccineCode) {
+        if(vaccineCode.equals("1")) {
+            return "Theileria Annulata";
+        } else if(vaccineCode.equals("2")) {
+            return "Escherichia coli";
+        } else if(vaccineCode.equals("3")) {
+            return "Buzağı Septisemi serumu";
+        } else if(vaccineCode.equals("4")) {
+            return "İktero-hemglobinuri";
+        } else if(vaccineCode.equals("5")) {
+            return "Yanıkara";
+        } else if(vaccineCode.equals("6")) {
+            return "Anthrax";
+        } else if(vaccineCode.equals("7")) {
+            return "Leptosipira";
+        } else {
+            return "Other";
+        }
+    }
+
+    public static String operationChooser(String vaccineCode) {
+        if(vaccineCode.equals("1")) {
+            return "Kan Analizi";
+        } else if(vaccineCode.equals("2")) {
+            return "Pansuman";
+        } else if(vaccineCode.equals("3")) {
+            return "Sağlık Kontrolü";
+        } else if(vaccineCode.equals("4")) {
+            return "Fiziksel Muayene";
+        } else if(vaccineCode.equals("5")) {
+            return "Tıbbi Operasyon";
+        } else if(vaccineCode.equals("6")) {
+            return "Doğum";
+        } else {
+            return "Other";
+        }
     }
 }

@@ -42,6 +42,8 @@ public class WriteToTagActivity extends AppCompatActivity {
     int operationCode;
     int vaccineCode;
     String animalIdForUpdate;
+    String vaccineName="NA";
+    String operationName="NA";
 
     // The license key, got from TapLinx.
     private String m_strKey = "a8ecf9cd118701724d7a24c76c9495f0";
@@ -64,6 +66,7 @@ public class WriteToTagActivity extends AppCompatActivity {
 
         myPass = getIntent().getByteArrayExtra("password");
         operationCode = getIntent().getIntExtra("operationCode",-1);
+        vaccineCode= getIntent().getIntExtra("vaccineCode",-1);
 
 
 
@@ -191,71 +194,178 @@ public class WriteToTagActivity extends AppCompatActivity {
                 beforeOperationPart = beforeOperationPart.concat("7");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
             }
+            String beforeOther;
+            String afterOther;
+            if(vaccineCode!=-1){
 
 
+                if(vaccineCode==1)    //Theileria Aşısı , other
+                {
+                    beforeOther = parsedDataFromNFC.substring(0, 95);     // spliting tag data into two pieces to insert othervaccine type..
+                    Log.e("ilkyarıOther",beforeOther);
+                    afterOther = parsedDataFromNFC.substring(96);
+                    Log.e("ikiciyarıOther",afterOther);
+                    beforeOther = beforeOther.concat("1");
+                    parsedDataFromNFC =beforeOther.concat(afterOther);
+                }
+                else if(vaccineCode==2)  //Escherichia Coli Aşısı , other
+                {
+                    beforeOther = parsedDataFromNFC.substring(0, 95);     // spliting tag data into two pieces to insert othervaccine type..
+                    Log.e("ilkyarıOther",beforeOther);
+                    afterOther = parsedDataFromNFC.substring(96);
+                    Log.e("ikiciyarıOther",afterOther);
+                    beforeOther = beforeOther.concat("2");
+                    parsedDataFromNFC =beforeOther.concat(afterOther);
+                }
+                else if(vaccineCode==3) //Brusella Aşısı
+                {
+                    beforeOther = parsedDataFromNFC.substring(0, 93);     // spliting tag data into two pieces to insert brusella vaccine true..
+                    Log.e("ilkyarıBrusella",beforeOther);
+                    afterOther = parsedDataFromNFC.substring(94);
+                    Log.e("ikiciyarıBrusella",afterOther);
+                    beforeOther = beforeOther.concat("T");
+                    parsedDataFromNFC =beforeOther.concat(afterOther);
+                }
+                else if(vaccineCode==4)  // Mantar Aşısı
+                {
+                    beforeOther = parsedDataFromNFC.substring(0, 95);     // spliting tag data into two pieces to insert othervaccine type..
+                    Log.e("ilkyarıOther",beforeOther);
+                    afterOther = parsedDataFromNFC.substring(96);
+                    Log.e("ikiciyarıOther",afterOther);
+                    beforeOther = beforeOther.concat("3");
+                    parsedDataFromNFC =beforeOther.concat(afterOther);
 
-            String ndefMessage = parsedDataFromNFC ;
-
-            byte[] lang = Locale.getDefault().getLanguage().getBytes("UTF-8");
-            byte[] text = ndefMessage.getBytes("UTF-8"); // Content in UTF-8
-
-            int langSize = lang.length;
-            int textLength = text.length;
-
-            ByteArrayOutputStream payload = new ByteArrayOutputStream(1 + langSize + textLength);
-            payload.write((byte) (langSize & 0x1F));
-            payload.write(lang, 0, langSize);
-            payload.write(text, 0, textLength);
-            NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
-                    NdefRecord.RTD_TEXT, new byte[0],
-                    payload.toByteArray());
-            NdefMessage ndefMessage1 = new NdefMessage(new NdefRecord[]{record});
-
-            NdefRecordWrapper nrw = new NdefRecordWrapper(record);
-             nmw = new NdefMessageWrapper(nrw);
-             nm = nmw;
-
-            ntag216.authenticatePwd(myPassword, myAck);
-            ntag216.writeNDEF(nm);
+                }
+                else if(vaccineCode==5) // şap aşısı, alum vaccine
+                {
+                    beforeOther = parsedDataFromNFC.substring(0, 92);     // spliting tag data into two pieces to insert alum vaccine true..
+                    Log.e("ilkyarıalum",beforeOther);
+                    afterOther = parsedDataFromNFC.substring(93);
+                    Log.e("ikiciyarıalum",afterOther);
+                    beforeOther = beforeOther.concat("T");
+                    parsedDataFromNFC =beforeOther.concat(afterOther);
+                }
+                else if(vaccineCode==6) // pasteurallea,
+                {
+                    beforeOther = parsedDataFromNFC.substring(0, 94);     // spliting tag data into two pieces to insert pasteur vaccine true..
+                    Log.e("ilkyarıpasteur",beforeOther);
+                    afterOther = parsedDataFromNFC.substring(95);
+                    Log.e("ikiciyarıpasteur",afterOther);
+                    beforeOther = beforeOther.concat("T");
+                    parsedDataFromNFC =beforeOther.concat(afterOther);
+                }
 
 
-
-            Toast.makeText(this, "OK from WTTA!!!", Toast.LENGTH_LONG).show();
-
-
-            String operationName;
-            if(operationCode==1)
-            {
-                operationName="Blood Analysis";
             }
-            else if(operationCode==2)
-            {
-                operationName="Dressing";
-            }
-            else if(operationCode==3)
-            {
-                operationName="Medical Examination";
-            }
-            else  if(operationCode==4)
-            {
-                operationName="Physical Examination";
-            }
-            else  if(operationCode==5)
-            {
-                operationName="Medical Operation ";
-            }
-            else if( operationCode==6)
-            {
-                operationName="Birth";
-            }
-            else operationName="";
 
-            Intent OperationIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);
-            OperationIntent.putExtra("AnimalID",animalIdForUpdate);
-            OperationIntent.putExtra("OperationName",operationName);
 
-            OperationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(OperationIntent);
+            if(operationCode>0)  // operation update
+            {
+                String ndefMessage = parsedDataFromNFC;
+
+                byte[] lang = Locale.getDefault().getLanguage().getBytes("UTF-8");
+                byte[] text = ndefMessage.getBytes("UTF-8"); // Content in UTF-8
+
+                int langSize = lang.length;
+                int textLength = text.length;
+
+                ByteArrayOutputStream payload = new ByteArrayOutputStream(1 + langSize + textLength);
+                payload.write((byte) (langSize & 0x1F));
+                payload.write(lang, 0, langSize);
+                payload.write(text, 0, textLength);
+                NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+                        NdefRecord.RTD_TEXT, new byte[0],
+                        payload.toByteArray());
+                NdefMessage ndefMessage1 = new NdefMessage(new NdefRecord[]{record});
+
+                NdefRecordWrapper nrw = new NdefRecordWrapper(record);
+                nmw = new NdefMessageWrapper(nrw);
+                nm = nmw;
+
+                ntag216.authenticatePwd(myPassword, myAck);
+                ntag216.writeNDEF(nm);
+
+
+                Toast.makeText(this, "OK from WTTA!!!", Toast.LENGTH_LONG).show();
+
+
+                String operationName;
+                if (operationCode == 1) {
+                    operationName = "Blood Analysis";
+                } else if (operationCode == 2) {
+                    operationName = "Dressing";
+                } else if (operationCode == 3) {
+                    operationName = "Medical Examination";
+                } else if (operationCode == 4) {
+                    operationName = "Physical Examination";
+                } else if (operationCode == 5) {
+                    operationName = "Medical Operation ";
+                } else if (operationCode == 6) {
+                    operationName = "Birth";
+                } else operationName = "";
+
+                Intent OperationIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);
+                OperationIntent.putExtra("AnimalID", animalIdForUpdate);
+                OperationIntent.putExtra("OperationName", operationName);
+                OperationIntent.putExtra("VaccineName", vaccineName);
+
+                OperationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(OperationIntent);
+            }
+
+            if(vaccineCode>0)  // vaccine update
+            {
+                String ndefMessage = parsedDataFromNFC;
+
+                byte[] lang = Locale.getDefault().getLanguage().getBytes("UTF-8");
+                byte[] text = ndefMessage.getBytes("UTF-8"); // Content in UTF-8
+
+                int langSize = lang.length;
+                int textLength = text.length;
+
+                ByteArrayOutputStream payload = new ByteArrayOutputStream(1 + langSize + textLength);
+                payload.write((byte) (langSize & 0x1F));
+                payload.write(lang, 0, langSize);
+                payload.write(text, 0, textLength);
+                NdefRecord record = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,
+                        NdefRecord.RTD_TEXT, new byte[0],
+                        payload.toByteArray());
+                NdefMessage ndefMessage1 = new NdefMessage(new NdefRecord[]{record});
+
+                NdefRecordWrapper nrw = new NdefRecordWrapper(record);
+                nmw = new NdefMessageWrapper(nrw);
+                nm = nmw;
+
+                ntag216.authenticatePwd(myPassword, myAck);
+                ntag216.writeNDEF(nm);
+
+
+                Toast.makeText(this, "OK from WTTA!!!", Toast.LENGTH_LONG).show();
+
+
+
+                if (vaccineCode == 1) {
+                    vaccineName = "Theileria";
+                } else if (vaccineCode == 2) {
+                    vaccineName = "Escherichia Coli Aşısı";
+                } else if (vaccineCode == 3) {
+                    vaccineName = "Brusella";
+                } else if (vaccineCode == 4) {
+                    vaccineName = "Mantar";
+                } else if (vaccineCode == 5) {
+                    vaccineName = "Alum ";
+                } else if (vaccineCode == 6) {
+                    vaccineName = "Pasteurella";
+                } else vaccineName = "";
+
+                Intent VaccineIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);
+                VaccineIntent.putExtra("AnimalID", animalIdForUpdate);
+                VaccineIntent.putExtra("VaccineName", vaccineName);
+                VaccineIntent.putExtra("OperationName", operationName);
+
+                VaccineIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(VaccineIntent);
+            }
 
 
 
@@ -270,118 +380,6 @@ public class WriteToTagActivity extends AppCompatActivity {
         }
     }
 
-    public void updateOperationFirebase(String nfcData){
-
-        //todo: bütün stringi bölerek animal objesini parametreleriyle kendin yarat : offline running
-         //animalIdForUpdate = nfcData.substring(3,14);
-        animalIdForUpdate="TR 35 123";
-        Log.e("animalıd",animalIdForUpdate);  //TR351234567
-
-        final Animal animal = new Animal();
-        animal.setAlumVaccine(true);
-        animal.setBirthdate("16.05.2010");
-        animal.setBirthFarmNo("55567533");
-        animal.setBreed("Holstein");
-        animal.setBrusellosisVaccine(false);
-        animal.setCurrentFarmNo("1234567");
-        animal.setDeathDate("NA");
-        animal.setDeathPlace("NA");
-        animal.seteSignDirector("14567SFGHJK4567");
-        animal.seteSignOwner("1235WRTY357");
-        animal.setExportCountryCode(0);
-        animal.setExportDate("NA");
-        animal.setFarmChangeDate("NA");
-        animal.setiD(animalIdForUpdate);
-        animal.setFemale(false);
-        animal.setMotherId("TR 35 122");
 
 
-        readVaccineForUpdate(new VaccineCallback() { //All vaccines will be retrieved from db, tg only have the last one...
-            @Override
-            public void onCallback( ArrayList<otherVaccine> otherVaccines) {     //otherVaccines veritabanından gelen aşılar
-                animal.setOtherVaccine(otherVaccines);
-            }
-        });
-
-
-        readOperationForUpdate(new OperationCallback() { //All operations will be retrieved from db, tg only have the last one...
-            @Override
-            public void onCallback(ArrayList <Operations> operations) {     //otherVaccines veritabanından gelen aşılar
-                animal.setOperations(operations);
-            }
-        });
-
-        animal.setOwnerTc("11111111111");
-        animal.setPasturellaVaccine(true);// with the information that is retrieved from Tag, initialize animal with parameters. All fields should match with db , othervise use call back to retrieve whole object from db.. (aslı)
-        //Owner info won't be updated by user for now, if this changes, initialize an owner also.
-
-        String operationName;
-        if(operationCode==1)
-        {
-             operationName="Blood Analysis";
-        }
-        else if(operationCode==2)
-        {
-            operationName="Dressing";
-        }
-        else if(operationCode==3)
-        {
-            operationName="Medical Examination";
-        }
-        else  if(operationCode==4)
-        {
-            operationName="Physical Examination";
-        }
-        else  if(operationCode==5)
-        {
-            operationName="Medical Operation ";
-        }
-        else if( operationCode==6)
-        {
-            operationName="Birth";
-        }
-        else operationName="";
-
-
-            // write to db begins
-        Operations operation = new Operations(operationName,"1111111",new Date());   //todo:operator id will be replaced with a real one;
-        animal.getOperations().add(operation);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Animals").document(animal.getiD()).set(animal);
-
-    }   // bunlar büyük ihtimal hiç kullanılmayacak, gerektiğinde ben silerim (Aslı)
-    public interface VaccineCallback {
-        void onCallback(ArrayList <otherVaccine> otherVaccines);
-    }
-    public void readVaccineForUpdate(final WriteToTagActivity.VaccineCallback updateCallback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference ref = db.collection("Animals").document(animalIdForUpdate);
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Animal animal= documentSnapshot.toObject(Animal.class);
-                ArrayList<otherVaccine> otherVaccines = animal.getOtherVaccine();
-                updateCallback.onCallback(otherVaccines);
-
-            }
-        });
-    }
-
-    public interface OperationCallback {
-        void onCallback(ArrayList <Operations> operations);
-    }
-    public void readOperationForUpdate(final WriteToTagActivity.OperationCallback updateCallback) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference ref = db.collection("Animals").document(animalIdForUpdate);
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Animal animal= documentSnapshot.toObject(Animal.class);
-                ArrayList<Operations> operations = animal.getOperations();
-                updateCallback.onCallback(operations);
-
-            }
-        });
-    }
 }

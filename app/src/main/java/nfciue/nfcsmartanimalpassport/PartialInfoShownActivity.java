@@ -185,10 +185,10 @@ public class PartialInfoShownActivity extends AppCompatActivity {
                                         } else {
                                             Toast.makeText(context, "Pin code is wrong, please try again...", Toast.LENGTH_LONG).show();
                                             // create alert dialog
-                                            AlertDialog alertDialog = alertDialogBuilder.create();
+                                            //AlertDialog alertDialog = alertDialogBuilder.create();
 
                                             // show it
-                                            alertDialog.show();
+                                            //alertDialog.show();
                                         }
 
                                     }

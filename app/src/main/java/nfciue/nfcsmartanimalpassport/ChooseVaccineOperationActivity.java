@@ -83,11 +83,11 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                         psw2 = Integer.parseInt(editTextPsw2.getText().toString());
                         psw3 = Integer.parseInt(editTextPsw3.getText().toString());
                         psw4 = Integer.parseInt(editTextPsw4.getText().toString());
-                        byte[] password = new byte[] {(byte)psw1, (byte)psw2 , (byte)psw3 , (byte)psw4};
+                        byte[] password = new byte[] {(byte) psw1, (byte) psw2 , (byte) psw3 , (byte) psw4};
 
                         Intent OperationIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                        OperationIntent.putExtra("password",password);
-                        OperationIntent.putExtra("operationCode",operationCode);
+                        OperationIntent.putExtra("password", password);
+                        OperationIntent.putExtra("operationCode", operationCode);
                         OperationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(OperationIntent);
 

@@ -153,7 +153,7 @@ public class InfoShownActivity extends AppCompatActivity {
         parsedData[22] = countryAsciiToName(dataOnNFCTag.substring(187, 188));  // Farm country code - 21
         parsedData[23] = cityAsciiToName(dataOnNFCTag.substring(188, 189));  // Farm city code - 22
         parsedData[24] = dataOnNFCTag.substring(189, 205) + dataOnNFCTag.substring(205, 221);  // Owner name + surname - 23 + 24
-        parsedData[25] = dataOnNFCTag.substring(221, 226);  // Owner TC no - 25
+        parsedData[25] = asciiTCNoToRealTC(dataOnNFCTag.substring(221, 226));  // Owner TC no - 25
         parsedData[26] = dataOnNFCTag.substring(226, 266);  // Owner residence address - 26
         parsedData[27] = dataOnNFCTag.substring(266, 306);  // Farm address - 27
         parsedData[28] = dataOnNFCTag.substring(306, 312);  // Farm geo coordinates - 28
@@ -242,5 +242,12 @@ public class InfoShownActivity extends AppCompatActivity {
         else if(code.equals("A")) return "Amarika";
         else if(code.equals("B")) return "Hollanda";
         else return "Henüz yok";
+    }
+
+    // Function for decoding ascii tcNo to real tcNo.
+    public String asciiTCNoToRealTC(String TCNo) {
+        String hex = asciiToHex(TCNo);
+        long dec = hexToLong(hex);
+        return String.valueOf(dec);
     }
 }

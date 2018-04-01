@@ -18,11 +18,22 @@
     <string name="add_operation_activity_info_shown_for_update">Add</string>
     <string-array name="operations_array">
         <item>Tap Here To Choose...</item>
-        <item>Blood Analysis</item>
-        <item>Dressing</item>
-        <item>Medical Examination</item>
-        <item>Physical Examination</item>
-        <item>Medical Operation</item>
-        <item>Birth</item>
+        <item>Kan Analizi</item>
+        <item>Pansuman</item>
+        <item>Medikal Muayene</item>
+        <item>Fiziksel Muayene</item>
+        <item>Medikal Operasyon</item>
+        <item>Doğum</item>
+    </string-array>
+    <string-array name="vaccines_array">
+        <item>Tap Here To Choose...</item>
+
+        <item>Theileria Aşısı</item>
+        <item>Escherichia Coli Aşısı</item>
+        <item>Brusella Aşısı</item>
+        <item>Mantar Aşısı</item>
+        <item>Şap Aşısı</item>
+        <item>Pasteurella Aşısı</item>
+
     </string-array>
 </resources>

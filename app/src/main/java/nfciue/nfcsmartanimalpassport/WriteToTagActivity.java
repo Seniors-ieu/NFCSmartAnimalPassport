@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import nfciue.utilities.Decoderiue;
+
 public class WriteToTagActivity extends AppCompatActivity {
     final Context context = this;
 
@@ -163,36 +165,43 @@ public class WriteToTagActivity extends AppCompatActivity {
 
                 beforeOperationPart = beforeOperationPart.concat("1");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             else if(operationCode==2)
             {
                 beforeOperationPart = beforeOperationPart.concat("2");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             else if(operationCode==3)
             {
                 beforeOperationPart = beforeOperationPart.concat("3");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             else if(operationCode==4)
             {
                 beforeOperationPart = beforeOperationPart.concat("4");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             else if(operationCode==5)
             {
                 beforeOperationPart = beforeOperationPart.concat("5");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             else if(operationCode==6)
             {
                 beforeOperationPart = beforeOperationPart.concat("6");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             else if(operationCode==7)
             {
                 beforeOperationPart = beforeOperationPart.concat("7");
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
             }
             String beforeOther;
             String afterOther;
@@ -259,7 +268,7 @@ public class WriteToTagActivity extends AppCompatActivity {
             }
 
 
-            if(operationCode>0)  // operation update
+            if(operationCode > 0)  // operation update
             {
                 String ndefMessage = parsedDataFromNFC;
 
@@ -313,7 +322,7 @@ public class WriteToTagActivity extends AppCompatActivity {
                 startActivity(OperationIntent);
             }
 
-            if(vaccineCode>0)  // vaccine update
+            if(vaccineCode > 0)  // vaccine update
             {
                 String ndefMessage = parsedDataFromNFC;
 

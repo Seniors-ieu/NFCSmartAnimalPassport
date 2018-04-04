@@ -110,7 +110,7 @@ public class Decoderiue {
 
     // Function for parsing string on the NFC tag.
     public static String[] parseNFCData(String dataOnNFCTag) {
-        String[] parsedData = new String[41];
+        String[] parsedData = new String[45];
         //Toast.makeText(this, "Size: " + dataOnNFCTag.length(), Toast.LENGTH_LONG).show();
         parsedData[0] = dataOnNFCTag.substring(3, 14);  // Animal ID - 1
         parsedData[1] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(14, 18)); // Animal Birthdate - 2
@@ -153,7 +153,10 @@ public class Decoderiue {
         parsedData[38] = dataOnNFCTag.substring(516, 528);  // Barcode number - 38
         parsedData[39] = dataOnNFCTag.substring(528, 532);  // Timestamp - 39
         parsedData[40] = dataOnNFCTag.substring(532, 536);  // Pincode
-
+        parsedData[41] = asciiToDateText(dataOnNFCTag.substring(536, 540));  // Last operation date.
+        parsedData[42] = asciiToDateText(dataOnNFCTag.substring(540, 544));  // Last other vaccine date.
+        parsedData[43] = asciiToDateText(dataOnNFCTag.substring(544, 548));  // Last alum vaccine date.
+        parsedData[44] = asciiToDateText(dataOnNFCTag.substring(548, 552));  // Last brucellosis vaccine date.
 
         return parsedData;
     }

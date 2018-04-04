@@ -17,11 +17,10 @@ public class Decoderiue {
     // Function for decoding ascii chars to hex string.
     public  static String asciiToHex(String arg) {
         try {
-            Log.e("asciiToHex", String.format("%040x", new BigInteger(1, arg.getBytes("UTF-8"))));
             String hexText = utf8TextToHex(arg);
             Log.e("utf8AsciiToHex", hexText);
             return hexText;
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return "aaaaaaaa";
         }

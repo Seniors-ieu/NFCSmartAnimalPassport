@@ -67,6 +67,24 @@ public class Decoderiue {
         return date;
     }
 
+    // Function for encoding ascii date from current time. It is used when a new operation/vaccine info is added to tag.
+    public static String dateToAscii() {
+        // Get current time.
+        long unixTime = System.currentTimeMillis() / 1000L;
+        // Get hexadecimal string from a decimal number.
+        String hexString = Long.toHexString(unixTime);
+        if(hexString.length() % 2 == 1) {    // If hex string's character number is odd, it makes it even.  // This is not applicable for date but will be useful for tcNO or other numbers.
+            hexString = "0" + hexString;
+        }
+        String strAscii = "";
+        for(int i=0; i < hexString.length(); i+=2) {
+            String s = hexString.substring(i, (i + 2));
+            int decimal = Integer.parseInt(s, 16);
+            strAscii = strAscii + (char) decimal;
+        }
+        return strAscii;
+    }
+
     // Function for decoding city ascii code to city name.
     public static String cityAsciiToName(String code) {
         if(code.equals("A")) return "İzmir";

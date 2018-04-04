@@ -115,8 +115,8 @@ public class InfoShownActivity extends AppCompatActivity {
             textViewSlaughterDate.setText(parsedDataFromNFCTag[21]);
             textViewDeathPlace.setText(parsedDataFromNFCTag[11]);
             textViewDeathDate.setText(parsedDataFromNFCTag[10]);
-            multiLineVaccines.setText("Alum Vaccine: " + parsedDataFromNFCTag[12] + "---" + "Brucellosis Vaccine: " + parsedDataFromNFCTag[13] + "---" + "Pasturella Vaccine: " + parsedDataFromNFCTag[14]);
-            multiLineOperations.setText(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "tarih");
+            multiLineVaccines.setText("Alum Vaccine: " + parsedDataFromNFCTag[12] + ", Tarih:" + parsedDataFromNFCTag[43] + "Brucellosis Vaccine: " + parsedDataFromNFCTag[13] + ", Tarih: " + parsedDataFromNFCTag[44] + "Pasturella Vaccine: " + parsedDataFromNFCTag[14]);
+            multiLineOperations.setText(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + ", Tarih:" + parsedDataFromNFCTag[41]);
         } catch (Exception e) {
             Toast.makeText(this, "change " + e.getMessage() + " Changing texts", Toast.LENGTH_LONG).show();
         }

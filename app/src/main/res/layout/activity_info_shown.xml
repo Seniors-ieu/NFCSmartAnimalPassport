@@ -484,7 +484,7 @@
 
                     <TextView
                         android:id="@+id/multiLineVaccines"
-                        android:layout_width="163dp"
+                        android:layout_width="263dp"
                         android:layout_height="wrap_content"
                         android:ems="10" />
 
@@ -504,7 +504,7 @@
 
                     <TextView
                         android:id="@+id/multiLineOperations"
-                        android:layout_width="163dp"
+                        android:layout_width="263dp"
                         android:layout_height="wrap_content"
                         android:ems="10" />
 

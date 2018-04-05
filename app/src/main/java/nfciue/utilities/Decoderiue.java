@@ -58,13 +58,17 @@ public class Decoderiue {
 
     // Function for decoding ascii date to string date.
     public static String asciiToDateText(String asciiText) {
-        String hex = asciiToHex(asciiText);
-        Log.e("ULAK-HEX", hex);
-        long dec = hexToLong(hex);
-        Log.e("ULAK-DEC", String.valueOf(dec));
-        String date = unixToDate(dec);
-        Log.e("ULAK-DATE", date);
-        return date;
+        if(asciiText.equals("!!!!")) {
+            return "YOK.";
+        } else {
+            String hex = asciiToHex(asciiText);
+            Log.e("ULAK-HEX", hex);
+            long dec = hexToLong(hex);
+            Log.e("ULAK-DEC", String.valueOf(dec));
+            String date = unixToDate(dec);
+            Log.e("ULAK-DATE", date);
+            return date;
+        }
     }
 
     // Function for encoding ascii date from current time. It is used when a new operation/vaccine info is added to tag.

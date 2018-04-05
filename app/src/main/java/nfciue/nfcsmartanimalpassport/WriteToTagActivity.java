@@ -216,6 +216,7 @@ public class WriteToTagActivity extends AppCompatActivity {
                     Log.e("ikiciyarıOther",afterOther);
                     beforeOther = beforeOther.concat("1");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 537) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(541);
                 }
                 else if(vaccineCode==2)  //Escherichia Coli Aşısı , other
                 {
@@ -225,6 +226,7 @@ public class WriteToTagActivity extends AppCompatActivity {
                     Log.e("ikiciyarıOther",afterOther);
                     beforeOther = beforeOther.concat("2");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 537) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(541);
                 }
                 else if(vaccineCode==3) //Brusella Aşısı
                 {
@@ -234,6 +236,7 @@ public class WriteToTagActivity extends AppCompatActivity {
                     Log.e("ikiciyarıBrusella",afterOther);
                     beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 545) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(549);
                 }
                 else if(vaccineCode==4)  // Mantar Aşısı
                 {
@@ -243,6 +246,7 @@ public class WriteToTagActivity extends AppCompatActivity {
                     Log.e("ikiciyarıOther",afterOther);
                     beforeOther = beforeOther.concat("3");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 537) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(541);
 
                 }
                 else if(vaccineCode==5) // şap aşısı, alum vaccine
@@ -252,7 +256,8 @@ public class WriteToTagActivity extends AppCompatActivity {
                     afterOther = parsedDataFromNFC.substring(93);
                     Log.e("ikiciyarıalum",afterOther);
                     beforeOther = beforeOther.concat("T");
-                    parsedDataFromNFC =beforeOther.concat(afterOther);
+                    parsedDataFromNFC = beforeOther.concat(afterOther);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 541) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(545);
                 }
                 else if(vaccineCode==6) // pasteurallea,
                 {

@@ -521,6 +521,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Update Tag" />
+            <Button
+
+                android:id="@+id/buttonToMainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Back to Menu" />
 
         </LinearLayout>
     </HorizontalScrollView>

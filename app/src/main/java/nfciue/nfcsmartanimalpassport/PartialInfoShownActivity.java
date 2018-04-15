@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
@@ -72,6 +74,14 @@ public class PartialInfoShownActivity extends AppCompatActivity {
 
         // Getting data on NFC tag from ReadActivity intent.
         dataFromNFCTag = getIntent().getStringExtra("dataFromReadActivityIntent");
+
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+        {
+            Intent InfoShownIntent = new Intent(PartialInfoShownActivity.this, InfoShownActivity.class);
+            InfoShownIntent.putExtra("dataFromPartialInfoShownActivityIntent", dataFromNFCTag);
+            InfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(InfoShownIntent);
+        }
 
         // Parsing data.
         try {

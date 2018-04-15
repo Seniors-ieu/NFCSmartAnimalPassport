@@ -1,11 +1,18 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import nfciue.utilities.Decoderiue;
 
@@ -39,6 +46,8 @@ public class InfoShownActivity extends AppCompatActivity {
     TextView textViewDeathDate;
     TextView multiLineVaccines;
     TextView multiLineOperations;
+    Button updateTag;
+    Button backToMenu;
 
     private String dataFromNFCTag;
     private String[] parsedDataFromNFCTag;
@@ -77,6 +86,8 @@ public class InfoShownActivity extends AppCompatActivity {
         textViewDeathDate = (TextView) findViewById(R.id.textViewDeathDate);
         multiLineVaccines = (TextView) findViewById(R.id.multiLineVaccines);
         multiLineOperations = (TextView) findViewById(R.id.multiLineOperations);
+        updateTag= findViewById(R.id.buttonToWriteActivity);
+        backToMenu= findViewById(R.id.buttonToMainActivity);
 
         // Getting data on NFC tag from ReadActivity intent.
         dataFromNFCTag = getIntent().getStringExtra("dataFromPartialInfoShownActivityIntent");
@@ -120,5 +131,48 @@ public class InfoShownActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "change " + e.getMessage() + " Changing texts", Toast.LENGTH_LONG).show();
         }
+        updateTag.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                    Intent InfoShownIntent = new Intent(InfoShownActivity.this, ChooseVaccineOperationActivity.class);
+                    startActivity(InfoShownIntent);
+                }
+                else{
+                    AlertDialog alertDialog = new AlertDialog.Builder(InfoShownActivity.this).create();
+                    alertDialog.setTitle("Error");
+                    alertDialog.setMessage("You are not authorized to write tag! Please Log in ");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.dismiss();
+                                    Intent InfoShownIntent = new Intent(InfoShownActivity.this, MainActivity.class);
+                                    startActivity(InfoShownIntent);
+                                }
+                            });
+                    alertDialog.show();
+
+                }
+            }
+        });
+        backToMenu.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                    Intent InfoShownIntent = new Intent(InfoShownActivity.this, SignedInMainActivity.class);
+                    startActivity(InfoShownIntent);
+                }
+                else{
+                    Intent InfoShownIntent = new Intent(InfoShownActivity.this, MainActivity.class);
+                    startActivity(InfoShownIntent);
+                }
+            }
+        });
     }
+    @Override
+    public void onBackPressed() {
+
+    }
+
 }

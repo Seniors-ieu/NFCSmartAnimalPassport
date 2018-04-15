@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <HorizontalScrollView
@@ -512,8 +513,14 @@
                 </TableRow>
 
 
-
             </TableLayout>
+
+            <Button
+
+                android:id="@+id/buttonToWriteActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Update Tag" />
 
         </LinearLayout>
     </HorizontalScrollView>

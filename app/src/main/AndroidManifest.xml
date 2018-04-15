@@ -24,21 +24,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
+        <activity android:name=".ReadActivity" />
+        <activity android:name=".WriteToTagActivity" />
+        <activity android:name=".InfoShownActivity" />
+        <activity android:name=".PartialInfoShownActivity" />
+        <activity android:name=".InfoShownForUpdateActivity" />
+        <activity android:name=".ChooseVaccineOperationActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name">
+            android:name=".SignInActivity"
+            android:label="@string/title_activity_sign_in" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReadActivity" />
-        <activity android:name=".WriteToTagActivity" />
-        <activity android:name=".InfoShownActivity" />
-        <activity android:name=".PartialInfoShownActivity" />
-        <activity android:name=".InfoShownForUpdateActivity" />
-        <activity android:name=".ChooseVaccineOperationActivity"></activity>
+        <activity
+            android:name=".SignedInMainActivity"
+            android:label="@string/title_activity_signed_in_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

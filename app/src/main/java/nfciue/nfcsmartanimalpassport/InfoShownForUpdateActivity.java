@@ -72,27 +72,32 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                 animalFromDB.getOperations().add(operation);
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("Animals").document(animalIdForUpdate).set(animalFromDB);
-                AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
-                alertDialog.setTitle("Success");
-                alertDialog.setMessage("Database is updated successfully");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                db.collection("Animals").document(animalIdForUpdate).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
+                        alertDialog.setTitle("Success");
+                        alertDialog.setMessage("Database is updated successfully");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                });
+
 
 
             }
         });
 
 
-    }
-    else if(opNameFromPrevActivity.equals("NA"))
-    {
+        }
+        else if(opNameFromPrevActivity.equals("NA"))
+        {
         AnimalForUpdate(new AnimalCallback() {
             @Override
             public void onCallback(Animal animal) {
@@ -129,24 +134,29 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
 
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB);
-                AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
-                alertDialog.setTitle("Success");
-                alertDialog.setMessage("Database is updated successfully");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
+                db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
+                        alertDialog.setTitle("Success");
+                        alertDialog.setMessage("Database is updated successfully");
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();
+                    }
+                });
+
 
 
             }
         });
 
-    }
+        }
 
     }
 

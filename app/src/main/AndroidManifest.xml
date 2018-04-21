@@ -46,7 +46,8 @@
         <activity
             android:name=".SignedInMainActivity"
             android:label="@string/title_activity_signed_in_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".InfoShownInExpandedListActivity"></activity>
     </application>
 
 </manifest>

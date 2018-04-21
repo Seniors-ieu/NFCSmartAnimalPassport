@@ -160,8 +160,10 @@ public class InfoShownActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                    Intent InfoShownIntent = new Intent(InfoShownActivity.this, SignedInMainActivity.class);
-                    startActivity(InfoShownIntent);
+                    Intent ExpListIntent = new Intent(InfoShownActivity.this, InfoShownInExpandedListActivity.class);
+                    ExpListIntent.putExtra("dataFromReadActivityIntent", dataFromNFCTag);
+                    ExpListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(ExpListIntent);
                 }
                 else{
                     Intent InfoShownIntent = new Intent(InfoShownActivity.this, MainActivity.class);

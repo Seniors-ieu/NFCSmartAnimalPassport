@@ -3,6 +3,7 @@ package nfciue.nfcsmartanimalpassport;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.VolumeShaper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -157,6 +158,16 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
         });
 
         }
+        Button buttonToRead = findViewById(R.id.buttonToRead);
+        buttonToRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent Intent = new Intent(InfoShownForUpdateActivity.this, ReadActivity.class);
+
+                Intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent);
+            }
+        });
 
     }
 

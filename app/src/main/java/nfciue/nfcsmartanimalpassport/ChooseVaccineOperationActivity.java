@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ChooseVaccineOperationActivity extends AppCompatActivity {
 
     Button buttonVaccine;
@@ -30,6 +32,9 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_vaccine_operation);
         final Context context = this;
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+        {Log.e("auth", "user is not null from choose vaccine activity");}
+        else Log.e("auth", "fails choose v");
 
         buttonVaccine = findViewById(R.id.buttonVaccine);
         buttonOperation = findViewById(R.id.buttonOp);
@@ -37,7 +42,7 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
         buttonVaccine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //todo operation için yapılan dialog boxun benzeri buraya yapılacak :VACCINE ADD
+
                 final Dialog dialogVaccine = new Dialog(context);
                 dialogVaccine.setContentView(R.layout.dialog_vaccine_type);
                 dialogVaccine.setTitle("Please Choose Vaccine Type");
@@ -101,10 +106,6 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_operation);
                 dialog.setTitle("Please Choose Operation Type");
 
-                final EditText editTextPsw1 = dialog.findViewById(R.id.editTextPsw1);
-                final EditText editTextPsw2 = dialog.findViewById(R.id.editTextPsw2);
-                final EditText editTextPsw3 = dialog.findViewById(R.id.editTextPsw3);
-                final EditText editTextPsw4 = dialog.findViewById(R.id.editTextPsw4);
                 Spinner spinner = (Spinner) dialog.findViewById(R.id.spinnerOperation);
 // Create an ArrayAdapter using the string array and a default spinner layout
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
@@ -132,10 +133,7 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        psw1 = Integer.parseInt(editTextPsw1.getText().toString());
-                        psw2 = Integer.parseInt(editTextPsw2.getText().toString());
-                        psw3 = Integer.parseInt(editTextPsw3.getText().toString());
-                        psw4 = Integer.parseInt(editTextPsw4.getText().toString());
+
                         byte[] password = new byte[] {(byte) psw1, (byte) psw2 , (byte) psw3 , (byte) psw4};
 
                         Intent OperationIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);

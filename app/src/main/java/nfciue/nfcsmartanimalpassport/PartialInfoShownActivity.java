@@ -77,7 +77,7 @@ public class PartialInfoShownActivity extends AppCompatActivity {
 
         if(FirebaseAuth.getInstance().getCurrentUser()!=null)
         {
-            Intent InfoShownIntent = new Intent(PartialInfoShownActivity.this, InfoShownActivity.class);
+            Intent InfoShownIntent = new Intent(PartialInfoShownActivity.this, InfoShownInExpandedListActivity.class);
             InfoShownIntent.putExtra("dataFromPartialInfoShownActivityIntent", dataFromNFCTag);
             InfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(InfoShownIntent);

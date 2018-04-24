@@ -22,10 +22,8 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
     Button buttonOperation;
     int operationCode ;
     int vaccineCode;
-    int psw1;
-    int psw2;
-    int psw3;
-    int psw4;
+    String pswFromVaccine;
+
     String psw;
 
     @Override
@@ -49,16 +47,14 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                 dialogVaccine.setTitle("Please Choose Vaccine Type");
 
                 final EditText editTextPsw1 = dialogVaccine.findViewById(R.id.editTextPsw1v);
-                final EditText editTextPsw2 = dialogVaccine.findViewById(R.id.editTextPsw2v);
-                final EditText editTextPsw3 = dialogVaccine.findViewById(R.id.editTextPsw3v);
-                final EditText editTextPsw4 = dialogVaccine.findViewById(R.id.editTextPsw4v);
+
                 Spinner spinner = (Spinner) dialogVaccine.findViewById(R.id.spinnerVaccine);
-// Create an ArrayAdapter using the string array and a default spinner layout
+                // Create an ArrayAdapter using the string array and a default spinner layout
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                         R.array.vaccines_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+                // Apply the adapter to the spinner
                 spinner.setAdapter(adapter);
 
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -79,14 +75,10 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        psw1 = Integer.parseInt(editTextPsw1.getText().toString());
-                        psw2 = Integer.parseInt(editTextPsw2.getText().toString());
-                        psw3 = Integer.parseInt(editTextPsw3.getText().toString());
-                        psw4 = Integer.parseInt(editTextPsw4.getText().toString());
-                        byte[] password = new byte[] {(byte) psw1, (byte) psw2 , (byte) psw3 , (byte) psw4};
+                        pswFromVaccine = editTextPsw1.getText().toString();
 
                         Intent VaccineIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                        VaccineIntent.putExtra("password", password);
+                        VaccineIntent.putExtra("password", pswFromVaccine);
                         VaccineIntent.putExtra("vaccineCode", vaccineCode);
                         VaccineIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(VaccineIntent);
@@ -113,12 +105,12 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                 final EditText editTextPsw1 = dialog.findViewById(R.id.editTextPsw1);
 
                 Spinner spinner = (Spinner) dialog.findViewById(R.id.spinnerOperation);
-// Create an ArrayAdapter using the string array and a default spinner layout
+                // Create an ArrayAdapter using the string array and a default spinner layout
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                         R.array.operations_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+                // Apply the adapter to the spinner
                 spinner.setAdapter(adapter);
 
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -139,15 +131,8 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-
-                        //psw1 = Integer.parseInt(editTextPsw1.getText().toString());
                         psw = editTextPsw1.getText().toString();
                         Log.e("ULAK-psw", psw);
-                        //psw2 = Integer.parseInt(editTextPsw2.getText().toString());
-                        //psw3 = Integer.parseInt(editTextPsw3.getText().toString());
-                        //psw4 = Integer.parseInt(editTextPsw4.getText().toString());
-
-                        byte[] password = new byte[] {(byte) psw1, (byte) psw2 , (byte) psw3 , (byte) psw4};
 
                         Intent OperationIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
                         OperationIntent.putExtra("password", psw);

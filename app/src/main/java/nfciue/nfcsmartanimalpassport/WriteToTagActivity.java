@@ -148,26 +148,15 @@ public class WriteToTagActivity extends AppCompatActivity {
 
         initializeLibrary();    // Initialize library.
 
-        //myPass = getIntent().getByteArrayExtra("password");
-        passwordOfVet = getIntent().getStringExtra("password");
+
+        // Taking parameters from previous intent.
+        passwordOfVet = Decoderiue.vetPasswordComplementer(getIntent().getStringExtra("password")); // Vet password is complemented to 16 chars.
         operationCode = getIntent().getIntExtra("operationCode",-1);
         vaccineCode= getIntent().getIntExtra("vaccineCode",-1);
 
 
 
 
-        try {
-            encryptedWriteProtectionKey = MyFileReader.readEncryptedKeyFromFile();
-            String decryptedPassword = BackAES.decrypt(encryptedWriteProtectionKey, passwordOfVet, 0);  // It will take encrypted text(write protection key) and vet's password as parameter.
-            Log.e("DECRYPTED PASS", decryptedPassword + " pw");
-        } catch(Exception e) {
-            Log.e("DECRYPTED PASS2", e.getMessage());
-        }
-
-
-
-       // myPass = getIntent().getByteArrayExtra("myPass");
-       // textToNFC = getIntent().getStringExtra("textToNFC");
     }
 
     // Called if app becomes active.
@@ -203,7 +192,7 @@ public class WriteToTagActivity extends AppCompatActivity {
         switch (type) {
             case NTag216:
                 try {
-                    ntagCardLogic(NTagFactory.getInstance().getNTAG216(m_libInstance.getCustomModules()), textToNFC, myPass);
+                    ntagCardLogic(NTagFactory.getInstance().getNTAG216(m_libInstance.getCustomModules()));
                 } catch (Throwable t) {
                     Log.e("ULAK", "Error in switch(NTag216) " + t.getMessage());
                 }
@@ -214,7 +203,7 @@ public class WriteToTagActivity extends AppCompatActivity {
         }
     }
 
-    private void ntagCardLogic(final INTag tag, String dataTextToNFC, byte[] pass) {
+    private void ntagCardLogic(final INTag tag) {
         Log.e("ULAK", "ntagCardLogic'in içi");
 
 
@@ -222,17 +211,21 @@ public class WriteToTagActivity extends AppCompatActivity {
             Log.e("ULAK", "ntagCardLogic11111");
             tag.getReader().connect();
             NTag213215216 ntag216 = (NTag213215216) tag;
+            String decryptedPassword = "";
 
-            String decryptedPassword = BackAES.decrypt(encryptedWriteProtectionKey, passwordOfVet, 0);  // It will take encrypted text(write protection key) and vet's password as parameter.
-            Log.e("DECRYPTED PASS", decryptedPassword);
-            Log.e("ULAKK", String.valueOf(decryptedPassword.charAt(0)));
+            try {
+                encryptedWriteProtectionKey = MyFileReader.readEncryptedKeyFromFile();
+                decryptedPassword = BackAES.decrypt(encryptedWriteProtectionKey, passwordOfVet, 0);  // It will take encrypted text(write protection key) and vet's password as parameter.
+                Log.e("DECRYPTED PASS", decryptedPassword);
+            } catch(Exception e) {
+                Log.e("DECRYPTED PASS2", e.getMessage());
+            }
+
+            // It(write protection key) will be decrypted to a string above and then parsed(casted) to a byte array.
             //byte[] myPassword = new byte[]{(byte) 1, (byte) 2, (byte) 3, (byte) 4};
             byte[] myPassword = new byte[]{(byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(0))), (byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(1))), (byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(2))), (byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(3)))};
-            // byte[] myPassword = myPass;
+            // Default value of ack.
             byte[] myAck = new byte[] {(byte) 0x00, (byte) 0x00};
-            byte[] defPass = new byte[]{(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff};
-
-
 
 
             INdefMessage nm = ntag216.readNDEF();  //read process begins
@@ -486,11 +479,6 @@ public class WriteToTagActivity extends AppCompatActivity {
         } finally {
             Log.e("ULAK", "finally'nin içi.");
             tag.getReader().close();
-            //NTag213215216 tag1 = (NTag213215216) tag;  //ULAK buradan devam edebilirsinnn.
-
         }
     }
-
-
-
 }

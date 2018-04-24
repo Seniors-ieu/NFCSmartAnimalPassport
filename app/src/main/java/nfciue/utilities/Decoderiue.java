@@ -234,4 +234,15 @@ public class Decoderiue {
             return "Other";
         }
     }
+
+    public static String vetPasswordComplementer(String vetPassword) {
+        int lengthOfVetPassword = vetPassword.length();
+        int neededChars = 16 - lengthOfVetPassword;
+
+        for(int i = 0; i < neededChars; i++) {
+            vetPassword += "a";
+        }
+
+        return vetPassword;
+    }
 }

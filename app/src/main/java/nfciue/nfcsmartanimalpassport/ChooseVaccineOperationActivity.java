@@ -26,6 +26,7 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
     int psw2;
     int psw3;
     int psw4;
+    String psw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +103,14 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_operation);
                 dialog.setTitle("Please Choose Operation Type");
+
+
+                final EditText editTextPsw1 = dialog.findViewById(R.id.editTextPsw1);
 
                 Spinner spinner = (Spinner) dialog.findViewById(R.id.spinnerOperation);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -134,10 +140,17 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     public void onClick(View view) {
 
 
+                        //psw1 = Integer.parseInt(editTextPsw1.getText().toString());
+                        psw = editTextPsw1.getText().toString();
+                        Log.e("ULAK-psw", psw);
+                        //psw2 = Integer.parseInt(editTextPsw2.getText().toString());
+                        //psw3 = Integer.parseInt(editTextPsw3.getText().toString());
+                        //psw4 = Integer.parseInt(editTextPsw4.getText().toString());
+
                         byte[] password = new byte[] {(byte) psw1, (byte) psw2 , (byte) psw3 , (byte) psw4};
 
                         Intent OperationIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                        OperationIntent.putExtra("password", password);
+                        OperationIntent.putExtra("password", psw);
                         OperationIntent.putExtra("operationCode", operationCode);
                         OperationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(OperationIntent);

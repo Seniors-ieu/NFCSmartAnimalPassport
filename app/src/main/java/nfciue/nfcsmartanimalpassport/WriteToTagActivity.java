@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,17 +37,24 @@ import com.nxp.nfclib.ntag.INTag;
 import com.nxp.nfclib.ntag.NTag213215216;
 import com.nxp.nfclib.ntag.NTagFactory;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import nfciue.nfcaes.BackAES;
 import nfciue.utilities.Decoderiue;
+import nfciue.utilities.MyFileReader;
 
 public class WriteToTagActivity extends AppCompatActivity {
     final Context context = this;
 
     byte[] myPass;
+    String passwordOfVet;
     byte[] myPassword;
     String textToNFC;
     int operationCode;
@@ -54,6 +62,7 @@ public class WriteToTagActivity extends AppCompatActivity {
     String animalIdForUpdate;
     String vaccineName="NA";
     String operationName="NA";
+    String encryptedWriteProtectionKey;
 
 
 
@@ -139,10 +148,21 @@ public class WriteToTagActivity extends AppCompatActivity {
 
         initializeLibrary();    // Initialize library.
 
-        myPass = getIntent().getByteArrayExtra("password"); //boş şu an
+        //myPass = getIntent().getByteArrayExtra("password");
+        passwordOfVet = getIntent().getStringExtra("password");
         operationCode = getIntent().getIntExtra("operationCode",-1);
         vaccineCode= getIntent().getIntExtra("vaccineCode",-1);
 
+
+
+
+        try {
+            encryptedWriteProtectionKey = MyFileReader.readEncryptedKeyFromFile();
+            String decryptedPassword = BackAES.decrypt(encryptedWriteProtectionKey, passwordOfVet, 0);  // It will take encrypted text(write protection key) and vet's password as parameter.
+            Log.e("DECRYPTED PASS", decryptedPassword + " pw");
+        } catch(Exception e) {
+            Log.e("DECRYPTED PASS2", e.getMessage());
+        }
 
 
 
@@ -203,9 +223,12 @@ public class WriteToTagActivity extends AppCompatActivity {
             tag.getReader().connect();
             NTag213215216 ntag216 = (NTag213215216) tag;
 
-
-			byte[] myPassword = new byte[]{(byte) 1, (byte) 2, (byte) 3, (byte) 4};
-           // byte[] myPassword = myPass;
+            String decryptedPassword = BackAES.decrypt(encryptedWriteProtectionKey, passwordOfVet, 0);  // It will take encrypted text(write protection key) and vet's password as parameter.
+            Log.e("DECRYPTED PASS", decryptedPassword);
+            Log.e("ULAKK", String.valueOf(decryptedPassword.charAt(0)));
+            //byte[] myPassword = new byte[]{(byte) 1, (byte) 2, (byte) 3, (byte) 4};
+            byte[] myPassword = new byte[]{(byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(0))), (byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(1))), (byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(2))), (byte) Integer.parseInt(String.valueOf(decryptedPassword.charAt(3)))};
+            // byte[] myPassword = myPass;
             byte[] myAck = new byte[] {(byte) 0x00, (byte) 0x00};
             byte[] defPass = new byte[]{(byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff};
 
@@ -218,7 +241,7 @@ public class WriteToTagActivity extends AppCompatActivity {
             String dataFromNFCTag = new String(nmw.getRecords()[0].getPayload()); // tag data
             animalIdForUpdate = dataFromNFCTag.substring(3,14); //Firebase update yapan activitye gönderilecek..
 
-           String parsedDataFromNFC = dataFromNFCTag.substring(3);   // her yazma operasyonunda tagin başına gelen dil kodunu atmak için..
+            String parsedDataFromNFC = dataFromNFCTag.substring(3);   // her yazma operasyonunda tagin başına gelen dil kodunu atmak için..
 
             // read codes end..
 

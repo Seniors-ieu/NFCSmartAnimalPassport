@@ -10,11 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nfciue.nfcsmartanimalpassport.ReadActivity">
 
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="wrap_content"
+        android:layout_height="423dp"
+        android:src="@drawable/mygif" />
     <TextView
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:background="@android:color/holo_orange_light"
-        android:text="Please bring your mobile phone closer to NFC tag to read data."
+        android:text="Please bring your mobile phone closer to NFC Ear Tag "
         android:gravity="center"
         android:textSize="16sp" />
 

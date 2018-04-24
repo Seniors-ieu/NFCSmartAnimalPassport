@@ -39,6 +39,19 @@ public class ReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read);
+        Thread timer = new Thread(){
+            public void run(){
+                try{
+                    sleep(5000);   // set the duration of splash screen
+                }
+                catch(InterruptedException e){
+                    e.printStackTrace();
+                } finally {
+
+                }
+            }
+        };
+        timer.start();
 
         initializeLibrary();    // Initialize library.
     }

@@ -9,7 +9,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
     tools:context=".MainActivity" >
 
     <ExpandableListView
@@ -23,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#6B9998"
+        android:background="#1976D2"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
         app:menu="@menu/bottom_navigation_info_shown"/>

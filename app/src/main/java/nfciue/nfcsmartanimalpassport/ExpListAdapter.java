@@ -100,9 +100,12 @@ public class ExpListAdapter extends BaseExpandableListAdapter {
         tvText.setText(text);
         Log.e("childview","set");
 
-        TextView tvData = (TextView) convertView.findViewById(R.id.textView2);
-        tvData.setText(data.get(groupPosition).get(childPosition));
-        tvData.setTypeface(null, Typeface.BOLD);
+        if(data.size()!=0){
+            TextView tvData = (TextView) convertView.findViewById(R.id.textView2);
+            tvData.setText(data.get(groupPosition).get(childPosition));
+            tvData.setTypeface(null, Typeface.BOLD);
+        }
+
         Log.e("groupview","set");
         return convertView;
 

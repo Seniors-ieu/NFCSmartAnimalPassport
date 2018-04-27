@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:text="Enter Your Pincode"
+        android:text="Enter Your Password"
         android:textStyle="bold" />
 
     <LinearLayout android:id="@+id/pin_layout"
@@ -21,33 +21,12 @@
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal">
 
-        <EditText android:id="@+id/pin_first_edittext"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/confirmPassword"
+            android:layout_width="217dp"
             android:layout_height="wrap_content"
-            android:maxLength="1"
             android:inputType="numberPassword"
-            />
-
-        <EditText android:id="@+id/pin_second_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="1"
-            android:inputType="numberPassword"
-            />
-
-        <EditText android:id="@+id/pin_third_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="1"
-            android:inputType="numberPassword"
-            />
-
-        <EditText android:id="@+id/pin_forth_edittext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="1"
-            android:inputType="numberPassword"
-            />
+            android:maxLength="20" />
 
 
     </LinearLayout>

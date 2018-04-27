@@ -46,7 +46,7 @@
         </activity>
         <activity
             android:name=".SignedInMainActivity"
-            android:label="@string/title_activity_signed_in_main"
+            android:label="NFC Ear Tag Reader"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".InfoShownInExpandedListActivity"></activity>
     </application>

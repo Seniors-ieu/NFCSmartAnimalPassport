@@ -6,7 +6,7 @@
         android:id="@+id/action_backToMain"
         android:enabled="true"
         android:icon="@drawable/ic_action_menu"
-        android:title="Back"
+        android:title="Menu"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_profile"

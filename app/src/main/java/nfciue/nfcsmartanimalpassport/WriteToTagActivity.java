@@ -82,69 +82,7 @@ public class WriteToTagActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_to_tag);
-/*
-        Context context = this; // TODO: find the error ..
-        FirebaseAuth auth = FirebaseAuth.getInstance();
 
-       FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-                // ...
-            }
-        };
-        auth.addAuthStateListener(mAuthListener);
-        final Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_password_approval);
-        dialog.setTitle("PleaseEnter Your Password");
-        final EditText editTextPassword = dialog.findViewById(R.id.editTextPassword);
-        Button buttonOk= dialog.findViewById(R.id.buttonOKPass);
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String password = editTextPassword.getText().toString();
-                String email = user.getEmail();
-                Log.e("1",email);
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(WriteToTagActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    // there was an error
-                                    if (password.length() < 6) {
-                                        AlertDialog alertDialog = new AlertDialog.Builder(WriteToTagActivity.this).create();
-                                        alertDialog.setTitle("Error");
-                                        alertDialog.setMessage("Password should be at least 6 digits");
-                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-
-                                                        dialog.dismiss();
-                                                    }
-                                                });
-                                        alertDialog.show();
-                                    } else {
-                                        Toast.makeText(WriteToTagActivity.this, "wrong password", Toast.LENGTH_LONG).show();
-                                    }
-                                } else {
-                                    myPassword = new byte[]{(byte) 1, (byte) 2, (byte) 3, (byte) 4};
-                                }
-                            }
-                        });
-            }
-        });
-        dialog.show();
-*/
 
         initializeLibrary();    // Initialize library.
 

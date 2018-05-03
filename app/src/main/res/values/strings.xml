@@ -39,5 +39,5 @@
     <string name="title_activity_sign_in">Sign in</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_signed_in_main">SignedInMainActivity</string>
-    <string name="welcoming_message">Welcome to NFC Ear Tag Reader</string>
+    <string name="welcoming_message">NFC Küpe Okuyucuya Hoşgeldiniz</string>
 </resources>

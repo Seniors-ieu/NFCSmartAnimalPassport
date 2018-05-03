@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -31,6 +32,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+
+import nfciue.utilities.LocalObject;
 
 public class InfoShownForUpdateActivity extends AppCompatActivity {
 
@@ -104,6 +107,12 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                 else {
                     Log.e("connection", "internet yok..");
                     Toast.makeText(context, "you cant send updates due to lack of network ", Toast.LENGTH_SHORT).show();
+
+                    LocalObject localObject = new LocalObject(vaccineNameFromPrevActivity, opNameFromPrevActivity, animalIdForUpdate, opComment);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(localObject);
+                    System.out.print(json);
                     //todo: get operation/vaccine and animal id and store in local.
                     //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
                 }

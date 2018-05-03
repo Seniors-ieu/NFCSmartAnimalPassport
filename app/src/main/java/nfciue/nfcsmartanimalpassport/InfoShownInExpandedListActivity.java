@@ -1,6 +1,9 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
@@ -34,6 +37,7 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_shown_in_expanded_list);
+        final Context context = this;
         expListView = (ExpandableListView) findViewById(R.id.exp_list);
         groups = new ArrayList<String>();
         items = new HashMap<String, ArrayList<String>>();
@@ -83,7 +87,7 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
         health.add(parsedDataFromNFCTag[13] + "\nTarih:" + parsedDataFromNFCTag[44]);
         health.add(Decoderiue.vaccineChooser(parsedDataFromNFCTag[15])+ "\nTarih:" + parsedDataFromNFCTag[42]);
 
-        health.add(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "\nTarih:" + parsedDataFromNFCTag[41]);
+        health.add(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "\nTarih:" + parsedDataFromNFCTag[41] + "\nVeteriner hekim notlarını görüntülemek için tıklayınız...");
         health.add("");
         data.add(health);
 
@@ -99,7 +103,13 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
                 switch(i){
                     case 3:{
                         switch(i1){
-                            case 5: Toast.makeText(InfoShownInExpandedListActivity.this,"heyheyehey",Toast.LENGTH_SHORT).show();
+                            case 5: if(isNetworkAvailable(context)){
+
+                            }
+                            else
+                                Toast.makeText(InfoShownInExpandedListActivity.this,"İnternet Bağlantınızı Kontrol Edin",Toast.LENGTH_SHORT).show(); break;
+
+                            case 4: Toast.makeText(InfoShownInExpandedListActivity.this,"İnternet Bağlantınızı Kontrol Edin",Toast.LENGTH_SHORT).show(); break;
                         }
                     }
                 }
@@ -145,46 +155,46 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
 
 
 
-        groups.add("Animal Information");
-        groups.add("Owner Information");
-        groups.add("Current Farm Information");
-        groups.add("Health Information");
-        groups.add("Slaughter - dead Information"); // hayvan ölmediyse gösterilmesin ?
+        groups.add("Hayvan Bilgileri");
+        groups.add("Hayvan Sahibinin Bilgileri");
+        groups.add("Çiftlik Bilgileri");
+        groups.add("Sağlık Bilgisi");
+        groups.add("Kesimhane Bilgileri"); // hayvan ölmediyse gösterilmesin ?
 
         ArrayList<String> animalInfo = new ArrayList<String>();
-        animalInfo.add("Animal ID");
-        animalInfo.add("Birthdate");
-        animalInfo.add("Gender");
-        animalInfo.add("Breed");
-        animalInfo.add("Mother ID");
-        animalInfo.add("Birth Farm No:");
-        animalInfo.add("Export Country Code");
-        animalInfo.add("Export Date");
+        animalInfo.add("Pasaport Numarası :");
+        animalInfo.add("Doğum Tarihi :");
+        animalInfo.add("Cinsiyeti :");
+        animalInfo.add("Cinsi :");
+        animalInfo.add("Anne Pasaport Numarası :");
+        animalInfo.add("Doğduğu Çiftlik Numarası :");
+        animalInfo.add("İhraç Edilen Ülke Kodu :");
+        animalInfo.add("İhraç Tarihi:");
 
 
         ArrayList<String> ownerInfo = new ArrayList<String>();
-        ownerInfo.add("Owner TC");
-        ownerInfo.add("Owner Name");
-        ownerInfo.add("Owner Residance Address");
+        ownerInfo.add("T.C. Kimlik No :");
+        ownerInfo.add("İsim Soyisim :");
+        ownerInfo.add("İkamet Adresi :");
 
         ArrayList<String> farmInfo = new ArrayList<String>();
-        farmInfo.add("Current Farm No");
-        farmInfo.add("Farm Change Date");
-        farmInfo.add("Farm Coordinates");
-        farmInfo.add("Country Code");
-        farmInfo.add("City Code");
-        farmInfo.add("Address");
-        farmInfo.add("Phone Number");
-        farmInfo.add("Fax");
-        farmInfo.add("E-mail");
+        farmInfo.add("Çiftlik Numarası :");
+        farmInfo.add("Çiftlik Değiştirme Tarihi :");
+        farmInfo.add("Çiftlik Koordinatları :");
+        farmInfo.add("Ülke :");
+        farmInfo.add("Şehir :");
+        farmInfo.add("Adres :");
+        farmInfo.add("Telefon :");
+        farmInfo.add("Fax :");
+        farmInfo.add("Mail Adresi :");
 
         ArrayList<String> healthInfo= new ArrayList<String>();
-        healthInfo.add("Alum Vaccine");
-        healthInfo.add("Pasteurella Vaccine");
-        healthInfo.add("Brucellosis Vaccine");
-        healthInfo.add("Other Vaccine");
-        healthInfo.add("Operation");
-        healthInfo.add("Click for more detail...");
+        healthInfo.add("Mantar Aşısı :");
+        healthInfo.add("Pasteurella Aşısı :");
+        healthInfo.add("Brucellosis Aşısı :");
+        healthInfo.add("Diğer Aşılar :");
+        healthInfo.add("Geçirdiği Operasyonlar :");
+        healthInfo.add("Detaylı sağlık bilgisi için lütfen tıklayınız...");
 
 
 
@@ -201,6 +211,14 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+    private boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 }

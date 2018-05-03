@@ -1,6 +1,7 @@
 package nfciue.nfcsmartanimalpassport;
 
 import java.io.Serializable;
+import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,10 +38,21 @@ public class Operations implements Serializable {
     private String operatorId;
     private Date operationDate;
 
-    public Operations(String operationType, String operatorId, Date operationDate) {
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String comment;
+
+    public Operations(String operationType, String operatorId, Date operationDate, String comment) {
         this.operationType = operationType;
         this.operatorId = operatorId;
         this.operationDate = operationDate;
+        this.comment = comment;
     }
 
     public Operations() {

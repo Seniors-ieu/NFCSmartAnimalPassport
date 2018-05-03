@@ -6,19 +6,19 @@
         android:id="@+id/action_signin"
         android:enabled="true"
         android:icon="@drawable/ic_action_signin"
-        android:title="Sign In"
+        android:title="Giriş Yap"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_read"
         android:enabled="true"
         android:icon="@drawable/ic_action_read"
-        android:title="Read Ear Tag"
+        android:title="Küpe Oku"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_edit"
         android:enabled="true"
         android:icon="@drawable/ic_action_edit"
-        android:title="Edit Ear Tag"
+        android:title="Küpe Düzenle"
         app:showAsAction="ifRoom"/>
 
 </menu>

@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.Map;
 
 import nfciue.utilities.LocalObject;
+import nfciue.utilities.MyFileWriter;
 
 public class InfoShownForUpdateActivity extends AppCompatActivity {
 
@@ -113,6 +114,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     String json = gson.toJson(localObject);
                     System.out.print(json);
+                    MyFileWriter.writeLocalObjectToDevice(json + ",\n");
                     //todo: get operation/vaccine and animal id and store in local.
                     //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
                 }

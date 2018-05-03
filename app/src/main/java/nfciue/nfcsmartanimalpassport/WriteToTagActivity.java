@@ -63,6 +63,7 @@ public class WriteToTagActivity extends AppCompatActivity {
     String vaccineName="NA";
     String operationName="NA";
     String encryptedWriteProtectionKey;
+    String opComment;
 
 
 
@@ -91,7 +92,7 @@ public class WriteToTagActivity extends AppCompatActivity {
         passwordOfVet = Decoderiue.vetPasswordComplementer(getIntent().getStringExtra("password")); // Vet password is complemented to 16 chars.
         operationCode = getIntent().getIntExtra("operationCode",-1);
         vaccineCode= getIntent().getIntExtra("vaccineCode",-1);
-
+        opComment=getIntent().getStringExtra("opComment");
 
 
 
@@ -350,6 +351,8 @@ public class WriteToTagActivity extends AppCompatActivity {
                 OperationIntent.putExtra("AnimalID", animalIdForUpdate);
                 OperationIntent.putExtra("OperationName", operationName);
                 OperationIntent.putExtra("VaccineName", vaccineName);
+                OperationIntent.putExtra("opComment", opComment);
+
 
                 OperationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(OperationIntent);

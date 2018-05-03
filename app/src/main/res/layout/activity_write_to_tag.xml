@@ -18,12 +18,8 @@
     <TextView
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:text="Please bring your mobile phone closer to NFC Ear Tag "
+        android:text="Lütfen cihazı küpeye yaklaştırın"
         android:gravity="center"
         android:textSize="16sp" />
-
-
-
-
 
 </LinearLayout>

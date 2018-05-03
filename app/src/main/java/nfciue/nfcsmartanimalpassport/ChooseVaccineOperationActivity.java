@@ -32,6 +32,7 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
     int operationCode=-1 ;
     int vaccineCode=-1;
     String pswFromVaccine;
+    String commentForOperation="";
 
     String psw;
     BottomNavigationView navigationView;
@@ -54,8 +55,8 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
         items = new HashMap<String, ArrayList<String>>();
         data = new ArrayList<ArrayList<String>>();
 
-        groups.add("Vaccinate");
-        groups.add("Operate");
+        groups.add("Aşı Ekle");
+        groups.add("Operasyon Ekle");
 
         ArrayList<String> vaccines = new ArrayList<String>();
         vaccines.add("Theileria");
@@ -107,30 +108,49 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     }
                 }
 
+                final Dialog dialogComment = new Dialog(context);
+                dialogComment.setContentView(R.layout.add_comment);
+                dialogComment.setTitle("Not eklemek ister misiniz ?");
+                final EditText editTextComment = dialogComment.findViewById(R.id.editTextComment);
 
-
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_pincode);
-                dialog.setTitle("Password Confirmation");
-                final EditText editTextPsw = dialog.findViewById(R.id.confirmPassword);
-
-                Button buttonOk = dialog.findViewById(R.id.buttonOK);
-                buttonOk.setOnClickListener(new View.OnClickListener() {
+                Button buttonOkComment = dialogComment.findViewById(R.id.buttonOk);
+                buttonOkComment.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        String password = editTextPsw.getText().toString();
+                        commentForOperation = editTextComment.getText().toString();
 
-                        Intent ChooseVaccineOpIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                        ChooseVaccineOpIntent.putExtra("password", password);
-                        ChooseVaccineOpIntent.putExtra("operationCode", operationCode);
-                        ChooseVaccineOpIntent.putExtra("vaccineCode", vaccineCode);
-                        ChooseVaccineOpIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(ChooseVaccineOpIntent);
+                        final Dialog dialog = new Dialog(context);
+                        dialog.setContentView(R.layout.dialog_pincode);
+                        dialog.setTitle("Şifre Doğrulanmalı");
+                        final EditText editTextPsw = dialog.findViewById(R.id.confirmPassword);
+
+                        Button buttonOk = dialog.findViewById(R.id.buttonOK);
+                        buttonOk.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                String password = editTextPsw.getText().toString();
+
+                                Intent ChooseVaccineOpIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
+                                ChooseVaccineOpIntent.putExtra("password", password);
+                                ChooseVaccineOpIntent.putExtra("operationCode", operationCode);
+                                ChooseVaccineOpIntent.putExtra("vaccineCode", vaccineCode);
+                                ChooseVaccineOpIntent.putExtra("opComment", commentForOperation);
+                                ChooseVaccineOpIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(ChooseVaccineOpIntent);
+
+                            }
+                        });
+                        dialog.show();
 
                     }
                 });
-                dialog.show();
+                dialogComment.show();
+
+
+
+
 
 
 
@@ -164,132 +184,6 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
 
             }});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       /* buttonVaccine = findViewById(R.id.buttonVaccine);
-        buttonOperation = findViewById(R.id.buttonOp);
-
-        buttonVaccine.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                final Dialog dialogVaccine = new Dialog(context);
-                dialogVaccine.setContentView(R.layout.dialog_vaccine_type);
-                dialogVaccine.setTitle("Please Choose Vaccine Type");
-
-                final EditText editTextPsw1 = dialogVaccine.findViewById(R.id.editTextPsw1v);
-
-                Spinner spinner = (Spinner) dialogVaccine.findViewById(R.id.spinnerVaccine);
-                // Create an ArrayAdapter using the string array and a default spinner layout
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-                        R.array.vaccines_array, android.R.layout.simple_spinner_item);
-                // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
-                spinner.setAdapter(adapter);
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        vaccineCode = position;
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        // your code here , todo: show alert dialog : you must choose a type!!
-                    }
-
-                });
-
-                Button buttonOk = dialogVaccine.findViewById(R.id.buttonOkVaccine);
-                buttonOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        pswFromVaccine = editTextPsw1.getText().toString();
-
-                        Intent VaccineIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                        VaccineIntent.putExtra("password", pswFromVaccine);
-                        VaccineIntent.putExtra("vaccineCode", vaccineCode);
-                        VaccineIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(VaccineIntent);
-
-                    }
-                });
-                dialogVaccine.show();
-
-
-            }
-        });
-
-        buttonOperation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.dialog_operation);
-                dialog.setTitle("Please Choose Operation Type");
-
-
-                final EditText editTextPsw1 = dialog.findViewById(R.id.editTextPsw1);
-
-                Spinner spinner = (Spinner) dialog.findViewById(R.id.spinnerOperation);
-                // Create an ArrayAdapter using the string array and a default spinner layout
-                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-                        R.array.operations_array, android.R.layout.simple_spinner_item);
-                // Specify the layout to use when the list of choices appears
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
-                spinner.setAdapter(adapter);
-
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        operationCode = position;
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        // your code here , todo: show alert dialog : you must choose a type!!
-                    }
-
-                });
-
-                Button buttonOk = dialog.findViewById(R.id.buttonOk);
-                buttonOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        psw = editTextPsw1.getText().toString();
-                        Log.e("ULAK-psw", psw);
-
-                        Intent OperationIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                        OperationIntent.putExtra("password", psw);
-                        OperationIntent.putExtra("operationCode", operationCode);
-                        OperationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(OperationIntent);
-
-                    }
-                });
-                dialog.show();
-
-
-            }
-        });*/
     }
 
 

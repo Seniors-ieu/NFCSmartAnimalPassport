@@ -108,45 +108,107 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     }
                 }
 
-                final Dialog dialogComment = new Dialog(context);
-                dialogComment.setContentView(R.layout.add_comment);
-                dialogComment.setTitle("Not eklemek ister misiniz ?");
-                final EditText editTextComment = dialogComment.findViewById(R.id.editTextComment);
+                if(vaccineCode==-1){
+                    final Dialog dialogComment = new Dialog(context);
+                    dialogComment.setContentView(R.layout.add_comment);
+                    dialogComment.setTitle("Not eklemek ister misiniz ?");
+                    final EditText editTextComment = dialogComment.findViewById(R.id.editTextComment);
 
-                Button buttonOkComment = dialogComment.findViewById(R.id.buttonOk);
-                buttonOkComment.setOnClickListener(new View.OnClickListener() {
+                    Button buttonOkComment = dialogComment.findViewById(R.id.buttonOk);
+                    buttonOkComment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            commentForOperation = editTextComment.getText().toString();
+
+                            final Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.dialog_pincode);
+                            dialog.setTitle("Şifre Doğrulanmalı");
+                            final EditText editTextPsw = dialog.findViewById(R.id.confirmPassword);
+
+                            Button buttonOk = dialog.findViewById(R.id.buttonOK);
+                            buttonOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    String password = editTextPsw.getText().toString();
+
+                                    Intent ChooseVaccineOpIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
+                                    ChooseVaccineOpIntent.putExtra("password", password);
+                                    ChooseVaccineOpIntent.putExtra("operationCode", operationCode);
+                                    ChooseVaccineOpIntent.putExtra("vaccineCode", vaccineCode);
+                                    ChooseVaccineOpIntent.putExtra("opComment", commentForOperation);
+                                    ChooseVaccineOpIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(ChooseVaccineOpIntent);
+
+                                }
+                            });
+                            dialog.show();
+
+                        }
+                    });
+                    dialogComment.show();
+
+                    Button buttonNoComment = dialogComment.findViewById(R.id.buttonNo);
+                    buttonNoComment.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            commentForOperation = "Not girilmemiş";
+
+                            final Dialog dialog = new Dialog(context);
+                            dialog.setContentView(R.layout.dialog_pincode);
+                            dialog.setTitle("Şifre Doğrulanmalı");
+                            final EditText editTextPsw = dialog.findViewById(R.id.confirmPassword);
+
+                            Button buttonOk = dialog.findViewById(R.id.buttonOK);
+                            buttonOk.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                    String password = editTextPsw.getText().toString();
+
+                                    Intent ChooseVaccineOpIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
+                                    ChooseVaccineOpIntent.putExtra("password", password);
+                                    ChooseVaccineOpIntent.putExtra("operationCode", operationCode);
+                                    ChooseVaccineOpIntent.putExtra("vaccineCode", vaccineCode);
+                                    ChooseVaccineOpIntent.putExtra("opComment", commentForOperation);
+                                    ChooseVaccineOpIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(ChooseVaccineOpIntent);
+
+                                }
+                            });
+                            dialog.show();
+
+                        }
+                    });
+                    dialogComment.show();
+                }
+
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.dialog_pincode);
+                dialog.setTitle("Şifre Doğrulanmalı");
+                final EditText editTextPsw = dialog.findViewById(R.id.confirmPassword);
+
+                Button buttonOk = dialog.findViewById(R.id.buttonOK);
+                buttonOk.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        commentForOperation = editTextComment.getText().toString();
+                        String password = editTextPsw.getText().toString();
 
-                        final Dialog dialog = new Dialog(context);
-                        dialog.setContentView(R.layout.dialog_pincode);
-                        dialog.setTitle("Şifre Doğrulanmalı");
-                        final EditText editTextPsw = dialog.findViewById(R.id.confirmPassword);
-
-                        Button buttonOk = dialog.findViewById(R.id.buttonOK);
-                        buttonOk.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                String password = editTextPsw.getText().toString();
-
-                                Intent ChooseVaccineOpIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
-                                ChooseVaccineOpIntent.putExtra("password", password);
-                                ChooseVaccineOpIntent.putExtra("operationCode", operationCode);
-                                ChooseVaccineOpIntent.putExtra("vaccineCode", vaccineCode);
-                                ChooseVaccineOpIntent.putExtra("opComment", commentForOperation);
-                                ChooseVaccineOpIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(ChooseVaccineOpIntent);
-
-                            }
-                        });
-                        dialog.show();
+                        Intent ChooseVaccineOpIntent = new Intent(ChooseVaccineOperationActivity.this, WriteToTagActivity.class);
+                        ChooseVaccineOpIntent.putExtra("password", password);
+                        ChooseVaccineOpIntent.putExtra("operationCode", operationCode);
+                        ChooseVaccineOpIntent.putExtra("vaccineCode", vaccineCode);
+                        ChooseVaccineOpIntent.putExtra("opComment", commentForOperation);
+                        ChooseVaccineOpIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(ChooseVaccineOpIntent);
 
                     }
                 });
-                dialogComment.show();
+                dialog.show();
+
+
 
 
 

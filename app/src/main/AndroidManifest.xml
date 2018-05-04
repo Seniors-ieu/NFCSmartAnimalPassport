@@ -48,7 +48,8 @@
             android:name=".SignedInMainActivity"
             android:label="NFC Ear Tag Reader"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InfoShownInExpandedListActivity"></activity>
+        <activity android:name=".InfoShownInExpandedListActivity" />
+        <activity android:name=".previousHealthInfoActivity"></activity>
     </application>
 
 </manifest>

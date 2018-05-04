@@ -107,6 +107,7 @@ public class SignInActivity extends AppCompatActivity  {
 
                 //attemptLogin();
 
+
                     String email = mEmailView.getText().toString();
                     final String password = mPasswordView.getText().toString();
 

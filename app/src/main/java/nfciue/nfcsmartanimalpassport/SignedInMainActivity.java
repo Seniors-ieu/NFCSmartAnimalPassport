@@ -45,7 +45,7 @@ public class SignedInMainActivity extends AppCompatActivity {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Users usr = documentSnapshot.toObject(Users.class);
                     TextView textView = findViewById(R.id.textViewWelcome);
-                    textView.setText("Welcome back  "+ usr.getNameLastname());
+                    textView.setText("Hoşgeldiniz  "+ usr.getNameLastname());
                 }
             });
             //getSupportActionBar().setTitle("Welcome, " + user.getEmail());

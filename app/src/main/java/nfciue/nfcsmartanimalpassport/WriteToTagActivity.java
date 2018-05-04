@@ -334,17 +334,17 @@ public class WriteToTagActivity extends AppCompatActivity {
 
                 String operationName;
                 if (operationCode == 1) {
-                    operationName = "Blood Analysis";
+                    operationName = "Kan Analizi";
                 } else if (operationCode == 2) {
-                    operationName = "Dressing";
+                    operationName = "Pansuman";
                 } else if (operationCode == 3) {
-                    operationName = "Medical Examination";
+                    operationName = "Medikal Muayene";
                 } else if (operationCode == 4) {
-                    operationName = "Physical Examination";
+                    operationName = "Fiziksel Muayene";
                 } else if (operationCode == 5) {
-                    operationName = "Medical Operation ";
+                    operationName = "Medikal Operasyon";
                 } else if (operationCode == 6) {
-                    operationName = "Birth";
+                    operationName = "Doğum";
                 } else operationName = "";
 
                 Intent OperationIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);

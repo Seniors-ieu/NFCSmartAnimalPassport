@@ -87,7 +87,7 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
         health.add(parsedDataFromNFCTag[13] + "\nTarih:" + parsedDataFromNFCTag[44]);
         health.add(Decoderiue.vaccineChooser(parsedDataFromNFCTag[15])+ "\nTarih:" + parsedDataFromNFCTag[42]);
 
-        health.add(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "\nTarih:" + parsedDataFromNFCTag[41] + "\nVeteriner hekim notlarını görüntülemek için tıklayınız...");
+        health.add(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "\nTarih:" + parsedDataFromNFCTag[41] );
         health.add("");
         data.add(health);
 
@@ -104,12 +104,14 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
                     case 3:{
                         switch(i1){
                             case 5: if(isNetworkAvailable(context)){
-
+                                Intent ExpListIntent = new Intent(InfoShownInExpandedListActivity.this, previousHealthInfoActivity.class);
+                                ExpListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                ExpListIntent.putExtra("AnimalID",parsedDataFromNFCTag[0]);
+                                startActivity(ExpListIntent);
                             }
                             else
                                 Toast.makeText(InfoShownInExpandedListActivity.this,"İnternet Bağlantınızı Kontrol Edin",Toast.LENGTH_SHORT).show(); break;
 
-                            case 4: Toast.makeText(InfoShownInExpandedListActivity.this,"İnternet Bağlantınızı Kontrol Edin",Toast.LENGTH_SHORT).show(); break;
                         }
                     }
                 }

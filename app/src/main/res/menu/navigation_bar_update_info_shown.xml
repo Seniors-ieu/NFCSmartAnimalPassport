@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/action_backToMain"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_menu"
+        android:title="Menü"
+        app:showAsAction="withText"/>
+    <item
+        android:id="@+id/action_pending_updates"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_pending_update"
+        android:title="Güncelleme"
+        app:showAsAction="withText"/>
+    <item
+        android:id="@+id/action_read"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_read"
+        android:title="Küpe Oku"
+        app:showAsAction="withText"/>
+</menu>

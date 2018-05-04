@@ -8,19 +8,23 @@ import android.media.VolumeShaper;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,7 +58,9 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
         vaccineNameFromPrevActivity = getIntent().getStringExtra("VaccineName");
         animalIdForUpdate = getIntent().getStringExtra("AnimalID");
         opComment = getIntent().getStringExtra("opComment");
-
+        final ProgressBar progressBar = findViewById(R.id.progress);
+        final ImageView imageUpdateStatus = findViewById(R.id.imageViewUpdate);
+        final TextView textViewUpdate = findViewById(R.id.textViewStatusUpdate);
 
 
         if(vaccineNameFromPrevActivity.equals("NA"))
@@ -64,69 +70,62 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
            @Override
            public void onCallback(Animal animal) {
                animalFromDB=animal;
+
+               progressBar.setVisibility(View.VISIBLE);
+               if(isNetworkAvailable(context))
+
+               {
+                   Operations operation = new Operations(opNameFromPrevActivity, "1111111", new Date(),opComment);
+                   animalFromDB.getOperations().add(operation);
+
+                   FirebaseFirestore db = FirebaseFirestore.getInstance();
+                   db.collection("Animals").document(animalIdForUpdate).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                       @Override
+                       public void onSuccess(Void aVoid) {
+                           progressBar.setVisibility(View.GONE);
+                           imageUpdateStatus.setVisibility(View.VISIBLE);
+                           textViewUpdate.setVisibility(View.VISIBLE);
+                           textViewUpdate.setText("Veritabanı başarılı bir şekilde güncellendi");
+                           /*AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
+                           alertDialog.setTitle("Success");
+                           alertDialog.setMessage("Database is updated successfully");
+                           alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                   new DialogInterface.OnClickListener() {
+                                       public void onClick(DialogInterface dialog, int which) {
+
+                                           dialog.dismiss();
+                                       }
+                                   });
+                           alertDialog.show();*/
+                       }
+                   });
+               }
+               else {
+
+                   progressBar.setVisibility(View.GONE);
+                   imageUpdateStatus.setVisibility(View.VISIBLE);
+                   imageUpdateStatus.setImageResource(R.drawable.error);
+                   textViewUpdate.setVisibility(View.VISIBLE);
+                   textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ Bağlantısını kontrol edin ve tekrar deneyin");
+                   //todo: get operation/vaccine and animal id and store in local.
+                   //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
+               }
            }
        });
 
 
-        buttonUpdateDb = findViewById(R.id.buttonUpdateDb);
 
 
-        buttonUpdateDb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-
-                Log.e("connection","iiften önce");
-                if(isNetworkAvailable(context))
-
-                {
-                    Log.e("connection","internet var..");
-                    Operations operation = new Operations(opNameFromPrevActivity, "1111111", new Date(),opComment);
-                    animalFromDB.getOperations().add(operation);
-
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("Animals").document(animalIdForUpdate).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
-                            alertDialog.setTitle("Success");
-                            alertDialog.setMessage("Database is updated successfully");
-                            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                            dialog.dismiss();
-                                        }
-                                    });
-                            alertDialog.show();
-                        }
-                    });
-                }
-                else {
-                    Log.e("connection", "internet yok..");
-                    Toast.makeText(context, "you cant send updates due to lack of network ", Toast.LENGTH_SHORT).show();
-                    //todo: get operation/vaccine and animal id and store in local.
-                    //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
-                }
-
-            }
-        });
 
 
         }
         else if(opNameFromPrevActivity.equals("NA"))
         {
+            progressBar.setVisibility(View.VISIBLE);
         AnimalForUpdate(new AnimalCallback() {
             @Override
             public void onCallback(Animal animal) {
                 animalFromDB=animal;
-            }
-        });
-        buttonUpdateDb = findViewById(R.id.buttonUpdateDb);
-
-
-        buttonUpdateDb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
 
                 if(vaccineNameFromPrevActivity.equals("Theileria") || vaccineNameFromPrevActivity.equals("Escherichia Coli")|| vaccineNameFromPrevActivity.equals("Mantar") )
                 {
@@ -149,38 +148,75 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                     animalFromDB.setAlumVaccine(true);
                 }
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
-                        alertDialog.setTitle("Success");
-                        alertDialog.setMessage("Database is updated successfully");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
 
-                                        dialog.dismiss();
-                                    }
-                                });
-                        alertDialog.show();
-                    }
-                });
 
+                if(isNetworkAvailable(context))
+
+                {
+                    Operations operation = new Operations(opNameFromPrevActivity, "1111111", new Date(),opComment);
+                    animalFromDB.getOperations().add(operation);
+
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(InfoShownForUpdateActivity.this).create();
+
+                            progressBar.setVisibility(View.GONE);
+                            imageUpdateStatus.setVisibility(View.VISIBLE);
+                            textViewUpdate.setText("Veritabanı başarılı bir şekilde güncelendi.");
+
+                        }
+                    });
+                }
+                else {
+
+                    progressBar.setVisibility(View.GONE);
+                    imageUpdateStatus.setVisibility(View.VISIBLE);
+                    imageUpdateStatus.setImageResource(R.drawable.error);
+                    textViewUpdate.setVisibility(View.VISIBLE);
+                    textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ Bağlantısını kontrol edin ve tekrar deneyin");
+                    //todo: get operation/vaccine and animal id and store in local.
+                    //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
+                }
 
 
             }
         });
 
         }
-        Button buttonToRead = findViewById(R.id.buttonToRead);
-        buttonToRead.setOnClickListener(new View.OnClickListener() {
+        BottomNavigationView navigationView = findViewById(R.id.navigationUpdate);
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent Intent = new Intent(InfoShownForUpdateActivity.this, ReadActivity.class);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_backToMain:
 
-                Intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(Intent);
+                        Intent ExpListIntent = new Intent(InfoShownForUpdateActivity.this, SignedInMainActivity.class);
+                        ExpListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(ExpListIntent);
+
+                        break;
+                    case R.id.action_pending_updates:
+                        Toast.makeText(InfoShownForUpdateActivity.this, "Anılın ellerinden öper :D", Toast.LENGTH_SHORT).show(); //TODO: localden bilgileri çekip yeni bir activityde listeleyelim. geçişi bu ikondan sağlarız.
+                        break;
+                    case R.id.action_edit:
+                        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                            Intent EditIntent = new Intent(InfoShownForUpdateActivity.this, ChooseVaccineOperationActivity.class);
+                            EditIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(EditIntent);
+                        } else {
+                            Toast.makeText(InfoShownForUpdateActivity.this, "You should be logged in for this!", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.action_read:
+                        Intent ReadIntent = new Intent(InfoShownForUpdateActivity.this, ReadActivity.class);
+                        ReadIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(ReadIntent);
+                        break;
+                }
+                return true;
+
             }
         });
 

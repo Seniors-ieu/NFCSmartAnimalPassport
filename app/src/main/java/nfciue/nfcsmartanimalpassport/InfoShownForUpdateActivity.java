@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -35,6 +36,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+
+import nfciue.utilities.LocalObject;
+import nfciue.utilities.MyFileWriter;
 
 public class InfoShownForUpdateActivity extends AppCompatActivity {
 
@@ -107,6 +111,12 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                    imageUpdateStatus.setImageResource(R.drawable.error);
                    textViewUpdate.setVisibility(View.VISIBLE);
                    textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ Bağlantısını kontrol edin ve tekrar deneyin");
+                   LocalObject localObject = new LocalObject(vaccineNameFromPrevActivity, opNameFromPrevActivity, animalIdForUpdate, opComment);
+
+                   Gson gson = new Gson();
+                   String json = gson.toJson(localObject);
+                   System.out.print(json);
+                   MyFileWriter.writeLocalObjectToDevice(json + ",\n");
                    //todo: get operation/vaccine and animal id and store in local.
                    //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
                }

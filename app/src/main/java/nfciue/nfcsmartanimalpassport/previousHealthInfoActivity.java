@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
@@ -47,7 +48,6 @@ public class previousHealthInfoActivity extends AppCompatActivity {
         AnimalForUpdate(new AnimalCallback(){
             @Override
             public void onCallback(Animal animal) {
-                Log.e("yehyehysdfgewregfgehhey",animal.getBirthdate());
                 animalFromDB=animal;
                 operations = animalFromDB.getOperations();
                 otherVaccines = animalFromDB.getOtherVaccine();
@@ -86,6 +86,33 @@ public class previousHealthInfoActivity extends AppCompatActivity {
 
                 ExpandableListAdapter adapter = new ExpListAdapter(context, groups, items,data);
                 expListView.setAdapter(adapter);
+                expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+
+
+                        switch(i){
+                            case 0:{
+                                //vaccine
+                                switch(i1){
+
+                                }
+                            }
+                            case 1:{  //operation
+                                switch(i1){
+
+                                }
+                                if(operations.get(i1).getOperatorId().equals(MySingletonClass.getInstance().getValue())){  //user is only  authorized to edit on his own commit
+                                    Toast.makeText(context,"can edit",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(context,"Başkasına ait bir operasyonu düzenleyemezsiniz.",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                });
 
 
             }
@@ -114,7 +141,7 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                             Toast.makeText(previousHealthInfoActivity.this, "You should be logged in for this!", Toast.LENGTH_SHORT).show();
                         }
                         break;
-                    
+
                 }
                 return true;
 

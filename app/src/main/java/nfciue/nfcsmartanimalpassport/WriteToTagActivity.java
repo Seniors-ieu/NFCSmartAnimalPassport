@@ -178,9 +178,9 @@ public class WriteToTagActivity extends AppCompatActivity {
             // read codes end..
 
 
-            String beforeOperationPart = parsedDataFromNFC.substring(0, 372);     // spliting tag data into two pieces to insert operation type..
+            String beforeOperationPart = parsedDataFromNFC.substring(0, 468); //372     // spliting tag data into two pieces to insert operation type..
 
-            String afterOperationPart = parsedDataFromNFC.substring(373);
+            String afterOperationPart = parsedDataFromNFC.substring(469);   //373
 
 
 
@@ -189,113 +189,79 @@ public class WriteToTagActivity extends AppCompatActivity {
 
 
 
-            if(operationCode==1)
+            if(operationCode != -1)
             {
 
-                beforeOperationPart = beforeOperationPart.concat("1");
+                beforeOperationPart = beforeOperationPart.concat(String.valueOf(operationCode));
                 parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
+                parsedDataFromNFC = parsedDataFromNFC.substring(0, 641) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(651);
             }
-            else if(operationCode==2)
-            {
-                beforeOperationPart = beforeOperationPart.concat("2");
-                parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
-            }
-            else if(operationCode==3)
-            {
-                beforeOperationPart = beforeOperationPart.concat("3");
-                parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
-            }
-            else if(operationCode==4)
-            {
-                beforeOperationPart = beforeOperationPart.concat("4");
-                parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
-            }
-            else if(operationCode==5)
-            {
-                beforeOperationPart = beforeOperationPart.concat("5");
-                parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
-            }
-            else if(operationCode==6)
-            {
-                beforeOperationPart = beforeOperationPart.concat("6");
-                parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
-            }
-            else if(operationCode==7)
-            {
-                beforeOperationPart = beforeOperationPart.concat("7");
-                parsedDataFromNFC = beforeOperationPart.concat(afterOperationPart);
-                parsedDataFromNFC = parsedDataFromNFC.substring(0, 533) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(537);
-            }
+
             String beforeOther;
             String afterOther;
             if(vaccineCode!=-1){
 
 
-                if(vaccineCode==1)    //Theileria Aşısı , other
+                if(vaccineCode==1)    //Şap aşısı
                 {
-                    beforeOther = parsedDataFromNFC.substring(0, 95);     // spliting tag data into two pieces to insert othervaccine type..
+                    beforeOther = parsedDataFromNFC.substring(0, 129);     // spliting tag data into two pieces to insert othervaccine type..
                     Log.e("ilkyarıOther",beforeOther);
-                    afterOther = parsedDataFromNFC.substring(96);
+                    afterOther = parsedDataFromNFC.substring(130);
                     Log.e("ikiciyarıOther",afterOther);
-                    beforeOther = beforeOther.concat("1");
+                    beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
-                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 537) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(541);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 651) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(661);
                 }
-                else if(vaccineCode==2)  //Escherichia Coli Aşısı , other
+                else if(vaccineCode==2)  //Sığır vebası aşısı
                 {
-                    beforeOther = parsedDataFromNFC.substring(0, 95);     // spliting tag data into two pieces to insert othervaccine type..
+                    beforeOther = parsedDataFromNFC.substring(0, 130);     // spliting tag data into two pieces to insert othervaccine type..
                     Log.e("ilkyarıOther",beforeOther);
-                    afterOther = parsedDataFromNFC.substring(96);
+                    afterOther = parsedDataFromNFC.substring(131);
                     Log.e("ikiciyarıOther",afterOther);
-                    beforeOther = beforeOther.concat("2");
+                    beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
-                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 537) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(541);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 661) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(671);
                 }
-                else if(vaccineCode==3) //Brusella Aşısı
+                else if(vaccineCode==3) //Theileria Annulata Aşısı
                 {
-                    beforeOther = parsedDataFromNFC.substring(0, 93);     // spliting tag data into two pieces to insert brusella vaccine true..
+                    beforeOther = parsedDataFromNFC.substring(0, 131);     // spliting tag data into two pieces to insert brusella vaccine true..
                     Log.e("ilkyarıBrusella",beforeOther);
-                    afterOther = parsedDataFromNFC.substring(94);
+                    afterOther = parsedDataFromNFC.substring(132);
                     Log.e("ikiciyarıBrusella",afterOther);
                     beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
-                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 545) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(549);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 671) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(681);
                 }
-                else if(vaccineCode==4)  // Mantar Aşısı
+                else if(vaccineCode==4)  // E.Coli Aşısı
                 {
-                    beforeOther = parsedDataFromNFC.substring(0, 95);     // spliting tag data into two pieces to insert othervaccine type..
+                    beforeOther = parsedDataFromNFC.substring(0, 132);     // spliting tag data into two pieces to insert othervaccine type..
                     Log.e("ilkyarıOther",beforeOther);
-                    afterOther = parsedDataFromNFC.substring(96);
+                    afterOther = parsedDataFromNFC.substring(133);
                     Log.e("ikiciyarıOther",afterOther);
-                    beforeOther = beforeOther.concat("3");
+                    beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
-                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 537) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(541);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 681) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(691);
 
                 }
-                else if(vaccineCode==5) // şap aşısı, alum vaccine
+                else if(vaccineCode==5) // Buzağı Septisemi Serumu Aşısı
                 {
-                    beforeOther = parsedDataFromNFC.substring(0, 92);     // spliting tag data into two pieces to insert alum vaccine true..
+                    beforeOther = parsedDataFromNFC.substring(0, 133);     // spliting tag data into two pieces to insert alum vaccine true..
                     Log.e("ilkyarıalum",beforeOther);
-                    afterOther = parsedDataFromNFC.substring(93);
+                    afterOther = parsedDataFromNFC.substring(134);
                     Log.e("ikiciyarıalum",afterOther);
                     beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC = beforeOther.concat(afterOther);
-                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 541) + Decoderiue.dateToAscii() + parsedDataFromNFC.substring(545);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 691) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(701);
                 }
-                else if(vaccineCode==6) // pasteurallea,
+                else if(vaccineCode==6) // Brucellosis,
                 {
-                    beforeOther = parsedDataFromNFC.substring(0, 94);     // spliting tag data into two pieces to insert pasteur vaccine true..
+                    beforeOther = parsedDataFromNFC.substring(0, 134);     // spliting tag data into two pieces to insert pasteur vaccine true..
                     Log.e("ilkyarıpasteur",beforeOther);
-                    afterOther = parsedDataFromNFC.substring(95);
+                    afterOther = parsedDataFromNFC.substring(135);
                     Log.e("ikiciyarıpasteur",afterOther);
                     beforeOther = beforeOther.concat("T");
                     parsedDataFromNFC =beforeOther.concat(afterOther);
+                    parsedDataFromNFC = parsedDataFromNFC.substring(0, 701) + Decoderiue.dateToUnixTimeText() + parsedDataFromNFC.substring(711);
                 }
 
 
@@ -390,17 +356,17 @@ public class WriteToTagActivity extends AppCompatActivity {
 
 
                 if (vaccineCode == 1) {
-                    vaccineName = "Theileria";
+                    vaccineName = "Şap Aşısı";
                 } else if (vaccineCode == 2) {
-                    vaccineName = "Escherichia Coli";
+                    vaccineName = "Sığır Vebası Aşısı";
                 } else if (vaccineCode == 3) {
-                    vaccineName = "Brusella";
+                    vaccineName = "Theileria Annulata Aşısı";
                 } else if (vaccineCode == 4) {
-                    vaccineName = "Mantar";
+                    vaccineName = "E.Coli Aşısı";
                 } else if (vaccineCode == 5) {
-                    vaccineName = "Alum";
+                    vaccineName = "Buzağı Septisemi Serumu Aşısı";
                 } else if (vaccineCode == 6) {
-                    vaccineName = "Pasteurella";
+                    vaccineName = "Brucellosis Aşısı";
                 } else vaccineName = "";
 
                 Intent VaccineIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);

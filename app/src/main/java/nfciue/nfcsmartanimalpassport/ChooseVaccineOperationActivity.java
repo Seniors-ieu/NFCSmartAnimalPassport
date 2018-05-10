@@ -59,12 +59,12 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
         groups.add("Operasyon Ekle");
 
         ArrayList<String> vaccines = new ArrayList<String>();
-        vaccines.add("Theileria");
-        vaccines.add("Escherichia Coli");
-        vaccines.add("Brusella");
-        vaccines.add("Mantar");
-        vaccines.add("Alum");
-        vaccines.add("Pasteurella");
+        vaccines.add("Şap Aşısı");
+        vaccines.add("Sığır Vebası Aşısı");
+        vaccines.add("Theileria Annulata Aşısı");
+        vaccines.add("E.Coli Aşısı");
+        vaccines.add("Buzağı Septisemi Serumu Aşısı");
+        vaccines.add("Brucellosis Aşısı");
 
         ArrayList<String> operations = new ArrayList<String>();
         operations.add("Kan Analizi");

@@ -71,6 +71,13 @@ public class Decoderiue {
         }
     }
 
+    // Function for encoding unix time from current time.
+    public static String dateToUnixTimeText() {
+        // Get current time.
+        long unixTime = System.currentTimeMillis() / 1000L;
+        return String.valueOf(unixTime);
+    }
+
     // Function for encoding ascii date from current time. It is used when a new operation/vaccine info is added to tag.
     public static String dateToAscii() {
         // Get current time.
@@ -196,6 +203,7 @@ public class Decoderiue {
     }
 
     public static String treeMainVaccineChecker(String isDone) {
+        Log.e("ISDONE:" , isDone);
         if(isDone.equals("T")) {
             return "Yapıldı.";
         } else if(isDone.equals("F")) {
@@ -235,7 +243,7 @@ public class Decoderiue {
         } else if(vaccineCode.equals("2")) {
             return "Pansuman";
         } else if(vaccineCode.equals("3")) {
-            return "Sağlık Kontrolü";
+            return "Medikal Muayene";
         } else if(vaccineCode.equals("4")) {
             return "Fiziksel Muayene";
         } else if(vaccineCode.equals("5")) {

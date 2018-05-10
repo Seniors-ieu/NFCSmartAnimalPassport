@@ -91,17 +91,17 @@ public class Decoderiue {
 
     // Function for decoding city ascii code to city name.
     public static String cityAsciiToName(String code) {
-        if(code.equals("A")) return "İzmir";
-        else if(code.equals("B")) return "İstanbul";
-        else if(code.equals("B")) return "Ankara";
+        if(code.equals("35")) return "İzmir";
+        else if(code.equals("34")) return "İstanbul";
+        else if(code.equals("06")) return "Ankara";
         else return "Henüz yok";
     }
 
     // Function for decoding country ascii code to country name.
     public static String countryAsciiToName(String code) {
-        if(code.equals("!")) return "Türkiye";
-        else if(code.equals("A")) return "Amarika";
-        else if(code.equals("B")) return "Hollanda";
+        if(code.equals("TR")) return "Türkiye";
+        else if(code.equals("US")) return "Amarika";
+        else if(code.equals("NT")) return "Hollanda";
         else return "Henüz yok";
     }
 
@@ -114,53 +114,65 @@ public class Decoderiue {
 
     // Function for parsing string on the NFC tag.
     public static String[] parseNFCData(String dataOnNFCTag) {
-        String[] parsedData = new String[45];
+        String[] parsedData = new String[57];
         //Toast.makeText(this, "Size: " + dataOnNFCTag.length(), Toast.LENGTH_LONG).show();
         parsedData[0] = dataOnNFCTag.substring(3, 14);  // Animal ID - 1
-        parsedData[1] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(14, 18)); // Animal Birthdate - 2
-        parsedData[2] = Decoderiue.genderDecoder(dataOnNFCTag.substring(18, 19)); // Animal Gender - 3
-        parsedData[3] = Decoderiue.breedDecoder(dataOnNFCTag.substring(19, 23)); // Animal Breed - 4
-        parsedData[4] = dataOnNFCTag.substring(23, 34); // Animal MotherID - 5
-        parsedData[5] = asciiTCNoToRealTC(dataOnNFCTag.substring(34, 38)); // Animal birth farm no - 6
-        parsedData[6] = asciiTCNoToRealTC(dataOnNFCTag.substring(38, 42)); // Animal current farm no - 7
-        parsedData[7] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(42, 46)); // Animal farm change data - 8
-        parsedData[8] = Decoderiue.countryAsciiToName(dataOnNFCTag.substring(46, 47)); // Animal export country code - 9
-        parsedData[9] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(47, 51)); // Animal export date - 10
-        parsedData[10] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(51, 55)); // Animal death date - 11
-        parsedData[11] = zeroSubstractorFromStrings(dataOnNFCTag.substring(55, 95)); // Animal death place - 12
-        parsedData[12] = treeMainVaccineChecker(dataOnNFCTag.substring(95, 96)); // Animal alum vaccine - 13
-        parsedData[13] = treeMainVaccineChecker(dataOnNFCTag.substring(96, 97)); // Animal brucellosis vaccine - 14
-        parsedData[14] = treeMainVaccineChecker(dataOnNFCTag.substring(97, 98)); // Animal pasturella vaccine - 15
-        parsedData[15] = dataOnNFCTag.substring(98, 99); // Animal other vaccine - 16
-        parsedData[16] = zeroSubstractorFromStrings(dataOnNFCTag.substring(99, 139));   // Slaughter house name - 17
-        parsedData[17] = zeroSubstractorFromStrings(dataOnNFCTag.substring(139, 154));  // Slaughter house address mahalle - 18
-        parsedData[18] = zeroSubstractorFromStrings(dataOnNFCTag.substring(154, 164));  // Slaughter house address sokak - 18
-        parsedData[19] = zeroSubstractorFromStrings(dataOnNFCTag.substring(164, 179));  // Slaughter house address remaining address info - 18
-        parsedData[20] = dataOnNFCTag.substring(179, 183);  // Slaughter house licence number - 19
-        parsedData[21] = Decoderiue.asciiToDateText(dataOnNFCTag.substring(183, 187));  // Slaughter date - 20
-        parsedData[22] = Decoderiue.countryAsciiToName(dataOnNFCTag.substring(187, 188));  // Farm country code - 21
-        parsedData[23] = Decoderiue.cityAsciiToName(dataOnNFCTag.substring(188, 189));  // Farm city code - 22
-        parsedData[24] = zeroSubstractorFromStrings(dataOnNFCTag.substring(189, 205)) + zeroSubstractorFromStrings(dataOnNFCTag.substring(205, 221));  // Owner name + surname - 23 + 24
-        parsedData[25] = Decoderiue.asciiTCNoToRealTC(dataOnNFCTag.substring(221, 226));  // Owner TC no - 25
-        parsedData[26] = zeroSubstractorFromStrings(dataOnNFCTag.substring(226, 266));  // Owner residence address - 26
-        parsedData[27] = zeroSubstractorFromStrings(dataOnNFCTag.substring(266, 306));  // Farm address - 27
-        parsedData[28] = dataOnNFCTag.substring(306, 312);  // Farm geo coordinates - 28
-        parsedData[29] = asciiTCNoToRealTC(dataOnNFCTag.substring(312, 317));  // Farm phone number - 29
-        parsedData[30] = asciiTCNoToRealTC(dataOnNFCTag.substring(317, 322));  // Farm fax number - 30
-        parsedData[31] = zeroSubstractorFromStrings(dataOnNFCTag.substring(322, 370));  // Farm email address - 31
-        parsedData[32] = dataOnNFCTag.substring(370, 375);  // Operator ID - 32
-        parsedData[33] = dataOnNFCTag.substring(375, 376);  // Operation type - 33
-        parsedData[34] = dataOnNFCTag.substring(376, 424);  // Esign of owner - 34
-        parsedData[35] = dataOnNFCTag.substring(424, 464);  // Name of institution - 35
-        parsedData[36] = dataOnNFCTag.substring(464, 512);  // Esign of director - 36
-        parsedData[37] = dataOnNFCTag.substring(512, 516);  // Creation date of passport - 37
-        parsedData[38] = dataOnNFCTag.substring(516, 528);  // Barcode number - 38
-        parsedData[39] = dataOnNFCTag.substring(528, 532);  // Timestamp - 39
-        parsedData[40] = dataOnNFCTag.substring(532, 536);  // Pincode
-        parsedData[41] = asciiToDateText(dataOnNFCTag.substring(536, 540));  // Last operation date.
-        parsedData[42] = asciiToDateText(dataOnNFCTag.substring(540, 544));  // Last other vaccine date.
-        parsedData[43] = asciiToDateText(dataOnNFCTag.substring(544, 548));  // Last alum vaccine date.
-        parsedData[44] = asciiToDateText(dataOnNFCTag.substring(548, 552));  // Last brucellosis vaccine date.
+        parsedData[1] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(14, 24))); // Animal Birthdate - 2
+        parsedData[2] = Decoderiue.genderDecoder(dataOnNFCTag.substring(24, 25)); // Animal Gender - 3
+        parsedData[3] = Decoderiue.breedDecoder(dataOnNFCTag.substring(25, 29)); // Animal Breed - 4
+        parsedData[4] = dataOnNFCTag.substring(29, 40); // Animal MotherID - 5
+        parsedData[5] = dataOnNFCTag.substring(40, 50); // Animal birth farm no - 6
+        parsedData[6] = dataOnNFCTag.substring(50, 60); // Animal current farm no - 7
+        parsedData[7] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(60, 70))); // Animal farm change data - 8
+        parsedData[8] = Decoderiue.countryAsciiToName(dataOnNFCTag.substring(70, 72)); // Animal export country code - 9
+        parsedData[9] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(72, 82))); // Animal export date - 10
+        parsedData[10] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(82, 92))); // Animal death date - 11
+        parsedData[11] = zeroSubstractorFromStrings(dataOnNFCTag.substring(92, 132)); // Animal death place - 12
+        parsedData[12] = treeMainVaccineChecker(dataOnNFCTag.substring(132, 133)); // Animal alum vaccine - 13 - şap aşısı
+        parsedData[13] = treeMainVaccineChecker(dataOnNFCTag.substring(133, 134)); // Animal  - 14 - sığır vebası aşısı
+        parsedData[14] = treeMainVaccineChecker(dataOnNFCTag.substring(134, 135)); // Animal  - 15 - theileria annulata aşısı
+        parsedData[15] = treeMainVaccineChecker(dataOnNFCTag.substring(135, 136)); // Animal e. coli aşısı-
+        parsedData[16] = treeMainVaccineChecker(dataOnNFCTag.substring(136, 137)); // Animal buzağı septisemi serumu aşısı
+        parsedData[17] = treeMainVaccineChecker(dataOnNFCTag.substring(137, 138)); // Animal brucellosis vaccine
+        parsedData[18] = treeMainVaccineChecker(dataOnNFCTag.substring(138, 139)); // Animal iktero-hemglobinuri aşısı
+        parsedData[19] = treeMainVaccineChecker(dataOnNFCTag.substring(139, 140)); // Animal botilismus aşısı
+        parsedData[20] = treeMainVaccineChecker(dataOnNFCTag.substring(140, 141)); // Animal yanıkara aşısı
+        parsedData[21] = treeMainVaccineChecker(dataOnNFCTag.substring(141, 142)); // Animal anthrax aşısı
+        parsedData[22] = treeMainVaccineChecker(dataOnNFCTag.substring(142, 143)); // Animal leptosipira aşısı
+        parsedData[23] = zeroSubstractorFromStrings(dataOnNFCTag.substring(143, 183));   // Slaughter house name - 17
+        parsedData[24] = zeroSubstractorFromStrings(dataOnNFCTag.substring(183, 223));  // Slaughter house address - 18
+        parsedData[25] = dataOnNFCTag.substring(223, 233);  // Slaughter house licence number - 19
+        parsedData[26] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(233, 243)));  // Slaughter date - 20
+        parsedData[27] = Decoderiue.countryAsciiToName(dataOnNFCTag.substring(243, 245));  // Farm country code - 21
+        parsedData[28] = Decoderiue.cityAsciiToName(dataOnNFCTag.substring(245, 247));  // Farm city code - 22
+        parsedData[29] = zeroSubstractorFromStrings(dataOnNFCTag.substring(247, 279));  // Owner name + surname - 23 + 24
+        parsedData[30] = dataOnNFCTag.substring(279, 290);  // Owner TC no - 25
+        parsedData[31] = zeroSubstractorFromStrings(dataOnNFCTag.substring(290, 330));  // Owner residence address - 26
+        parsedData[32] = zeroSubstractorFromStrings(dataOnNFCTag.substring(330, 370));  // Farm address - 27
+        parsedData[33] = dataOnNFCTag.substring(370, 392);  // Farm geo coordinates - 28
+        parsedData[34] = dataOnNFCTag.substring(392, 402);  // Farm phone number - 29
+        parsedData[35] = dataOnNFCTag.substring(402, 412);  // Farm fax number - 30
+        parsedData[36] = zeroSubstractorFromStrings(dataOnNFCTag.substring(412, 460));  // Farm email address - 31
+        parsedData[37] = dataOnNFCTag.substring(460, 471);  // Operator ID - 32
+        parsedData[38] = dataOnNFCTag.substring(471, 472);  // Operation type - 33
+        parsedData[39] = dataOnNFCTag.substring(472, 520);  // Esign of owner - 34
+        parsedData[40] = dataOnNFCTag.substring(520, 560);  // Name of institution - 35
+        parsedData[41] = dataOnNFCTag.substring(560, 608);  // Esign of director - 36
+        parsedData[42] = dataOnNFCTag.substring(608, 618);  // Creation date of passport - 37
+        parsedData[43] = dataOnNFCTag.substring(618, 630);  // Barcode number - 38
+        parsedData[44] = dataOnNFCTag.substring(630, 640);  // Timestamp - 39
+        parsedData[45] = dataOnNFCTag.substring(640, 644);  // Pincode
+        parsedData[46] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(644, 654)));  // Last operation date.
+        parsedData[47] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(654, 664)));  // Last şap aşısı tarihi.
+        parsedData[48] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(664, 674)));  // Last sığır vebası aşısı tarihi.
+        parsedData[49] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(674, 684)));  // Last Theileria Annulata aşısı tarihi.
+        parsedData[50] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(684, 694)));  // Last e.coli aşısı tarihi.
+        parsedData[51] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(694, 704)));  // Last buzağı septisemi serumu aşısı tarihi.
+        parsedData[52] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(704, 714)));  // Last brucellosis aşısı tarihi.
+        parsedData[53] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(714, 724)));  // Last iktero-hemglobinuri aşısı tarihi.
+        parsedData[54] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(724, 734)));  // Last botulismus aşısı tarihi.
+        parsedData[55] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(734, 744)));  // Last yanıkara aşısı tarihi.
+        parsedData[56] = Decoderiue.unixToDate(Long.parseLong(dataOnNFCTag.substring(744, 754)));  // Last leptosipira aşısı tarihi.
 
         return parsedData;
     }
@@ -194,7 +206,7 @@ public class Decoderiue {
     }
 
     public static String zeroSubstractorFromStrings(String text) {
-        return text.substring(text.lastIndexOf('0')+1);
+        return text.substring(text.lastIndexOf('$')+1);
     }
 
     public static String vaccineChooser(String vaccineCode) {

@@ -198,7 +198,7 @@ public class PartialInfoShownActivity extends AppCompatActivity {
 
                                 String password = editTextPsw.getText().toString();
 
-                                if(password.equals(parsedDataFromNFCTag[40])){
+                                if(password.equals(parsedDataFromNFCTag[45])){
                                     Intent InfoShownIntent = new Intent(PartialInfoShownActivity.this, InfoShownInExpandedListActivity.class);
                                     InfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     InfoShownIntent.putExtra("dataFromPartialInfoShownActivityIntent",dataFromNFCTag);

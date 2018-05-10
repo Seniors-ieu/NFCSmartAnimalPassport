@@ -7,14 +7,23 @@ package nfciue.nfcsmartanimalpassport;
 class Users {
     private String nameLastname;
     private String UID;
+    private String operatorID;
 
-    public Users(String nameLastname, String UID) {
+    public Users(String nameLastname, String UID, String opID) {
         this.nameLastname = nameLastname;
         this.UID = UID;
+        this.operatorID=opID;
     }
 
     public String getNameLastname() {
         return nameLastname;
+    }
+
+    public String getOperatorID() {
+        return operatorID;
+    }
+    public void setOperatorID(String a ){
+        operatorID=a;
     }
 
     public String getUID() {

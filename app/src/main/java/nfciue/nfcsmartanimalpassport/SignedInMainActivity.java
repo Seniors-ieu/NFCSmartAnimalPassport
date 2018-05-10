@@ -24,6 +24,8 @@ public class SignedInMainActivity extends AppCompatActivity {
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     BottomNavigationView navigationView;
+    String operatorID;
+    MySingletonClass mySingleton = MySingletonClass.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -44,6 +46,8 @@ public class SignedInMainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Users usr = documentSnapshot.toObject(Users.class);
+                    operatorID  = usr.getOperatorID();
+                    mySingleton.setValue(operatorID);
                     TextView textView = findViewById(R.id.textViewWelcome);
                     textView.setText("Hoşgeldiniz  "+ usr.getNameLastname());
                 }

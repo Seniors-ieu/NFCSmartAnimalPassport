@@ -32,7 +32,7 @@
         android:layout_below="@+id/appBarLayout"></ExpandableListView>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigationMain"
+        android:id="@+id/navigationHealthInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -3,21 +3,21 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
-        android:id="@+id/action_backToMain"
+        android:id="@+id/action_back"
         android:enabled="true"
         android:icon="@drawable/ic_action_back"
         android:title="Geri"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
-        android:id="@+id/action_profile"
+        android:id="@+id/action_pending_updates"
         android:enabled="true"
         android:icon="@drawable/ic_action_pending_update"
         android:title="Güncellemeler"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_edit"
         android:enabled="true"
         android:icon="@drawable/ic_action_edit"
         android:title="Düzenle"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>

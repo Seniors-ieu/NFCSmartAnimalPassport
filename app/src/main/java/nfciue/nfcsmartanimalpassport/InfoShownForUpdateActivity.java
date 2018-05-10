@@ -50,6 +50,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
     String animalIdForUpdate;
     Animal animalFromDB;// todo: bu kısım tagden doğru animal ID alındığında kaldırılıcak. ilgili yerlerde animalIdFroPRevActivity kullanılacak. Aslı Fİrebasei düzenleyecek..
     String opComment;
+    MySingletonClass mySingleton = MySingletonClass.getInstance();
 
 
 
@@ -79,7 +80,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                if(isNetworkAvailable(context))
 
                {
-                   Operations operation = new Operations(opNameFromPrevActivity, "1111111", new Date(),opComment);
+                   Operations operation = new Operations(opNameFromPrevActivity, mySingleton.getValue(), new Date(),opComment);
                    animalFromDB.getOperations().add(operation);
 
                    FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -163,7 +164,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                 if(isNetworkAvailable(context))
 
                 {
-                    Operations operation = new Operations(opNameFromPrevActivity, "1111111", new Date(),opComment);
+                    Operations operation = new Operations(opNameFromPrevActivity, mySingleton.getValue() , new Date(),opComment);
                     animalFromDB.getOperations().add(operation);
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();

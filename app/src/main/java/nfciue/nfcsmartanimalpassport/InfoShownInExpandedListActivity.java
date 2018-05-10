@@ -63,31 +63,31 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
         data.add(hayvan);
 
         ArrayList<String> sahip= new ArrayList<String>();
-        sahip.add(parsedDataFromNFCTag[25]);
-        sahip.add(parsedDataFromNFCTag[24]);
-        sahip.add(parsedDataFromNFCTag[26]);
+        sahip.add(parsedDataFromNFCTag[30]);
+        sahip.add(parsedDataFromNFCTag[29]);
+        sahip.add(parsedDataFromNFCTag[31]);
         data.add(sahip);
 
         ArrayList<String> farm= new ArrayList<String>();
         farm.add(parsedDataFromNFCTag[6]);
         farm.add(parsedDataFromNFCTag[7]);
-        farm.add(parsedDataFromNFCTag[28]);
-        farm.add(parsedDataFromNFCTag[22]);
-        farm.add(parsedDataFromNFCTag[23]);
+        farm.add(parsedDataFromNFCTag[33]);
         farm.add(parsedDataFromNFCTag[27]);
-        farm.add(parsedDataFromNFCTag[29]);
-        farm.add(parsedDataFromNFCTag[30]);
-        farm.add(parsedDataFromNFCTag[31]);
+        farm.add(parsedDataFromNFCTag[28]);
+        farm.add(parsedDataFromNFCTag[32]);
+        farm.add(parsedDataFromNFCTag[34]);
+        farm.add(parsedDataFromNFCTag[35]);
+        farm.add(parsedDataFromNFCTag[36]);
         data.add(farm);
 
         ArrayList<String> health= new ArrayList<String>();
 
-        health.add(parsedDataFromNFCTag[12] + "\nTarih:" + parsedDataFromNFCTag[43]);
-        health.add( parsedDataFromNFCTag[14]); //+ "\nTarih:" + parsedDataFromNFCTag[45]); todo: stringe eklenmeli (Anıl)
-        health.add(parsedDataFromNFCTag[13] + "\nTarih:" + parsedDataFromNFCTag[44]);
-        health.add(Decoderiue.vaccineChooser(parsedDataFromNFCTag[15])+ "\nTarih:" + parsedDataFromNFCTag[42]);
+        health.add(parsedDataFromNFCTag[12] + "\nTarih:" + parsedDataFromNFCTag[47]);
+        health.add( parsedDataFromNFCTag[13] + "\nTarih:" + parsedDataFromNFCTag[48]);// todo: stringe eklenmeli (Anıl)
+        health.add(parsedDataFromNFCTag[14] + "\nTarih:" + parsedDataFromNFCTag[49]);
+        health.add(parsedDataFromNFCTag[15]+ "\nTarih:" + parsedDataFromNFCTag[50]);
 
-        health.add(Decoderiue.operationChooser(parsedDataFromNFCTag[33]) + "\nTarih:" + parsedDataFromNFCTag[41] );
+        health.add(Decoderiue.operationChooser(parsedDataFromNFCTag[38]) + "\nTarih:" + parsedDataFromNFCTag[46] );
         health.add("");
         data.add(health);
 
@@ -191,10 +191,10 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
         farmInfo.add("Mail Adresi :");
 
         ArrayList<String> healthInfo= new ArrayList<String>();
-        healthInfo.add("Mantar Aşısı :");
-        healthInfo.add("Pasteurella Aşısı :");
-        healthInfo.add("Brucellosis Aşısı :");
-        healthInfo.add("Diğer Aşılar :");
+        healthInfo.add("Şap Aşısı :");
+        healthInfo.add("Sığır Vebası Aşısı :");
+        healthInfo.add("Theileria Annulata Aşısı :");
+        healthInfo.add("E. Coli Aşısı :");
         healthInfo.add("Geçirdiği Operasyonlar :");
         healthInfo.add("Detaylı sağlık bilgisi için lütfen tıklayınız...");
 

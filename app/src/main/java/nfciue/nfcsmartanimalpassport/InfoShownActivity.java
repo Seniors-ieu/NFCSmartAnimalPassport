@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import nfciue.utilities.Decoderiue;
-
+//todo: this activity is not needed anymore, will be deleted before due date.
 public class InfoShownActivity extends AppCompatActivity {
     // Declaration of UI elements.
     TextView textViewAnimalID;

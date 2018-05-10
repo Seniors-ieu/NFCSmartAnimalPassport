@@ -1,10 +1,7 @@
 package nfciue.nfcsmartanimalpassport;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.VolumeShaper;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -12,17 +9,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -30,12 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 
 import nfciue.utilities.LocalObject;
 import nfciue.utilities.MyFileWriter;
@@ -138,34 +127,13 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
             public void onCallback(Animal animal) {
                 animalFromDB=animal;
 
-                if(vaccineNameFromPrevActivity.equals("Theileria") || vaccineNameFromPrevActivity.equals("Escherichia Coli")|| vaccineNameFromPrevActivity.equals("Mantar") )
-                {
-                    otherVaccine otherVaccine = new otherVaccine(new Date(),vaccineNameFromPrevActivity);
-                    animalFromDB.getOtherVaccine().add(otherVaccine);
-                }
-                else if(vaccineNameFromPrevActivity.equals("Brusella"))
-                {
-
-                    animalFromDB.setBrusellosisVaccine(true);
-                }
-                else if(vaccineNameFromPrevActivity.equals("Pasteurella"))
-                {
-
-                    animalFromDB.setPasturellaVaccine(true);
-                }
-                else if(vaccineNameFromPrevActivity.equals("Alum"))
-                {
-
-                    animalFromDB.setAlumVaccine(true);
-                }
-
 
 
                 if(isNetworkAvailable(context))
 
                 {
-                    Operations operation = new Operations(opNameFromPrevActivity, mySingleton.getValue() , new Date(),opComment);
-                    animalFromDB.getOperations().add(operation);
+                    Vaccine Vaccine = new Vaccine(new Date(),vaccineNameFromPrevActivity);
+                    animalFromDB.getVaccines().add(Vaccine);
 
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {

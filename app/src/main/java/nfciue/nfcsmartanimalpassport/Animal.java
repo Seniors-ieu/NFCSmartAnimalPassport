@@ -11,11 +11,10 @@ import java.util.ArrayList;
 public class Animal implements Serializable {
 
 
-    private boolean alumVaccine;
+
     private String birthFarmNo;
     private String birthdate;
     private String breed;
-    private boolean brusellosisVaccine;
     private String currentFarmNo;
     private String deathDate;
     private String deathPlace;
@@ -28,19 +27,18 @@ public class Animal implements Serializable {
     private boolean isFemale;
     private String motherId;
     private String  ownerTc;
-    private boolean pasturellaVaccine;
 
 
 
-    private ArrayList <otherVaccine> otherVaccine;
+
+    private ArrayList <Vaccine> vaccines;
     private ArrayList <Operations> operations;
 
-    public Animal(boolean alumVaccine, String birthFarmNo, String birthdate, String breed, boolean brusellosisVaccine, String currentFarmNo, String deathDate, String deathPlace, String eSignDirector, String eSignOwner, int exportCountryCode, String exportDate, String farmChangeDate, String iD, boolean isFemale, String motherId, String ownerTc, boolean pasturellaVaccine, ArrayList<otherVaccine> otherVaccine, ArrayList<Operations> Operations) {
-        this.alumVaccine = alumVaccine;
+    public Animal(String birthFarmNo, String birthdate, String breed, String currentFarmNo, String deathDate, String deathPlace, String eSignDirector, String eSignOwner, int exportCountryCode, String exportDate, String farmChangeDate, String iD, boolean isFemale, String motherId, String ownerTc, ArrayList<Vaccine> Vaccine, ArrayList<Operations> Operations) {
+
         this.birthFarmNo = birthFarmNo;
         this.birthdate = birthdate;
         this.breed = breed;
-        this.brusellosisVaccine = brusellosisVaccine;
         this.currentFarmNo = currentFarmNo;
         this.deathDate = deathDate;
         this.deathPlace = deathPlace;
@@ -53,18 +51,11 @@ public class Animal implements Serializable {
         this.isFemale = isFemale;
         this.motherId = motherId;
         this.ownerTc = ownerTc;
-        this.pasturellaVaccine = pasturellaVaccine;
-        this.otherVaccine = otherVaccine;
+        this.vaccines = Vaccine;
         this.operations = Operations;
     }
 
-    public boolean isAlumVaccine() {
-        return alumVaccine;
-    }
 
-    public void setAlumVaccine(boolean alumVaccine) {
-        this.alumVaccine = alumVaccine;
-    }
 
     public String getBirthFarmNo() {
         return birthFarmNo;
@@ -90,13 +81,7 @@ public class Animal implements Serializable {
         this.breed = breed;
     }
 
-    public boolean isBrusellosisVaccine() {
-        return brusellosisVaccine;
-    }
 
-    public void setBrusellosisVaccine(boolean brusellosisVaccine) {
-        this.brusellosisVaccine = brusellosisVaccine;
-    }
 
     public String getCurrentFarmNo() {
         return currentFarmNo;
@@ -195,13 +180,6 @@ public class Animal implements Serializable {
         this.ownerTc = ownerTc;
     }
 
-    public boolean isPasturellaVaccine() {
-        return pasturellaVaccine;
-    }
-
-    public void setPasturellaVaccine(boolean pasturellaVaccine) {
-        this.pasturellaVaccine = pasturellaVaccine;
-    }
     public ArrayList<Operations> getOperations() {
         return operations;
     }
@@ -209,12 +187,12 @@ public class Animal implements Serializable {
     public void setOperations(ArrayList<Operations> Operations) {
         this.operations = Operations;
     }
-    public ArrayList<otherVaccine> getOtherVaccine() {
-        return otherVaccine;
+    public ArrayList<Vaccine> getVaccines() {
+        return vaccines;
     }
 
-    public void setOtherVaccine(ArrayList <otherVaccine> otherVaccine) {
-        this.otherVaccine = otherVaccine;
+    public void setVaccines(ArrayList <Vaccine> vaccines) {
+        this.vaccines = vaccines;
     }
 
 

@@ -7,16 +7,16 @@ import java.util.Date;
  * Created by ASLI on 28.3.2018.
  */
 
-public class otherVaccine implements Serializable{
+public class Vaccine implements Serializable{
     private Date vaccineDate;
     private String vaccineName;
 
-    public otherVaccine(Date vaccineDate, String vaccineName) {
+    public Vaccine(Date vaccineDate, String vaccineName) {
         this.vaccineDate = vaccineDate;
         this.vaccineName = vaccineName;
     }
 
-    public otherVaccine() {
+    public Vaccine() {
     }
 
     public Date getVaccineDate() {

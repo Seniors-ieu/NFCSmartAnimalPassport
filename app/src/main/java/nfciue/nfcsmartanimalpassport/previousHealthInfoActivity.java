@@ -1,22 +1,18 @@
 package nfciue.nfcsmartanimalpassport;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,7 +30,7 @@ public class previousHealthInfoActivity extends AppCompatActivity {
     private HashMap<String,ArrayList<String>> items;
     private ArrayList<ArrayList<String>> data;
     ArrayList<Operations> operations;
-    ArrayList<otherVaccine> otherVaccines;
+    ArrayList<Vaccine> Vaccines;
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
     @Override
@@ -50,15 +46,15 @@ public class previousHealthInfoActivity extends AppCompatActivity {
             public void onCallback(Animal animal) {
                 animalFromDB=animal;
                 operations = animalFromDB.getOperations();
-                otherVaccines = animalFromDB.getOtherVaccine();
+                Vaccines = animalFromDB.getVaccines();
 
                 groups = new ArrayList<String>();
                 groups.add("Geçmiş Aşı Bilgisi");
                 groups.add("Geçmiş Operasyon Bilgisi");
 
                 ArrayList<String> vaccineNames = new ArrayList<String>();
-                for(int i=0; i<otherVaccines.size();i++){
-                    vaccineNames.add(otherVaccines.get(i).getVaccineName());
+                for(int i = 0; i< Vaccines.size(); i++){
+                    vaccineNames.add(Vaccines.get(i).getVaccineName());
                 }
                 ArrayList<String> operationNames = new ArrayList<String>();
                 for(int i=0; i<operations.size();i++){
@@ -71,8 +67,8 @@ public class previousHealthInfoActivity extends AppCompatActivity {
 
 
                 ArrayList<String> vaccineDates = new ArrayList<String>();
-                for(int i=0; i<otherVaccines.size();i++){
-                    vaccineDates.add(otherVaccines.get(i).getVaccineDate().toString());
+                for(int i = 0; i< Vaccines.size(); i++){
+                    vaccineDates.add(Vaccines.get(i).getVaccineDate().toString());
                 }
 
                 ArrayList<String> operationDateComment= new ArrayList<String>();
@@ -90,26 +86,15 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                     @Override
                     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 
-
-                        switch(i){
-                            case 0:{
-                                //vaccine
-                                switch(i1){
-
-                                }
+                        if(i==1){
+                            if(operations.get(i1).getOperatorId().equals(MySingletonClass.getInstance().getValue())){  //user is only  authorized to edit on his own commit
+                                Toast.makeText(context,"can edit",Toast.LENGTH_SHORT).show();
                             }
-                            case 1:{  //operation
-                                switch(i1){
-
-                                }
-                                if(operations.get(i1).getOperatorId().equals(MySingletonClass.getInstance().getValue())){  //user is only  authorized to edit on his own commit
-                                    Toast.makeText(context,"can edit",Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(context,"Başkasına ait bir operasyonu düzenleyemezsiniz.",Toast.LENGTH_SHORT).show();
-                                }
+                            else{
+                                Toast.makeText(context,"Başkasına ait bir operasyonu düzenleyemezsiniz.",Toast.LENGTH_SHORT).show();
                             }
                         }
+
                         return true;
                     }
                 });

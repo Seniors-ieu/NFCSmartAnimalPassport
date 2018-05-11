@@ -17,7 +17,7 @@
     </string>
     <string name="add_operation_activity_info_shown_for_update">Add</string>
     <string-array name="operations_array">
-        <item>Tap Here To Choose...</item>
+
         <item>Kan Analizi</item>
         <item>Pansuman</item>
         <item>Medikal Muayene</item>

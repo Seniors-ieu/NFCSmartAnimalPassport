@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
@@ -87,12 +88,28 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 
                         if(i==1){
-                            if(operations.get(i1).getOperatorId().equals(MySingletonClass.getInstance().getValue())){  //user is only  authorized to edit on his own commit
-                                Toast.makeText(context,"can edit",Toast.LENGTH_SHORT).show();
+                            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                                if(operations.get(i1).getOperatorId().equals(MySingletonClass.getInstance().getValue())){  //user is only  authorized to edit on his own commit
+                                    Toast.makeText(context,"can edit",Toast.LENGTH_SHORT).show();
+                                    Intent EditIntent = new Intent(previousHealthInfoActivity.this, EditOperationActivity.class);
+                                    EditIntent.putExtra("animalFromDB",animalFromDB);
+                                    EditIntent.putExtra("SelectedOp",operations.get(i1));
+                                    EditIntent.putExtra("indexOfSelectedOp",i1);
+                                    Log.e("previoActivity selected",String.valueOf(i1));
+                                    EditIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(EditIntent);
+                                    //get input
+                                    //update animalfromdb
+                                    //send animalfromdb to firebase
+                                }
+                                else{
+                                    Toast.makeText(context,"Başkasına ait bir operasyonu düzenleyemezsiniz.",Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else{
-                                Toast.makeText(context,"Başkasına ait bir operasyonu düzenleyemezsiniz.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(previousHealthInfoActivity.this,"Bunun için kullanıcı girişi yapmış olmanız gerek.",Toast.LENGTH_SHORT).show();
                             }
+
                         }
 
                         return true;

@@ -126,7 +126,7 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                switch(item.getItemId()){
-                   case R.id.action_backToMain:
+                   case R.id.action_back:
                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
                            Intent ExpListIntent = new Intent(InfoShownInExpandedListActivity.this, SignedInMainActivity.class);
                            ExpListIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -136,7 +136,7 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
                            Intent InfoShownIntent = new Intent(InfoShownInExpandedListActivity.this, MainActivity.class);
                            startActivity(InfoShownIntent);
                        } break;
-                   case R.id.action_profile:
+                   case R.id.action_pending_updates:
                        break;
                    case R.id.action_edit:
                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){

@@ -26,7 +26,7 @@ public class MyFileWriter {
 
             //Get the text file
             File file = new File(sdcard+"/NFC/","updates.txt");
-            FileWriter writer = new FileWriter(file);
+            FileWriter writer = new FileWriter(file, true);
             writer.append(jsonObjectString);
             writer.flush();
             writer.close();

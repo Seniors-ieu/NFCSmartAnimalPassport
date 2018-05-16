@@ -194,6 +194,8 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                             startActivity(InfoShownIntent);
                         } break;
                     case R.id.action_profile:
+                        Intent ListNotSentUpdates = new Intent(ChooseVaccineOperationActivity.this, NotSentUpdatesActivity.class);
+                        startActivity(ListNotSentUpdates);
                         break;
 
                 }

@@ -50,7 +50,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".InfoShownInExpandedListActivity" />
         <activity android:name=".previousHealthInfoActivity" />
-        <activity android:name=".EditOperationActivity"></activity>
+        <activity android:name=".EditOperationActivity" />
+        <activity android:name=".NotSentUpdatesActivity"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ public class Animal implements Serializable {
     private String deathPlace;
     private String eSignDirector;
     private String eSignOwner;
-    private int exportCountryCode;
+    private String exportCountryCode;
     private String exportDate;
     private String farmChangeDate;
     private String iD;
@@ -34,7 +34,7 @@ public class Animal implements Serializable {
     private ArrayList <Vaccine> vaccines;
     private ArrayList <Operations> operations;
 
-    public Animal(String birthFarmNo, String birthdate, String breed, String currentFarmNo, String deathDate, String deathPlace, String eSignDirector, String eSignOwner, int exportCountryCode, String exportDate, String farmChangeDate, String iD, boolean isFemale, String motherId, String ownerTc, ArrayList<Vaccine> Vaccine, ArrayList<Operations> Operations) {
+    public Animal(String birthFarmNo, String birthdate, String breed, String currentFarmNo, String deathDate, String deathPlace, String eSignDirector, String eSignOwner, String exportCountryCode, String exportDate, String farmChangeDate, String iD, boolean isFemale, String motherId, String ownerTc, ArrayList<Vaccine> Vaccine, ArrayList<Operations> Operations) {
 
         this.birthFarmNo = birthFarmNo;
         this.birthdate = birthdate;
@@ -123,11 +123,11 @@ public class Animal implements Serializable {
         this.eSignOwner = eSignOwner;
     }
 
-    public int getExportCountryCode() {
+    public String getExportCountryCode() {
         return exportCountryCode;
     }
 
-    public void setExportCountryCode(int exportCountryCode) {
+    public void setExportCountryCode(String exportCountryCode) {
         this.exportCountryCode = exportCountryCode;
     }
 

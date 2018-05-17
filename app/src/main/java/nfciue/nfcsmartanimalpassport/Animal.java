@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by ASLI on 20.3.2018.
+ * Created by ASLI on 20.3.2018.   // commit for anıl
  */
 
 public class Animal implements Serializable {

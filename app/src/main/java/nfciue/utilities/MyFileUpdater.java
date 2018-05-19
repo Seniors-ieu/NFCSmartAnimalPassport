@@ -33,7 +33,7 @@ public class MyFileUpdater {
         lines.remove(lineIndex);
         final BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
         for(final String line : lines)
-            writer.write(line);
+            writer.write(line + "\n");
         writer.flush();
         writer.close();
     }

@@ -66,7 +66,8 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                         final int linePosition = position;
                         Toast.makeText(NotSentUpdatesActivity.this, notSentUpdatesAnimalID, Toast.LENGTH_LONG).show();
 
-                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                        if(isNetworkAvailable(context)) {
+                            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
 
                                 AnimalForUpdate(new InfoShownForUpdateActivity.AnimalCallback() {
                                     @Override
@@ -90,15 +91,18 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                                                 }
                                             });
                                         } else {
-
+                                            Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, gönderilemedi. ", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }, notSentUpdatesAnimalID);
 
 
-                        }
-                        else{
+                            }
+                            else{
 
+                            }
+                        } else {
+                            Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, callback hiç çalışmadı.", Toast.LENGTH_LONG).show();
                         }
                     }
                 }

@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -264,5 +265,19 @@ public class Decoderiue {
         }
 
         return vetPassword;
+    }
+
+    public static Date getDateFromDateString(String dateString) {
+        Date date = null;
+        try{
+            DateFormat format = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", new Locale("tr"));
+            date = format.parse(dateString);
+
+        } catch (Exception e) {
+            Log.e("ERROR", "In function getDateFromDateString: " + e.getMessage());
+        }
+        finally {
+            return date;
+        }
     }
 }

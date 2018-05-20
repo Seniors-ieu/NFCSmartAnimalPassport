@@ -1,7 +1,9 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -20,6 +22,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
+
+import nfciue.utilities.Decoderiue;
+import nfciue.utilities.MyFileUpdater;
+
 public class SignedInMainActivity extends AppCompatActivity {
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -32,6 +39,7 @@ public class SignedInMainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signed_in_main);
+        final Context context = this;
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
@@ -62,24 +70,45 @@ public class SignedInMainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.action_signout:
-
-                        FirebaseAuth.getInstance().signOut();
-                        AlertDialog alertDialog = new AlertDialog.Builder(SignedInMainActivity.this).create();
-                        alertDialog.setTitle("Info");
-                        alertDialog.setMessage("You signed out");
-                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                                new DialogInterface.OnClickListener() {
+                        //This asks user if he/she wants to send update to firebase or not.
+                        AlertDialog.Builder builder;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                        } else {
+                            builder = new AlertDialog.Builder(context);
+                        }
+                        builder.setTitle("Çıkış Yap")
+                                .setMessage("Çıkış yapmak istediğinize emin misiniz?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
+                                        FirebaseAuth.getInstance().signOut();
+                                        AlertDialog alertDialog = new AlertDialog.Builder(SignedInMainActivity.this).create();
+                                        alertDialog.setTitle("Bilgi");
+                                        alertDialog.setMessage("Başarıyla çıkış yaptınız.");
+                                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
 
-                                        dialog.dismiss();
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+                                        alertDialog.show();
+
+                                        Intent MainIndent = new Intent(SignedInMainActivity.this, MainActivity.class);
+                                        MainIndent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(MainIndent);
                                     }
-                                });
-                        alertDialog.show();
-
-                        Intent MainIndent = new Intent(SignedInMainActivity.this, MainActivity.class);
-                        MainIndent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(MainIndent);
-
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setCancelable(false)
+                                .setIcon(android.R.drawable.ic_menu_info_details);
+                        AlertDialog dialog = builder.create();
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
                         break;
                     case R.id.action_read:
                         Intent ReadIntent = new Intent(SignedInMainActivity.this, ReadActivity.class);
@@ -93,7 +122,7 @@ public class SignedInMainActivity extends AppCompatActivity {
                             startActivity(EditIntent);
                         }
                         else{
-                            Toast.makeText(SignedInMainActivity.this,"You should be logged in for this!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignedInMainActivity.this,"Önce veteriner girişi yapmalısınız!",Toast.LENGTH_SHORT).show();
                         } break;
                 }
                 return true;

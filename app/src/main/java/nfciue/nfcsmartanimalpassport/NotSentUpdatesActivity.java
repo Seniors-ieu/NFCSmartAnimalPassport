@@ -92,6 +92,8 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                                                     try {
                                                         MyFileUpdater.removeLine(linePosition);
                                                         Toast.makeText(NotSentUpdatesActivity.this, "SUCCESS", Toast.LENGTH_LONG).show();
+                                                        //This will restart activity and refresh the list.
+                                                        recreate();
                                                     } catch(Exception e) {
                                                         Toast.makeText(NotSentUpdatesActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                                     }
@@ -106,7 +108,7 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
 
                             }
                             else{
-
+                                Toast.makeText(NotSentUpdatesActivity.this, "No authentication. ", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, callback hiç çalışmadı.", Toast.LENGTH_LONG).show();

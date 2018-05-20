@@ -251,9 +251,10 @@ public class Decoderiue {
             return "Tıbbi Operasyon";
         } else if(vaccineCode.equals("6")) {
             return "Doğum";
-        } else {
-            return "Other";
+        } else if (vaccineCode.equals("7")) {
+            return "Diğer (Detaylar Hekim Notlarında Mevcut)";
         }
+        return "undefined";
     }
 
     public static String vetPasswordComplementer(String vetPassword) {

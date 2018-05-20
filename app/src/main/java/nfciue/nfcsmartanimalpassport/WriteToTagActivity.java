@@ -311,6 +311,8 @@ public class WriteToTagActivity extends AppCompatActivity {
                     operationName = "Medikal Operasyon";
                 } else if (operationCode == 6) {
                     operationName = "Doğum";
+                }else if (operationCode == 7) {
+                    operationName = "Diğer";
                 } else operationName = "";
 
                 Intent OperationIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);
@@ -367,6 +369,9 @@ public class WriteToTagActivity extends AppCompatActivity {
                     vaccineName = "Buzağı Septisemi Serumu Aşısı";
                 } else if (vaccineCode == 6) {
                     vaccineName = "Brucellosis Aşısı";
+
+                }else if (vaccineCode == 7) {
+                    vaccineName = "Diğer";
                 } else vaccineName = "";
 
                 Intent VaccineIntent = new Intent(WriteToTagActivity.this, InfoShownForUpdateActivity.class);

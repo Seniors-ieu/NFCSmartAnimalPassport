@@ -1,9 +1,11 @@
 package nfciue.nfcsmartanimalpassport;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -66,53 +68,75 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                        final String notSentUpdatesAnimalID = notSentUpdateObjects[position].getAnimalIdForUpdate();
-                        final Date notSentUpdatesDate = Decoderiue.getDateFromDateString(notSentUpdateObjects[position].getDate());
-                        final String notSentUpdatesOpComment = notSentUpdateObjects[position].getOpComment();
-                        final String notSentUpdatesOpType = notSentUpdateObjects[position].getOpNameFromPrevActivity();
-                        final int linePosition = position;
-                        Toast.makeText(NotSentUpdatesActivity.this, notSentUpdatesAnimalID, Toast.LENGTH_LONG).show();
-
-                        if(isNetworkAvailable(context)) {
-                            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-
-                                AnimalForUpdate(new InfoShownForUpdateActivity.AnimalCallback() {
-                                    @Override
-                                    public void onCallback(Animal animal) {
-                                        animalFromDB=animal;
+                        final int myPosition = position;
+                        //This asks user if he/she wants to send update to firebase or not.
+                        AlertDialog.Builder builder;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                        } else {
+                            builder = new AlertDialog.Builder(context);
+                        }
+                        builder.setTitle("Sunucuya gönder")
+                                .setMessage("Bu güncellemeyi sunucuya göndermek istediğinize emin misiniz?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        final String notSentUpdatesAnimalID = notSentUpdateObjects[myPosition].getAnimalIdForUpdate();
+                                        final Date notSentUpdatesDate = Decoderiue.getDateFromDateString(notSentUpdateObjects[myPosition].getDate());
+                                        final String notSentUpdatesOpComment = notSentUpdateObjects[myPosition].getOpComment();
+                                        final String notSentUpdatesOpType = notSentUpdateObjects[myPosition].getOpNameFromPrevActivity();
+                                        final int linePosition = myPosition;
+                                        Toast.makeText(NotSentUpdatesActivity.this, notSentUpdatesAnimalID, Toast.LENGTH_LONG).show();
 
                                         if(isNetworkAvailable(context)) {
-                                            Operations notSentOperations = new Operations(notSentUpdatesOpType, mySingleton.getValue(), notSentUpdatesDate, notSentUpdatesOpComment);
-                                            animalFromDB.getOperations().add(notSentOperations);
+                                            if(FirebaseAuth.getInstance().getCurrentUser()!=null){
 
-                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                            db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    try {
-                                                        MyFileUpdater.removeLine(linePosition);
-                                                        Toast.makeText(NotSentUpdatesActivity.this, "SUCCESS", Toast.LENGTH_LONG).show();
-                                                        //This will restart activity and refresh the list.
-                                                        recreate();
-                                                    } catch(Exception e) {
-                                                        Toast.makeText(NotSentUpdatesActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                AnimalForUpdate(new InfoShownForUpdateActivity.AnimalCallback() {
+                                                    @Override
+                                                    public void onCallback(Animal animal) {
+                                                        animalFromDB=animal;
+
+                                                        if(isNetworkAvailable(context)) {
+                                                            Operations notSentOperations = new Operations(notSentUpdatesOpType, mySingleton.getValue(), notSentUpdatesDate, notSentUpdatesOpComment);
+                                                            animalFromDB.getOperations().add(notSentOperations);
+
+                                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                            db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    try {
+                                                                        MyFileUpdater.removeLine(linePosition);
+                                                                        Toast.makeText(NotSentUpdatesActivity.this, "SUCCESS", Toast.LENGTH_LONG).show();
+                                                                        //This will restart activity and refresh the list.
+                                                                        recreate();
+                                                                    } catch(Exception e) {
+                                                                        Toast.makeText(NotSentUpdatesActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                        } else {
+                                                            Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, gönderilemedi. ", Toast.LENGTH_LONG).show();
+                                                        }
                                                     }
-                                                }
-                                            });
+                                                }, notSentUpdatesAnimalID);
+                                            }
+                                            else{
+                                                Toast.makeText(NotSentUpdatesActivity.this, "No authentication. ", Toast.LENGTH_LONG).show();
+                                            }
                                         } else {
-                                            Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, gönderilemedi. ", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, callback hiç çalışmadı.", Toast.LENGTH_LONG).show();
                                         }
                                     }
-                                }, notSentUpdatesAnimalID);
-
-
-                            }
-                            else{
-                                Toast.makeText(NotSentUpdatesActivity.this, "No authentication. ", Toast.LENGTH_LONG).show();
-                            }
-                        } else {
-                            Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, callback hiç çalışmadı.", Toast.LENGTH_LONG).show();
-                        }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setCancelable(false)
+                                .setIcon(android.R.drawable.ic_menu_send);
+                        AlertDialog dialog = builder.create();
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.show();
                     }
                 }
         );
@@ -190,5 +214,11 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         return isConnected;
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        //super.onBackPressed();
     }
 }

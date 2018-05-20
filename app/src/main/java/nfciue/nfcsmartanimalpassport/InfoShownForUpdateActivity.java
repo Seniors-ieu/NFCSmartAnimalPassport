@@ -184,7 +184,8 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
 
                         break;
                     case R.id.action_pending_updates:
-                        Toast.makeText(InfoShownForUpdateActivity.this, "Anılın ellerinden öper :D", Toast.LENGTH_SHORT).show(); //TODO: localden bilgileri çekip yeni bir activityde listeleyelim. geçişi bu ikondan sağlarız.
+                        Intent ListNotSentUpdates = new Intent(InfoShownForUpdateActivity.this, NotSentUpdatesActivity.class);
+                        startActivity(ListNotSentUpdates);
                         break;
                     case R.id.action_edit:
                         if (FirebaseAuth.getInstance().getCurrentUser() != null) {

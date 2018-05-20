@@ -137,6 +137,8 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
                            startActivity(InfoShownIntent);
                        } break;
                    case R.id.action_pending_updates:
+                       Intent ListNotSentUpdates = new Intent(InfoShownInExpandedListActivity.this, NotSentUpdatesActivity.class);
+                       startActivity(ListNotSentUpdates);
                        break;
                    case R.id.action_edit:
                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){

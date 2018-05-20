@@ -5,12 +5,18 @@
         android:id="@+id/action_back_from_not_sent_update"
         android:enabled="true"
         android:icon="@drawable/ic_action_back"
-        android:title="Geri Dön"
+        android:title="Ana Menü"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_send_updates"
+        android:id="@+id/action_read_tag"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_read"
+        android:title="Küpe Oku"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_update_tag"
         android:enabled="true"
         android:icon="@drawable/ic_action_edit"
-        android:title="Gönder"
+        android:title="Düzenle"
         app:showAsAction="ifRoom"/>
 </menu>

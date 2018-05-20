@@ -177,8 +177,20 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
 
                         break;
 
-                    case R.id.action_send_updates:
+                    case R.id.action_read_tag:
+                        Intent ReadIntent = new Intent(NotSentUpdatesActivity.this, ReadActivity.class);
+                        ReadIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(ReadIntent);
                         break;
+
+                    case R.id.action_update_tag:
+                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                            Intent EditIntent = new Intent(NotSentUpdatesActivity.this, ChooseVaccineOperationActivity.class);
+                            EditIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(EditIntent);
+                        } else {
+                            Toast.makeText(NotSentUpdatesActivity.this, "No authentication. ", Toast.LENGTH_LONG).show();
+                        }
                 }
                 return true;
             }});

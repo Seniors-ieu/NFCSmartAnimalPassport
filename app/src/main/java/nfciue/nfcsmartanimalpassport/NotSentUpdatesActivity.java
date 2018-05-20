@@ -84,8 +84,9 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                                         final Date notSentUpdatesDate = Decoderiue.getDateFromDateString(notSentUpdateObjects[myPosition].getDate());
                                         final String notSentUpdatesOpComment = notSentUpdateObjects[myPosition].getOpComment();
                                         final String notSentUpdatesOpType = notSentUpdateObjects[myPosition].getOpNameFromPrevActivity();
+                                        final String notSentUpdatesVacType = notSentUpdateObjects[myPosition].getVaccineNameFromPrevActivity();
                                         final int linePosition = myPosition;
-                                        Toast.makeText(NotSentUpdatesActivity.this, notSentUpdatesAnimalID, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(NotSentUpdatesActivity.this, "Gönderiliyor, Lütfen Bekleyiniz.", Toast.LENGTH_LONG).show();
 
                                         if(isNetworkAvailable(context)) {
                                             if(FirebaseAuth.getInstance().getCurrentUser()!=null){
@@ -96,23 +97,45 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                                                         animalFromDB=animal;
 
                                                         if(isNetworkAvailable(context)) {
-                                                            Operations notSentOperations = new Operations(notSentUpdatesOpType, mySingleton.getValue(), notSentUpdatesDate, notSentUpdatesOpComment);
-                                                            animalFromDB.getOperations().add(notSentOperations);
+                                                            if(!notSentUpdatesOpType.equals("NA")) {
+                                                                Operations notSentOperations = new Operations(notSentUpdatesOpType, mySingleton.getValue(), notSentUpdatesDate, notSentUpdatesOpComment);
+                                                                animalFromDB.getOperations().add(notSentOperations);
 
-                                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                                            db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                                @Override
-                                                                public void onSuccess(Void aVoid) {
-                                                                    try {
-                                                                        MyFileUpdater.removeLine(linePosition);
-                                                                        Toast.makeText(NotSentUpdatesActivity.this, "SUCCESS", Toast.LENGTH_LONG).show();
-                                                                        //This will restart activity and refresh the list.
-                                                                        recreate();
-                                                                    } catch(Exception e) {
-                                                                        Toast.makeText(NotSentUpdatesActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                                db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        try {
+                                                                            MyFileUpdater.removeLine(linePosition);
+                                                                            Toast.makeText(NotSentUpdatesActivity.this, "BAŞARILI", Toast.LENGTH_LONG).show();
+                                                                            //This will restart activity and refresh the list.
+                                                                            recreate();
+                                                                        } catch(Exception e) {
+                                                                            Toast.makeText(NotSentUpdatesActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                        }
                                                                     }
+                                                                });
+                                                            } else {
+                                                                if(!notSentUpdatesVacType.equals("NA")) {
+                                                                    Vaccine Vaccine = new Vaccine(notSentUpdatesDate, notSentUpdatesVacType);
+                                                                    animalFromDB.getVaccines().add(Vaccine);
+
+                                                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                                    db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            try {
+                                                                                MyFileUpdater.removeLine(linePosition);
+                                                                                Toast.makeText(NotSentUpdatesActivity.this, "BAŞARILI", Toast.LENGTH_LONG).show();
+                                                                                //This will restart activity and refresh the list.
+                                                                                recreate();
+                                                                            } catch(Exception e) {
+                                                                                Toast.makeText(NotSentUpdatesActivity.this, "ERROR: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                            }
+                                                                        }
+                                                                    });
                                                                 }
-                                                            });
+                                                            }
                                                         } else {
                                                             Toast.makeText(NotSentUpdatesActivity.this, "İnternet yok, gönderilemedi. ", Toast.LENGTH_LONG).show();
                                                         }
@@ -155,39 +178,9 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
                         break;
 
                     case R.id.action_send_updates:
-/*                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                            for(int i = 0; i < numberOfNotSentUpdates; i++) {
-                                AnimalForUpdate(new InfoShownForUpdateActivity.AnimalCallback() {
-                                    @Override
-                                    public void onCallback(Animal animal) {
-                                        animalFromDB=animal;
-
-                                        if(isNetworkAvailable(context)) {
-                                            Operations notSentOperations = new Operations(notSentUpdateObjects[i].getOpNameFromPrevActivity(), mySingleton.getValue(), Decoderiue.getDateFromDateString(notSentUpdateObjects[i].getDate()), notSentUpdateObjects[i].getOpComment());
-                                            animalFromDB.getOperations().add(notSentOperations);
-
-                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                            db.collection("Animals").document(animalFromDB.getiD()).set(animalFromDB).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-
-
-                                                }
-                                            });
-                                        } else {
-
-                                        }
-                                    }
-                                }, notSentUpdateObjects[i]);
-                            }
-
-                        }
-                        else{
-
-                        }*/ break;
+                        break;
                 }
                 return true;
-
             }});
     }
 

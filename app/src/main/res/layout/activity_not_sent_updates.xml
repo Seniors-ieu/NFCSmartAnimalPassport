@@ -8,6 +8,15 @@
     android:layout_height="match_parent"
     tools:context="nfciue.nfcsmartanimalpassport.NotSentUpdatesActivity">
 
+    <TextView
+        android:id="@+id/noUpdateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Gönderilmemiş güncelleme yok."
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:gravity="center"/>
     <ListView
         android:id="@+id/notSentUpdatesList"
         android:layout_width="match_parent"

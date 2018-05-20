@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +35,7 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
     BottomNavigationView navigationViewNotSentUpdates;
     Animal animalFromDB;
     MySingletonClass mySingleton = MySingletonClass.getInstance();
+    TextView noUpdateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,11 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
         final LocalObject[] notSentUpdateObjects = MyFileReader.readNotSentUpdates();
         final int numberOfNotSentUpdates = notSentUpdateObjects.length;
         String[] listElements = new String[numberOfNotSentUpdates];
+
+        noUpdateTextView = (TextView) findViewById(R.id.noUpdateTextView);
+        if(numberOfNotSentUpdates == 0) {
+            noUpdateTextView.setVisibility(View.VISIBLE);
+        }
 
         for(int i = 0; i < numberOfNotSentUpdates; i++) {
             String listElement = "Hayvan ID: " + notSentUpdateObjects[i].getAnimalIdForUpdate()

@@ -155,6 +155,13 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                     imageUpdateStatus.setImageResource(R.drawable.error);
                     textViewUpdate.setVisibility(View.VISIBLE);
                     textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ Bağlantısını kontrol edin ve tekrar deneyin");
+
+                    LocalObject localObject = new LocalObject(vaccineNameFromPrevActivity, opNameFromPrevActivity, animalIdForUpdate, opComment);
+
+                    Gson gson = new Gson();
+                    String json = gson.toJson(localObject);
+                    System.out.print(json);
+                    MyFileWriter.writeLocalObjectToDevice(json + ",\n");
                     //todo: get operation/vaccine and animal id and store in local.
                     //todo: Arrange an notification. User will push that update when connectivity re established. Dont't forget to get time!
                 }

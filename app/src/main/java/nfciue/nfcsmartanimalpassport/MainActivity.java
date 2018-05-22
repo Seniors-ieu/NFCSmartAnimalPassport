@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.lang.reflect.Field;
 
 import nfciue.utilities.MyFileReader;
+import nfciue.utilities.MyFileUpdater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("EXIT", "Application is being closed...");
+        MyFileUpdater.removeLastReadTagData();
     }
 
     // Method for disabling ShiftMode of BottomNavigationView

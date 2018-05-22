@@ -37,4 +37,24 @@ public class MyFileUpdater {
         writer.flush();
         writer.close();
     }
+
+    public static void removeLastReadTagData() {
+        try {
+            File sdcard = Environment.getExternalStorageDirectory();
+
+            //Get the text file
+            File file = new File(sdcard+"/NFC/","lastReadTagData.txt");
+            FileWriter writer = new FileWriter(file, false);
+            writer.append("");
+            writer.flush();
+            writer.close();
+        }
+        catch (IOException e) {
+            Log.e("ULAK", e.getMessage());
+
+        }
+        finally {
+
+        }
+    }
 }

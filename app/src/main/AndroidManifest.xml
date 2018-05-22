@@ -25,19 +25,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <activity android:name=".ReadActivity" />
-        <activity android:name=".WriteToTagActivity" />
-        <activity android:name=".InfoShownActivity" />
-        <activity android:name=".PartialInfoShownActivity" />
-        <activity android:name=".InfoShownForUpdateActivity" />
-        <activity android:name=".ChooseVaccineOperationActivity" />
+        <activity android:name=".ReadActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".WriteToTagActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InfoShownActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PartialInfoShownActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InfoShownForUpdateActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ChooseVaccineOperationActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SignInActivity"
-            android:label="@string/title_activity_sign_in" />
+            android:label="@string/title_activity_sign_in"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:label="NFC Ear Tag Reader"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,11 +55,16 @@
         <activity
             android:name=".SignedInMainActivity"
             android:label="NFC Ear Tag Reader"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InfoShownInExpandedListActivity" />
-        <activity android:name=".previousHealthInfoActivity" />
-        <activity android:name=".EditOperationActivity" />
-        <activity android:name=".NotSentUpdatesActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InfoShownInExpandedListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".previousHealthInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditOperationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NotSentUpdatesActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

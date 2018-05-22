@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nfciue.utilities.Decoderiue;
+import nfciue.utilities.MyFileWriter;
 
 public class InfoShownInExpandedListActivity extends AppCompatActivity {
     ExpandableListView expListView;
@@ -44,6 +45,8 @@ public class InfoShownInExpandedListActivity extends AppCompatActivity {
         data = new ArrayList<ArrayList<String>>();
 
         dataFromNFCTag = getIntent().getStringExtra("dataFromPartialInfoShownActivityIntent");
+        //Write tag data string to device for being able to read it as last read tag data.
+        MyFileWriter.writeLastReadTagDataToDevice(dataFromNFCTag);
         try {
             parsedDataFromNFCTag = Decoderiue.parseNFCData(dataFromNFCTag);
         } catch (Exception e) {

@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import nfciue.utilities.Decoderiue;
+import nfciue.utilities.MyFileWriter;
 
 public class PartialInfoShownActivity extends AppCompatActivity {
     final Context context = this;
@@ -58,6 +59,8 @@ public class PartialInfoShownActivity extends AppCompatActivity {
 
         // Getting data on NFC tag from ReadActivity intent.
         dataFromNFCTag = getIntent().getStringExtra("dataFromReadActivityIntent");
+        //Write tag data string to device for being able to read it as last read tag data.
+        MyFileWriter.writeLastReadTagDataToDevice(dataFromNFCTag);
 
         if(FirebaseAuth.getInstance().getCurrentUser()!=null) //if user logged in, show detailed info without asking pincode
         {
@@ -96,72 +99,6 @@ public class PartialInfoShownActivity extends AppCompatActivity {
         animalInfo.add("Anne Pasaport Numarası :");
 
         items.put(groups.get(0), animalInfo);
-
-       /* Button viewMoreButton = (Button) findViewById(R.id.buttonViewMore);
-        viewMoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // get prompts.xml view
-                LayoutInflater li = LayoutInflater.from(context);
-                View promptsView = li.inflate(R.layout.prompts, null);
-
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
-
-                // set prompts.xml to alertdialog builder
-                alertDialogBuilder.setView(promptsView);
-
-                final EditText userInput1 = (EditText) promptsView
-                        .findViewById(R.id.editTextDialogUserInput1);
-                final EditText userInput2 = (EditText) promptsView
-                        .findViewById(R.id.editTextDialogUserInput2);
-                final EditText userInput3 = (EditText) promptsView
-                        .findViewById(R.id.editTextDialogUserInput3);
-                final EditText userInput4 = (EditText) promptsView
-                        .findViewById(R.id.editTextDialogUserInput4);
-
-                // set dialog message
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // get user input and set it to result
-                                        // edit text
-                                        //result.setText(userInput.getText());
-
-
-                                        int digit1 = Integer.parseInt(userInput1.getText().toString());
-                                        int digit2 = Integer.parseInt(userInput2.getText().toString());
-                                        int digit3 = Integer.parseInt(userInput3.getText().toString());
-                                        int digit4 = Integer.parseInt(userInput4.getText().toString());
-
-                                        if(digit1 == Integer.parseInt(String.valueOf(parsedDataFromNFCTag[40].charAt(0))) && digit2 == Integer.parseInt(String.valueOf(parsedDataFromNFCTag[40].charAt(1))) && digit3 == Integer.parseInt(String.valueOf(parsedDataFromNFCTag[40].charAt(2))) && digit4 == Integer.parseInt(String.valueOf(parsedDataFromNFCTag[40].charAt(3)))) {
-                                            Intent InfoShownIntent = new Intent(PartialInfoShownActivity.this, InfoShownActivity.class);
-                                            InfoShownIntent.putExtra("dataFromPartialInfoShownActivityIntent", dataFromNFCTag);
-                                            InfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(InfoShownIntent);
-                                        } else {
-                                            Toast.makeText(context, "Pin code is wrong, please try again...", Toast.LENGTH_LONG).show();
-                                        }
-
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // show it
-                alertDialog.show();
-            }
-        });*/
 
         adapter = new ExpListAdapter(this, groups, items,data);
         expListView.setAdapter(adapter);
@@ -207,22 +144,11 @@ public class PartialInfoShownActivity extends AppCompatActivity {
                                     Toast.makeText(context,"Wrong Pincode,Please Try Again",Toast.LENGTH_SHORT).show();
                                     dialog.cancel();
                                 }
-
-
-
                             }
                         });
                         dialog.show();break;
                 }
                 return true;
-
             }});
     }
-
-
-
-
-
-
-
 }

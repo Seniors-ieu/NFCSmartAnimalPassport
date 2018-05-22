@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import nfciue.utilities.MyFileReader;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -50,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
                         Intent ReadIntent = new Intent(MainActivity.this, ReadActivity.class);
                         ReadIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(ReadIntent);
+                        break;
+                    case R.id.action_last_read_tag:
+                        String dataFromLastReadTag = MyFileReader.readLastReadTagData();
+                        if(!dataFromLastReadTag.equals("")) {
+                            Intent PartialInfoShownIntent = new Intent(MainActivity.this, PartialInfoShownActivity.class);
+                            PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromLastReadTag);
+                            PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(PartialInfoShownIntent);
+                        } else {
+                            Toast.makeText(MainActivity.this, "En son okunmuş küpe bilgisi yok!", Toast.LENGTH_LONG).show();
+                        }
                         break;
                     case R.id.action_edit:
                         if(FirebaseAuth.getInstance().getCurrentUser()!=null){

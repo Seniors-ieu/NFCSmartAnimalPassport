@@ -39,4 +39,24 @@ public class MyFileWriter {
 
         }
     }
+
+    public static void writeLastReadTagDataToDevice(String tagData) {
+        try {
+            File sdcard = Environment.getExternalStorageDirectory();
+
+            //Get the text file
+            File file = new File(sdcard+"/NFC/","lastReadTagData.txt");
+            FileWriter writer = new FileWriter(file, false);
+            writer.append(tagData);
+            writer.flush();
+            writer.close();
+        }
+        catch (IOException e) {
+            Log.e("ULAK", e.getMessage());
+
+        }
+        finally {
+
+        }
+    }
 }

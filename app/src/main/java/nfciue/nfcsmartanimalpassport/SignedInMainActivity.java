@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Date;
 
 import nfciue.utilities.Decoderiue;
+import nfciue.utilities.MyFileReader;
 import nfciue.utilities.MyFileUpdater;
 
 public class SignedInMainActivity extends AppCompatActivity {
@@ -114,6 +115,17 @@ public class SignedInMainActivity extends AppCompatActivity {
                         Intent ReadIntent = new Intent(SignedInMainActivity.this, ReadActivity.class);
                         ReadIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(ReadIntent);
+                        break;
+                    case R.id.action_last_read_tag:
+                        String dataFromLastReadTag = MyFileReader.readLastReadTagData();
+                        if(!dataFromLastReadTag.equals("")) {
+                            Intent PartialInfoShownIntent = new Intent(SignedInMainActivity.this, PartialInfoShownActivity.class);
+                            PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromLastReadTag);
+                            PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(PartialInfoShownIntent);
+                        } else {
+                            Toast.makeText(SignedInMainActivity.this, "En son okunmuş küpe bilgisi yok!", Toast.LENGTH_LONG).show();
+                        }
                         break;
                     case R.id.action_edit:
                         if(FirebaseAuth.getInstance().getCurrentUser()!=null){

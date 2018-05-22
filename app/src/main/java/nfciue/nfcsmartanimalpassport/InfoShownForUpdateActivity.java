@@ -1,9 +1,11 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.nfc.NfcAdapter;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -154,7 +156,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                     imageUpdateStatus.setVisibility(View.VISIBLE);
                     imageUpdateStatus.setImageResource(R.drawable.error);
                     textViewUpdate.setVisibility(View.VISIBLE);
-                    textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ Bağlantısını kontrol edin ve tekrar deneyin");
+                    textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ bağlantısını kontrol edin ve güncellemeler ekranından en son yapmış olduğunuz güncellemeleri tek tek tıklayarak sunucuya gönderin.");
 
                     LocalObject localObject = new LocalObject(vaccineNameFromPrevActivity, opNameFromPrevActivity, animalIdForUpdate, opComment);
 
@@ -236,6 +238,28 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         return isConnected;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+        nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        nfcAdapter.disableForegroundDispatch(this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
+            // drop NFC events
+        }
     }
 
 }

@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.lang.reflect.Field;
+import java.security.spec.ECField;
 
 import nfciue.utilities.MyFileReader;
 import nfciue.utilities.MyFileUpdater;
@@ -63,13 +64,17 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(ReadIntent);
                         break;
                     case R.id.action_last_read_tag:
-                        String dataFromLastReadTag = MyFileReader.readLastReadTagData();
-                        if(!dataFromLastReadTag.equals("")) {
-                            Intent PartialInfoShownIntent = new Intent(MainActivity.this, PartialInfoShownActivity.class);
-                            PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromLastReadTag);
-                            PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(PartialInfoShownIntent);
-                        } else {
+                        try{
+                            String dataFromLastReadTag = MyFileReader.readLastReadTagData();
+                            if(!dataFromLastReadTag.equals("")) {
+                                Intent PartialInfoShownIntent = new Intent(MainActivity.this, PartialInfoShownActivity.class);
+                                PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromLastReadTag);
+                                PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(PartialInfoShownIntent);
+                            } else {
+                                Toast.makeText(MainActivity.this, "En son okunmuş küpe bilgisi yok!", Toast.LENGTH_LONG).show();
+                            }
+                        } catch(Exception e) {
                             Toast.makeText(MainActivity.this, "En son okunmuş küpe bilgisi yok!", Toast.LENGTH_LONG).show();
                         }
                         break;

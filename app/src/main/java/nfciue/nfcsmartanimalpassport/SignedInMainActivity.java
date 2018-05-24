@@ -124,13 +124,17 @@ public class SignedInMainActivity extends AppCompatActivity {
                         startActivity(ReadIntent);
                         break;
                     case R.id.action_last_read_tag:
-                        String dataFromLastReadTag = MyFileReader.readLastReadTagData();
-                        if(!dataFromLastReadTag.equals("")) {
-                            Intent PartialInfoShownIntent = new Intent(SignedInMainActivity.this, PartialInfoShownActivity.class);
-                            PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromLastReadTag);
-                            PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(PartialInfoShownIntent);
-                        } else {
+                        try{
+                            String dataFromLastReadTag = MyFileReader.readLastReadTagData();
+                            if(!dataFromLastReadTag.equals("")) {
+                                Intent PartialInfoShownIntent = new Intent(SignedInMainActivity.this, PartialInfoShownActivity.class);
+                                PartialInfoShownIntent.putExtra("dataFromReadActivityIntent", dataFromLastReadTag);
+                                PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(PartialInfoShownIntent);
+                            } else {
+                                Toast.makeText(SignedInMainActivity.this, "En son okunmuş küpe bilgisi yok!", Toast.LENGTH_LONG).show();
+                            }
+                        } catch(Exception e) {
                             Toast.makeText(SignedInMainActivity.this, "En son okunmuş küpe bilgisi yok!", Toast.LENGTH_LONG).show();
                         }
                         break;

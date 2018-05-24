@@ -295,7 +295,6 @@ public class WriteToTagActivity extends AppCompatActivity {
                 ntag216.writeNDEF(nm);
 
 
-                Toast.makeText(this, "OK from WTTA!!!", Toast.LENGTH_LONG).show();
 
 
                 String operationName;
@@ -353,7 +352,7 @@ public class WriteToTagActivity extends AppCompatActivity {
                 ntag216.writeNDEF(nm);
 
 
-                Toast.makeText(this, "OK from WTTA!!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Küpe Güncellendi", Toast.LENGTH_LONG).show();
 
 
 
@@ -388,6 +387,7 @@ public class WriteToTagActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             Log.e("ULAK", "Error in ntagCardLogic: Password is wrong... " + e.getMessage() + e.getLocalizedMessage());
+            Toast.makeText(context,"Bir hata oluştu. Lütfen telefonu küpeye yaklaştırın ve şifrenizin doğru olduğundan emin olun.",Toast.LENGTH_LONG).show();
         } finally {
             Log.e("ULAK", "finally'nin içi.");
             tag.getReader().close();

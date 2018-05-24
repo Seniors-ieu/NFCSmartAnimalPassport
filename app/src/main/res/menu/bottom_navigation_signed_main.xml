@@ -18,13 +18,19 @@
         android:id="@+id/action_last_read_tag"
         android:enabled="true"
         android:icon="@drawable/ic_last_read_tag"
-        android:title="Son Etiket"
+        android:title="Son Küpe"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_edit"
         android:enabled="true"
         android:icon="@drawable/ic_action_edit"
         android:title="Küpe Düzenle"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_updates"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_pending_update"
+        android:title="Güncellemeler"
         app:showAsAction="ifRoom"/>
 
 </menu>

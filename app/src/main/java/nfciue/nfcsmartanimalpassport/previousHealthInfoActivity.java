@@ -14,13 +14,11 @@ import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,6 +80,7 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                 data = new ArrayList<ArrayList<String>>();
                 data.add(vaccineDates);
                 data.add(operationDateComment);
+                String l = MySingletonClass.getInstance().getValue();
 
                 ExpandableListAdapter adapter = new ExpListAdapter(context, groups, items,data);
                 expListView.setAdapter(adapter);
@@ -92,7 +91,6 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                         if(i==1){
                             if(FirebaseAuth.getInstance().getCurrentUser()!=null){
                                 if(operations.get(i1).getOperatorId().equals(MySingletonClass.getInstance().getValue())){  //user is only  authorized to edit on his own commit
-                                    Toast.makeText(context,"can edit",Toast.LENGTH_SHORT).show();
                                     Intent EditIntent = new Intent(previousHealthInfoActivity.this, EditOperationActivity.class);
                                     EditIntent.putExtra("animalFromDB",animalFromDB);
                                     EditIntent.putExtra("SelectedOp",operations.get(i1));
@@ -105,6 +103,7 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                                     //send animalfromdb to firebase
                                 }
                                 else{
+
                                     Toast.makeText(context,"Başkasına ait bir operasyonu düzenleyemezsiniz.",Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -133,17 +132,10 @@ public class previousHealthInfoActivity extends AppCompatActivity {
                        finish();
 
                         break;
-                    case R.id.action_pending_updates:
-                        Toast.makeText(previousHealthInfoActivity.this, "Anılın ellerinden öper :D", Toast.LENGTH_SHORT).show(); //TODO: localden bilgileri çekip yeni bir activityde listeleyelim. geçişi bu ikondan sağlarız.
-                        break;
+
                     case R.id.action_edit:
-                        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                            Intent EditIntent = new Intent(previousHealthInfoActivity.this, ChooseVaccineOperationActivity.class);
-                            EditIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(EditIntent);
-                        } else {
-                            Toast.makeText(previousHealthInfoActivity.this, "You should be logged in for this!", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(context,"Size ait olan operasyonu düzenlemek için üzerine tıklayın.",Toast.LENGTH_LONG).show();
+
                         break;
 
                 }

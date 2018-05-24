@@ -17,6 +17,6 @@
         android:id="@+id/action_update_tag"
         android:enabled="true"
         android:icon="@drawable/ic_action_edit"
-        android:title="Düzenle"
+        android:title="Küpe Düzenle"
         app:showAsAction="ifRoom"/>
 </menu>

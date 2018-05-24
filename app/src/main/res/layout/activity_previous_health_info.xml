@@ -40,7 +40,7 @@
         android:background="@color/colorPrimary"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/bottom_navigation_info_shown"/>
+        app:menu="@menu/navigation_previous_health_info"/>
 
 
 </RelativeLayout>

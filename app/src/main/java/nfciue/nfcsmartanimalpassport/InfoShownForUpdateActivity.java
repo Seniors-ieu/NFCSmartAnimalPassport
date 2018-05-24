@@ -55,6 +55,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
         animalIdForUpdate = getIntent().getStringExtra("AnimalID");
         opComment = getIntent().getStringExtra("opComment");
         final ProgressBar progressBar = findViewById(R.id.progress);
+        progressBar.setVisibility(View.VISIBLE);
         final ImageView imageUpdateStatus = findViewById(R.id.imageViewUpdate);
         final TextView textViewUpdate = findViewById(R.id.textViewStatusUpdate);
 
@@ -102,7 +103,7 @@ public class InfoShownForUpdateActivity extends AppCompatActivity {
                    imageUpdateStatus.setVisibility(View.VISIBLE);
                    imageUpdateStatus.setImageResource(R.drawable.error);
                    textViewUpdate.setVisibility(View.VISIBLE);
-                   textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ Bağlantısını kontrol edin ve tekrar deneyin");
+                   textViewUpdate.setText("Veritabanı güncellenemiyor. Ağ bağlantısını kontrol edin ve güncellemeler ekranından en son yapmış olduğunuz güncellemeleri tek tek tıklayarak sunucuya gönderin.");
                    LocalObject localObject = new LocalObject(vaccineNameFromPrevActivity, opNameFromPrevActivity, animalIdForUpdate, opComment);
 
                    Gson gson = new Gson();

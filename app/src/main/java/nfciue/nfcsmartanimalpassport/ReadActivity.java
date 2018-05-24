@@ -1,5 +1,6 @@
 package nfciue.nfcsmartanimalpassport;
 
+import android.content.Context;
 import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.tech.Ndef;
@@ -39,6 +40,7 @@ public class ReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read);
+
         Thread timer = new Thread(){
             public void run(){
                 try{
@@ -129,8 +131,8 @@ public class ReadActivity extends AppCompatActivity {
             PartialInfoShownIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(PartialInfoShownIntent);
 
-        } catch (Exception e) {
-            Log.e("ULAK", "Error in ntagCardLogic: " + e.getMessage());
+        } catch (Exception e) {Context context = this;
+           Toast.makeText(context,"Bir hata oluştu. Lütfen telefonunuzu küpeye yaklaştırın ve sabit tutun.",Toast.LENGTH_LONG).show();
         } finally {
             Log.e("ULAK", "finally'nin içi.");
             tag.getReader().close();

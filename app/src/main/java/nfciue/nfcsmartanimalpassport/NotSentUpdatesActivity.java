@@ -58,7 +58,7 @@ public class NotSentUpdatesActivity extends AppCompatActivity {
             }
 
             for(int i = 0; i < numberOfNotSentUpdates; i++) {
-                String listElement = "Hayvan ID: " + notSentUpdateObjects[i].getAnimalIdForUpdate()
+                String listElement = "Hayvan Pasaport Numarası: " + notSentUpdateObjects[i].getAnimalIdForUpdate()
                         + "\nTarih: " + notSentUpdateObjects[i].getDate() + "\nOperasyon Notu: " + notSentUpdateObjects[i].getOpComment()
                         + "\nOperasyon: " + notSentUpdateObjects[i].getOpNameFromPrevActivity() + "\nAşı adı: " + notSentUpdateObjects[i].getVaccineNameFromPrevActivity();
                 listElements[i] = listElement;

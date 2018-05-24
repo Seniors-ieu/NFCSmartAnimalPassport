@@ -151,7 +151,7 @@ public class ChooseVaccineOperationActivity extends AppCompatActivity {
                     }else if(operationCode<7){
                         final Dialog dialogComment = new Dialog(context); //op type belirtilmis, comment zorunlu değil
                         dialogComment.setContentView(R.layout.add_comment);
-                        dialogComment.setTitle("Lütfen Şifrenizi Doğrulayın ve Varsa Notlarınızı Ekleyin");
+                        dialogComment.setTitle("Lütfen Şifrenizi Doğrulayın");
 
                         final EditText editTextComment = dialogComment.findViewById(R.id.editTextComment);
                         final EditText editTextPsw =dialogComment.findViewById(R.id.confirmPassword);

@@ -143,6 +143,15 @@ public class SignedInMainActivity extends AppCompatActivity {
                         else{
                             Toast.makeText(SignedInMainActivity.this,"Önce veteriner girişi yapmalısınız!",Toast.LENGTH_SHORT).show();
                         } break;
+                    case R.id.action_updates:
+                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                            Intent EditIntent = new Intent(SignedInMainActivity.this, NotSentUpdatesActivity.class);
+                            EditIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(EditIntent);
+                        }
+                        else{
+                            Toast.makeText(SignedInMainActivity.this,"Önce veteriner girişi yapmalısınız!",Toast.LENGTH_SHORT).show();
+                        } break;
                 }
                 return true;
 

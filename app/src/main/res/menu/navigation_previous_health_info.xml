@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item
         android:id="@+id/action_back"
@@ -8,16 +8,11 @@
         android:icon="@drawable/ic_action_back"
         android:title="Geri"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_pending_updates"
-        android:enabled="true"
-        android:icon="@drawable/ic_action_pending_update"
-        android:title="Güncellemeler"
-        app:showAsAction="always"/>
+
     <item
         android:id="@+id/action_edit"
         android:enabled="true"
         android:icon="@drawable/ic_action_edit"
-        android:title="Küpe Düzenle"
+        android:title="Düzenle"
         app:showAsAction="always"/>
 </menu>

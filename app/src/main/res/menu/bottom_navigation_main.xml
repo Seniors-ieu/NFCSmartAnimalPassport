@@ -18,7 +18,7 @@
         android:id="@+id/action_last_read_tag"
         android:enabled="true"
         android:icon="@drawable/ic_action_read"
-        android:title="Son Etiket"
+        android:title="Son Küpe"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_edit"
